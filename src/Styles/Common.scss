@@ -1,3 +1,26 @@
 * {
   box-sizing: border-box;
 }
+
+body,
+th,
+td,
+input,
+select,
+textarea,
+button {
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: NotoSans-Regular, AppleSDGothicNeo-Regular, '맑은 고딕',
+    Malgun Gothic, '돋움', dotum, sans-serif;
+  color: #7c7c7c;
+  letter-spacing: -0.03em;
+}
+
+a,ul,li{
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
