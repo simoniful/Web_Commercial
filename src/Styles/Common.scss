@@ -17,10 +17,18 @@ button {
   letter-spacing: -0.03em;
 }
 
-a,ul,li{
+a,
+ul,
+li {
   text-decoration: none;
 }
 
+a {
+  color: #1e1e1e;
+}
+
 button {
+  border: 0 none;
+  background-color: transparent;
   cursor: pointer;
 }
