@@ -84,7 +84,7 @@ class Login extends Component {
                     <h1 className="logo">
                       <p>Pet Shop</p>
                     </h1>
-                    <div className="form">
+                    <div className="formContainer">
                       <form onSubmit={this.handleSubmit}>
                         <input
                           id="id_email"
@@ -109,10 +109,9 @@ class Login extends Component {
                             로그인 상태 유지
                           </label>
                         </div>
-                        <Link to="/">
+                        <Link to="/" className="loginLink">
                           <button
-                            //TODO: btnblock ?
-                            className="loginBtn btnBlock"
+                            className="loginBtn"
                             disabled={!this.validateInputData(userId, userPw)}
                             onClick={this.handleSubmit}
                           >
@@ -120,22 +119,22 @@ class Login extends Component {
                           </button>
                         </Link>
                       </form>
-                      <div className="lineWrap">
-                        <span className="line"></span>
-                        <span className="lineWord">또는</span>
-                        <span className="line"></span>
-                      </div>
-                      <Link to="/">
-                        <button className="qrBtn" type="button">
-                          QR코드 로그인
-                        </button>
-                      </Link>
-                      <div className="infoUser">
-                        <Link to="/">회원가입</Link>
-                        <div>
-                          <Link to="/">카카오계정</Link>
-                          <Link to="/">비밀번호 찾기</Link>
-                        </div>
+                    </div>
+                    <div className="lineWrap">
+                      <span className="line"></span>
+                      <span className="lineWord">또는</span>
+                      <span className="line"></span>
+                    </div>
+                    <Link to="/">
+                      <button className="qrBtn" type="button">
+                        QR코드 로그인
+                      </button>
+                    </Link>
+                    <div className="infoUser">
+                      <Link to="/">회원가입</Link>
+                      <div>
+                        <Link to="/">카카오계정</Link>
+                        <Link to="/">비밀번호 찾기</Link>
                       </div>
                     </div>
                   </div>

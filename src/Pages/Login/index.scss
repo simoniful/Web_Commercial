@@ -87,7 +87,7 @@
             }
           }
 
-          .form {
+          .formContainer {
             input {
               width: 100%;
               height: 48px;
@@ -115,43 +115,50 @@
             .keepLogin {
               margin-top: 25px;
 
-              .keepLoginInBox {
-                width: 20px;
-                height: 20px;
-                margin: 0 8px 0 0;
-                border-radius: 50%;
-                vertical-align: text-bottom;
-
-                &[type='checkbox']:checked {
-                  background-color: #d9534f;
-                  color: #a4b7c6;
-                  border-radius: 50%;
-                }
-              }
-
               label {
                 font-size: 14px;
                 line-height: 20px;
                 font-weight: 600;
                 color: #4c4c4c;
                 cursor: pointer;
+
+                .keepLoginInBox {
+                  width: 20px;
+                  height: 20px;
+                  margin: 0 8px 0 0;
+                  border-radius: 50%;
+                  vertical-align: text-bottom;
+
+                  &[type='checkbox']:checked {
+                    background-color: #d9534f;
+                    color: #a4b7c6;
+                    border-radius: 50%;
+                  }
+                }
+              }
+            }
+
+            .loginLink {
+              .loginBtn {
+                display: block;
+                width: 100%;
+                height: 50px;
+                margin-top: 40px;
+                padding: 0;
+                border: 0;
+                border-radius: 4px;
+                font-size: 15px;
+                font-weight: 600;
+                color: #191919;
+                background-color: #fee500;
+
+                &:disabled {
+                  cursor: default;
+                  opacity: 0.3;
+                }
               }
             }
           }
-        }
-
-        .loginBtn {
-          display: block;
-          width: 100%;
-          height: 50px;
-          margin-top: 40px;
-          padding: 0;
-          border: 0;
-          border-radius: 4px;
-          font-size: 15px;
-          font-weight: 600;
-          color: #191919;
-          background-color: #fee500;
         }
 
         .lineWrap {
@@ -215,6 +222,7 @@
     }
   }
 }
+
 .loginFooter {
   padding: 20px 0 60px;
   border-top: 1px solid #e5e5e5;
