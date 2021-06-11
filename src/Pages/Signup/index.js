@@ -158,7 +158,11 @@ class Signup extends Component {
                           >
                             <option value="">연도</option>
                             {BIRTH_YEARS.map((el) => {
-                              return <option value={el}>{el}</option>;
+                              return (
+                                <option value={el} key={el}>
+                                  {el}
+                                </option>
+                              );
                             })}
                           </select>
                         </div>
@@ -170,7 +174,11 @@ class Signup extends Component {
                           >
                             <option value="">월</option>
                             {BIRTH_MONTH.map((el) => {
-                              return <option value={el}>{el}</option>;
+                              return (
+                                <option value={el} key={el}>
+                                  {el}
+                                </option>
+                              );
                             })}
                           </select>
                         </div>
@@ -182,7 +190,11 @@ class Signup extends Component {
                           >
                             <option value="">일</option>
                             {BIRTH_DAY.map((el) => {
-                              return <option value={el}>{el}</option>;
+                              return (
+                                <option value={el} key={el}>
+                                  {el}
+                                </option>
+                              );
                             })}
                           </select>
                         </div>
