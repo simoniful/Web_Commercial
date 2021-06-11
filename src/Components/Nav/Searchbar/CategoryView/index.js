@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-export default class SearchCategory extends Component {
+export default class CategoryView extends Component {
   render() {
     return (
       <>
@@ -9,9 +9,9 @@ export default class SearchCategory extends Component {
           <ul className="charactersUI">
             {this.props.characters.map((character) => {
               return (
-                <li className="charactersUIList" key={character}>
-                  <Link className="charactersUILink"></Link>
-                  <p className="charactersName">{character}</p>
+                <li className="charactersUIList" key={character.name}>
+                  <Link to="/" className="charactersUILink"></Link>
+                  <p className="charactersName">{character.name}</p>
                 </li>
               );
             })}
@@ -22,9 +22,9 @@ export default class SearchCategory extends Component {
         <ul className="categoryHash">
           {this.props.categorys.map((category) => {
             return (
-              <li className="categoryList" key={category}>
+              <li className="categoryList" key={category.name}>
                 <Link to="/" className="categoryLink">
-                  {category}
+                  {category.name}
                 </Link>
               </li>
             );

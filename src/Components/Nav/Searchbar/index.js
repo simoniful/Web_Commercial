@@ -56,7 +56,7 @@ export default class Searchbar extends Component {
             </form>
             <button
               className="searchCloseBtn"
-              onClick={this.props.handleSearch}
+              onClick={this.props.searchbarOff}
             >
               취소
             </button>
@@ -71,6 +71,7 @@ export default class Searchbar extends Component {
               <CategoryView
                 categorys={categoryData}
                 characters={characterData}
+                searchbarOff={this.props.searchbarOff}
               />
             )}
           </div>

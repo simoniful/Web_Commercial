@@ -11,40 +11,49 @@ export default class Nav extends Component {
     };
   }
 
-  handleSearch = () => {
+  searchbarOn = () => {
     this.setState({
-      isSearchbarOn: !this.state.isSearchbarOn,
+      isSearchbarOn: true,
+    });
+  };
+
+  searchbarOff = () => {
+    this.setState({
+      isSearchbarOn: false,
     });
   };
 
   render() {
     return (
-      <header className="head">
-        <div className="innerHead">
-          <div className="header">
-            <button type="button" className="cartBtn">
-              <span className="cartBtnLogo"></span>
-            </button>
-            <button type="button" className="hamburgerBtn">
-              <span className="hamburgerBtnLogo"></span>
-              <span className="hamburgerBtnBadge"></span>
-            </button>
-            {this.state.isSearchbarOn && (
-              <Searchbar handleSearch={this.handleSearch} />
-            )}
-            <button
-              type="button"
-              className="searchBtn"
-              onClick={this.handleSearch}
-            >
-              <span className="searchBtnLogo"></span>
-            </button>
-            <h1 className="titleWrap">
-              <Link className="titleLink"></Link>
-            </h1>
-          </div>
-        </div>
-      </header>
+      <>
+        {this.state.isSearchbarOn ? (
+          <Searchbar searchbarOff={this.searchbarOff} />
+        ) : (
+          <header className="Nav">
+            <div className="innerHead">
+              <div className="header">
+                <button type="button" className="hamburgerBtn">
+                  <span className="hamburgerBtnLogo"></span>
+                  <span className="hamburgerBtnBadge"></span>
+                </button>
+                <h1 className="titleWrap">
+                  <Link to="/" className="titleLink"></Link>
+                </h1>
+                <button
+                  type="button"
+                  className="searchBtn"
+                  onClick={this.searchbarOn}
+                >
+                  <span className="searchBtnLogo"></span>
+                </button>
+                <button type="button" className="cartBtn">
+                  <span className="cartBtnLogo"></span>
+                </button>
+              </div>
+            </div>
+          </header>
+        )}
+      </>
     );
   }
 }
