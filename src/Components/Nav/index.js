@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-export default class Nav extends Component {
+export default class Index extends Component {
   render() {
-    return <div>nav</div>;
+    return <div></div>;
   }
 }

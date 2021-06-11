@@ -73,6 +73,7 @@ class Signup extends Component {
                   <div className="emailBox">
                     <label className="emailLabel">
                       <input
+                        autoComplete="off"
                         name="email"
                         className="emailInput"
                         type="text"
@@ -104,6 +105,7 @@ class Signup extends Component {
                   <div className="pwBox">
                     <label htmlFor="pwInput" className="pwLabel">
                       <input
+                        autoComplete="off"
                         className="pwInput"
                         type="password"
                         name="password"
@@ -118,6 +120,7 @@ class Signup extends Component {
                   <div className="nicknameBox">
                     <label htmlFor="nicknameInput" className="nicknameLabel">
                       <input
+                        autoComplete="off"
                         className="nicknameInput"
                         type="text"
                         name="nickname"
@@ -132,6 +135,7 @@ class Signup extends Component {
                   <div className="phoneBox">
                     <label htmlFor="phoneInput" className="phoneLabel">
                       <input
+                        autoComplete="off"
                         className="phoneInput"
                         type="text"
                         name="phone_number"
