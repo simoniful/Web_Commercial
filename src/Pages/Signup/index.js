@@ -5,6 +5,18 @@ import { fetchPost } from '../../utils/fetches';
 import { REGEXP, validate } from '../../utils/regex';
 import './index.scss';
 
+const BIRTH_YEARS = Array(20)
+  .fill()
+  .map((v, i) => i + 1990);
+
+const BIRTH_MONTH = Array(12)
+  .fill()
+  .map((v, i) => i + 1);
+
+const BIRTH_DAY = Array(31)
+  .fill()
+  .map((v, i) => i + 1);
+
 class Signup extends Component {
   constructor(props) {
     super(props);
@@ -28,36 +40,29 @@ class Signup extends Component {
 
   handleInput = (e) => {
     this.setState({ [e.target.name]: e.target.value });
-    console.log(this.state);
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
+
+    const { email, password, phone_number, nickname, gender } = this.state;
+
     if (!this.validateInputData(this.state.email, this.state.password)) return;
-    let response = fetchPost(API, {
-      email: this.state.email,
-      password: this.state.password,
-      phone_number: this.state.phone_number,
-      nickname: this.state.nickname,
+
+    fetchPost(API, {
+      email,
+      password,
+      phone_number,
+      nickname,
+      gender,
       birth: `${this.state.year}.${this.state.month}.${this.state.day}`,
-      gender: this.state.gender,
-    }).then((result) => console.log('결과: ', result));
-    response.ok && this.props.history.push('/login');
+    })
+      .then((res) => console.log('결과: ', res))
+      .then((res) => res.ok && this.props.history.push('/login'));
   };
 
   render() {
-    const BIRTH_YEARS = Array(20)
-      .fill()
-      .map((v, i) => i + 1990);
-
-    const BIRTH_MONTH = Array(12)
-      .fill()
-      .map((v, i) => i + 1);
-
-    const BIRTH_DAY = Array(31)
-      .fill()
-      .map((v, i) => i + 1);
-
+    const { email, password } = this.state;
     return (
       <main className="signup">
         <div className="signupContainer">
@@ -103,7 +108,7 @@ class Signup extends Component {
                 <div className="pw">
                   <strong className="pwTitle">비밀번호</strong>
                   <div className="pwBox">
-                    <label htmlFor="pwInput" className="pwLabel">
+                    <label className="pwLabel">
                       <input
                         autoComplete="off"
                         className="pwInput"
@@ -118,7 +123,7 @@ class Signup extends Component {
                 <div className="nickname">
                   <strong className="nicknameTitle">닉네임</strong>
                   <div className="nicknameBox">
-                    <label htmlFor="nicknameInput" className="nicknameLabel">
+                    <label className="nicknameLabel">
                       <input
                         autoComplete="off"
                         className="nicknameInput"
@@ -133,7 +138,7 @@ class Signup extends Component {
                 <div className="phone">
                   <strong className="phoneTitle">전화번호</strong>
                   <div className="phoneBox">
-                    <label htmlFor="phoneInput" className="phoneLabel">
+                    <label className="phoneLabel">
                       <input
                         autoComplete="off"
                         className="phoneInput"
@@ -157,10 +162,10 @@ class Signup extends Component {
                             onChange={this.handleInput}
                           >
                             <option value="">연도</option>
-                            {BIRTH_YEARS.map((el) => {
+                            {BIRTH_YEARS.map((year) => {
                               return (
-                                <option value={el} key={el}>
-                                  {el}
+                                <option value={year} key={year}>
+                                  {year}
                                 </option>
                               );
                             })}
@@ -173,10 +178,10 @@ class Signup extends Component {
                             onChange={this.handleInput}
                           >
                             <option value="">월</option>
-                            {BIRTH_MONTH.map((el) => {
+                            {BIRTH_MONTH.map((month) => {
                               return (
-                                <option value={el} key={el}>
-                                  {el}
+                                <option value={month} key={month}>
+                                  {month}
                                 </option>
                               );
                             })}
@@ -189,10 +194,10 @@ class Signup extends Component {
                             onChange={this.handleInput}
                           >
                             <option value="">일</option>
-                            {BIRTH_DAY.map((el) => {
+                            {BIRTH_DAY.map((day) => {
                               return (
-                                <option value={el} key={el}>
-                                  {el}
+                                <option value={day} key={day}>
+                                  {day}
                                 </option>
                               );
                             })}
@@ -234,14 +239,8 @@ class Signup extends Component {
                 <div className="buttonBox">
                   <button
                     className="button"
-                    type="submit"
                     onClick={this.handleSubmit}
-                    disabled={
-                      !this.validateInputData(
-                        this.state.email,
-                        this.state.password,
-                      )
-                    }
+                    disabled={!this.validateInputData(email, password)}
                   >
                     가입하기
                   </button>
