@@ -36,15 +36,15 @@
           .info {
             padding: 16px 9px 20px;
 
-            strong {
+            .strongTxt {
               font-size: 25px;
-              font-weight: 600;
               line-height: 32px;
               color: #252525;
             }
 
             .description {
               margin-top: 5px;
+              color: #7c7c7c;
               font-size: 13px;
               font-weight: 600;
               line-height: 18px;
@@ -72,9 +72,8 @@
           .logo {
             display: inline-block;
             line-height: 1;
-            background: url('http://localhost:3000/images/kakao-sprite.png');
-            width: 88px;
-            height: 27px;
+            width: 120px;
+            height: 35px;
             margin-bottom: 30px;
             font-size: 30px;
 

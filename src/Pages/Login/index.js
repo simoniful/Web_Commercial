@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { fetchGet, fetchPost } from '../../utils/fetches';
+import { fetchPost } from '../../utils/fetches';
 import { REGEXP, validate } from '../../utils/regex';
 import './index.scss';
 
@@ -68,16 +68,18 @@ class Login extends Component {
                 <div className="loginBanner">
                   <div className="bannerWrap">
                     <div className="info">
-                      <strong>Pet shop계정 하나로 충분합니다.</strong>
+                      <p className="strongTxt">
+                        Pet shop계정 하나로 충분합니다.
+                      </p>
                       <p className="description">
-                        Pet shop의 모든 서비스 뿐 아니라 Melon, Daum등 다른
+                        Pet shop의 모든 서비스 뿐 아니라 Pelon, Paum등 다른
                         다양한 서비스까지 <br />
                         이제 펫샵 계정으로 이용해 보세요!
                       </p>
                     </div>
                     <img
                       alt="login banner"
-                      src="https://www.w3schools.com/css/img_5terre_wide.jpg"
+                      src="http://localhost:3000/images/banner_login.png"
                     />
                   </div>
                   <div className="formWrap">
