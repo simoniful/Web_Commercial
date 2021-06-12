@@ -19,7 +19,7 @@ export default class CategoryView extends Component {
         </div>
         <hr className="dividingLine" />
         <p className="categoryTitle">카테고리</p>
-        <ul className="categoryHash">
+        <ul className="categoryLists">
           {this.props.categorys.map((category) => {
             return (
               <li className="categoryList" key={category.name}>

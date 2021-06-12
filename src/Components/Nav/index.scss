@@ -145,9 +145,9 @@
   }
   .searchBottomWrap {
     width: 640px;
+    max-width: 640px;
     overflow: hidden auto;
     border-top: 1px solid rgb(227, 229, 232);
-    max-width: 640px;
 
     .noResult {
       display: flex;
@@ -185,23 +185,19 @@
           height: 94px;
 
           .charactersUILink {
-            width: 71px;
-            height: 71px;
-            background-size: 71px;
             background: url('http://localhost:3000/images/chracterIcon.png')
               center center / 71px no-repeat;
             display: block;
-            text-indent: -9999em;
-            font-size: 1px;
+            width: 71px;
+            height: 71px;
           }
 
           .charactersName {
             width: 70px;
-            height: 15px;
             padding-top: 8px;
             font-size: 12px;
-            color: rgb(119, 119, 119);
             text-align: center;
+            color: rgb(119, 119, 119);
           }
         }
       }
@@ -219,23 +215,22 @@
       width: 79px;
       height: 20px;
       font-size: 15px;
+      color: rgb(102, 102, 102);
       letter-spacing: -0.23px;
       margin-top: 22px;
       margin-left: 20px;
     }
 
-    .categoryHash {
-      padding: 8px 32px;
+    .categoryLists {
+      padding: 4px 32px 20px;
       width: 640px;
       display: flex;
-      overflow: auto hidden;
       flex-wrap: wrap;
 
       .categoryList {
-        padding: 8px 4px;
-        height: 29px;
+        padding: 4px 4px;
+        height: 36px;
         flex: 0 0 auto;
-        box-sizing: unset;
 
         .categoryLink {
           line-height: 1;
