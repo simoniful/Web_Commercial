@@ -3,6 +3,7 @@ import CategoryView from './CategoryView';
 import ResultView from './ResultView';
 import { categoryData } from '../../../Data/categoryData';
 import { characterData } from '../../../Data/characterData';
+import { fetchGet } from '../../../utils/fetches';
 
 export default class Searchbar extends Component {
   constructor(props) {
@@ -27,8 +28,12 @@ export default class Searchbar extends Component {
 
   handleChangeInput(event) {
     const searchKeyword = event.target.value;
-    if (searchKeyword.length === 0) return this.handleReset();
-    this.setState({ searchKeyword });
+    searchKeyword.length === 0 && this.handleReset();
+    fetchGet('', '').then((res) =>
+      this.setState({
+        searchResult: res.result,
+      }),
+    );
   }
 
   render() {
@@ -65,13 +70,15 @@ export default class Searchbar extends Component {
           <div className="searchBottomWrap">
             {this.state.serachKeyword.length > 0 ? (
               // 검색결과가 있을 경우
-              <ResultView />
+              <ResultView
+                searchbarOff={this.props.searchbarOff}
+                searchResult={this.state.searchResult}
+              />
             ) : (
               // 검색결과가 없을 경우
               <CategoryView
                 categorys={categoryData}
                 characters={characterData}
-                searchbarOff={this.props.searchbarOff}
               />
             )}
           </div>

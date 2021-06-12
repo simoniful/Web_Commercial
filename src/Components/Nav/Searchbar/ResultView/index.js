@@ -3,14 +3,21 @@ import { Link } from 'react-router-dom';
 
 export default class ResultView extends Component {
   render() {
+    const { searchResult, searchbarOff } = this.props;
     return (
-      <ul className="searchResultWrap">
-        <li>
-          <Link to="/" className="searchResult">
-            검색결과
-          </Link>
-        </li>
-      </ul>
+      <>
+        {searchResult.length === 0 ? (
+          <div className="noResult">검색결과가 없습니다.</div>
+        ) : (
+          <ul>
+            {searchResult.map((data) => (
+              <li key={data.id} onClick={searchbarOff}>
+                <Link to={`/product/${data.id}`}>{data.name}</Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </>
     );
   }
 }
