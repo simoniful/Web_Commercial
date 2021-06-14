@@ -41,6 +41,9 @@ export default class Searchbar extends Component {
   }
 
   render() {
+    const { SearchKeyword, searchKeyword, searchResult } = this.state;
+    const { searchbarOff } = this.props;
+
     return (
       <>
         <div className="searchModal">
@@ -50,7 +53,7 @@ export default class Searchbar extends Component {
                 className="searchInput"
                 id="keyword"
                 name="keyword"
-                value={this.state.SearchKeyword}
+                value={SearchKeyword}
                 onChange={this.setSearchKeyword}
                 autoComplete="off"
               />
@@ -60,20 +63,17 @@ export default class Searchbar extends Component {
                 onClick={this.handleReset}
               ></button>
             </form>
-            <button
-              className="searchCloseBtn"
-              onClick={this.props.searchbarOff}
-            >
+            <button className="searchCloseBtn" onClick={searchbarOff}>
               취소
             </button>
           </div>
 
           <div className="searchBottomWrap">
-            {this.state.searchKeyword.length > 0 ? (
+            {searchKeyword.length > 0 ? (
               // 검색결과가 있을 경우
               <ResultView
-                searchbarOff={this.props.searchbarOff}
-                searchResult={this.state.searchResult}
+                searchbarOff={searchbarOff}
+                searchResult={searchResult}
               />
             ) : (
               // 검색결과가 없을 경우
