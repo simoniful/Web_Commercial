@@ -5,13 +5,10 @@ import './index.scss';
 
 class Menu extends Component {
   render() {
-    const { isOpen, user, characters, categories } = this.props;
+    const { isSlide, user, characters, categories } = this.props;
 
     return (
-      <div
-        className={`sideMenu ${isOpen && 'open'}`}
-        onClick={(e) => e.stopPropagation(e)}
-      >
+      <div className={`sideMenu ${isSlide && 'open'}`}>
         <div className="menuContents">
           <article className="userInfoWrap">
             <p className="userHiTxt">

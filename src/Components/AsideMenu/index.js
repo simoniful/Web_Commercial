@@ -18,17 +18,18 @@ class AsideMenu extends Component {
 
   componentDidMount() {
     const user = localStorage.getItem('user_name');
-    console.log(user);
 
     user
       ? this.setState({
           characters: characterData,
           categories: categoryData,
+          isSlide: true,
           user: user,
         })
       : this.setState({
           characters: characterData,
           categories: categoryData,
+          isSlide: true,
         });
   }
 
@@ -43,7 +44,7 @@ class AsideMenu extends Component {
 
     return (
       <div
-        className={isOpen ? 'sideMenuWrap openBg' : 'sideMenuWrap'}
+        className={isSlide ? 'sideMenuWrap openBg' : 'sideMenuWrap'}
         onClick={onToggleSideMenu}
       >
         <Menu
