@@ -10,7 +10,7 @@ export default class Footer extends Component {
     };
   }
 
-  handleArrowIcon = () => {
+  toggleArrowIcon = () => {
     this.setState({
       arrowIconOn: !this.state.arrowIconOn,
     });
@@ -18,6 +18,7 @@ export default class Footer extends Component {
 
   render() {
     const { arrowIconOn } = this.state;
+
     return (
       <div className="Footer">
         <section className="footerWrap">
@@ -48,8 +49,8 @@ export default class Footer extends Component {
                   className={
                     arrowIconOn ? 'logoToggleIcon active' : 'logoToggleIcon'
                   }
-                  onClick={this.handleArrowIcon}
-                ></span>
+                  onClick={this.toggleArrowIcon}
+                />
               </div>
             </div>
             {arrowIconOn && (

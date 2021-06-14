@@ -34,36 +34,32 @@
     }
   }
 
-  .companySection {
-    width: 100%;
+  .logoToggle {
+    display: flex;
+    align-items: center;
+    width: 120px;
+    height: 18px;
 
-    .logoToggle {
-      display: flex;
-      align-items: center;
-      width: 120px;
-      height: 18px;
+    .logo {
+      font-size: 14px;
+      letter-spacing: 0.25px;
 
-      .logo {
-        font-size: 14px;
-        letter-spacing: 0.25px;
-
-        .bold {
-          font-weight: 700;
-        }
+      .bold {
+        font-weight: 700;
       }
+    }
 
-      .logoToggleIcon {
-        width: 10px;
-        height: 6px;
-        background: url('http://localhost:3000/images/arrow-footer-close.png')
-          center center / 100% no-repeat;
-        margin-left: 8px;
-      }
+    .logoToggleIcon {
+      width: 10px;
+      height: 6px;
+      background: url('http://localhost:3000/images/arrow-footer-close.png')
+        center center / 100% no-repeat;
+      margin-left: 8px;
+    }
 
-      .active {
-        background: url('http://localhost:3000/images/arrow-footer-open.png')
-          center center / 100% no-repeat;
-      }
+    .active {
+      background: url('http://localhost:3000/images/arrow-footer-open.png')
+        center center / 100% no-repeat;
     }
   }
 
@@ -74,10 +70,12 @@
     .title {
       max-width: 85px;
     }
+
     .para {
       max-width: 200px;
       margin-left: 25px;
     }
+
     .companyInfo {
       display: block;
       margin: 3px 0px;
