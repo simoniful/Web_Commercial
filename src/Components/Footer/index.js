@@ -6,17 +6,18 @@ export default class Footer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ArrowIconOn: false,
+      arrowIconOn: false,
     };
   }
 
   handleArrowIcon = () => {
     this.setState({
-      ArrowIconOn: !this.state.ArrowIconOn,
+      arrowIconOn: !this.state.arrowIconOn,
     });
   };
 
   render() {
+    const { arrowIconOn } = this.state;
     return (
       <div className="Footer">
         <section className="footerWrap">
@@ -45,15 +46,13 @@ export default class Footer extends Component {
                 </span>
                 <span
                   className={
-                    this.state.ArrowIconOn
-                      ? 'logoToggleIcon active'
-                      : 'logoToggleIcon'
+                    arrowIconOn ? 'logoToggleIcon active' : 'logoToggleIcon'
                   }
                   onClick={this.handleArrowIcon}
                 ></span>
               </div>
             </div>
-            {this.state.ArrowIconOn && (
+            {arrowIconOn && (
               <div className="companyInfoSection">
                 <div class="title">
                   <span className="companyInfo">(주)그레이스풀레인</span>
