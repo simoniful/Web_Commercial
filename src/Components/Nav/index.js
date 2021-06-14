@@ -24,9 +24,10 @@ export default class Nav extends Component {
   };
 
   render() {
+    const { isSearchbarOn } = this.state;
     return (
       <>
-        {this.state.isSearchbarOn ? (
+        {isSearchbarOn ? (
           <Searchbar searchbarOff={this.searchbarOff} />
         ) : (
           <header className="Nav">
