@@ -9,26 +9,30 @@ export default class Searchbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      serachKeyword: '',
+      searchKeyword: '',
       searchResult: [],
     };
   }
 
-  setSerachKeyword = (e) => {
+  setSearchKeyword = (e) => {
     this.setState({
-      serachKeyword: e.target.value,
+      searchKeyword: e.target.value,
     });
   };
 
   handleReset = () => {
     this.setState({
-      serachKeyword: '',
+      searchKeyword: '',
     });
   };
 
   handleChangeInput(event) {
     const searchKeyword = event.target.value;
-    searchKeyword.length === 0 && this.handleReset();
+
+    if (!searchKeyword.length) {
+      this.handleReset();
+    }
+
     fetchGet('', '').then((res) =>
       this.setState({
         searchResult: res.result,
@@ -41,16 +45,13 @@ export default class Searchbar extends Component {
       <>
         <div className="searchModal">
           <div className="searchForm">
-            <form
-              className="searchInputWrap"
-              onSubmit={() => this.handleReset()}
-            >
+            <form className="searchInputWrap" onSubmit={this.handleReset}>
               <input
                 className="searchInput"
                 id="keyword"
                 name="keyword"
-                value={this.state.serachKeyword}
-                onChange={this.setSerachKeyword}
+                value={this.state.SearchKeyword}
+                onChange={this.setSearchKeyword}
                 autoComplete="off"
               />
               <button
@@ -68,7 +69,7 @@ export default class Searchbar extends Component {
           </div>
 
           <div className="searchBottomWrap">
-            {this.state.serachKeyword.length > 0 ? (
+            {this.state.searchKeyword.length > 0 ? (
               // 검색결과가 있을 경우
               <ResultView
                 searchbarOff={this.props.searchbarOff}
@@ -77,7 +78,7 @@ export default class Searchbar extends Component {
             ) : (
               // 검색결과가 없을 경우
               <CategoryView
-                categorys={categoryData}
+                categories={categoryData}
                 characters={characterData}
               />
             )}

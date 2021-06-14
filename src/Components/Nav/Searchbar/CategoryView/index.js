@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 
 export default class CategoryView extends Component {
   render() {
+    const { characters, categories } = this.props;
     return (
       <>
         <div className="charactersWrap">
           <ul className="charactersUI">
-            {this.props.characters.map((character) => {
+            {characters.map((character) => {
               return (
                 <li className="charactersUIList" key={character.name}>
                   <Link to="/" className="charactersUILink"></Link>
@@ -20,7 +21,7 @@ export default class CategoryView extends Component {
         <hr className="dividingLine" />
         <p className="categoryTitle">카테고리</p>
         <ul className="categoryLists">
-          {this.props.categorys.map((category) => {
+          {categories.map((category) => {
             return (
               <li className="categoryList" key={category.name}>
                 <Link to="/" className="categoryLink">
