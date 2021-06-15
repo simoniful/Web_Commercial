@@ -8,7 +8,7 @@ class Menu extends Component {
     const { isSlide, user, characters, categories } = this.props;
 
     return (
-      <div className={`sideMenu ${isSlide && 'open'}`}>
+      <div className={`sideMenu ${isSlide ? 'open' : ''}`}>
         <div className="menuContents">
           <article className="userInfoWrap">
             <p className="userHiTxt">
@@ -26,40 +26,40 @@ class Menu extends Component {
             </p>
             <Link to="/" className="alertBell"></Link>
           </article>
-          <ul>
-            <li className="topPadding">
+          <ul className="menuUl">
+            <li className="menuLi topPadding">
               <Link to="/">장바구니 내역</Link>
             </li>
-            <li className="borderPaddingBottom">
+            <li className="menuLi borderPaddingBottom">
               <Link to="/">주문·배송 내역</Link>
             </li>
-            <li className="topPadding">
+            <li className="menuLi topPadding">
               <Accordion
-                type={'character'}
-                title={'캐릭터'}
+                type="character"
+                title="캐릭터"
                 characters={characters}
               />
             </li>
-            <li className="borderPaddingBottom">
+            <li className="menuLi borderPaddingBottom">
               <Accordion
-                type={'category'}
-                title={'카테고리'}
+                type="category"
+                title="카테고리"
                 categories={categories}
               />
             </li>
-            <li className="topPadding">
+            <li className="menuLi topPadding">
               <Link to="/">공지사항</Link>
             </li>
-            <li className="borderPaddingBottom">
+            <li className="menuLi borderPaddingBottom">
               <Link to="/">고객센터</Link>
             </li>
-            <li className="borderPaddingBottom topPadding ">
+            <li className="menuLi borderPaddingBottom topPadding ">
               <Link to="/">기프트카드 조회·환불</Link>
             </li>
-            <li className="topPadding">
+            <li className="menuLi topPadding">
               <Link to="/">브랜드 스토리</Link>
             </li>
-            <li className="borderPaddingBottom">
+            <li className="menuLi borderPaddingBottom">
               <Link to="/">매장안내</Link>
             </li>
           </ul>

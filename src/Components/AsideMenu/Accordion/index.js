@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './index.scss';
+
 class Accordion extends Component {
   constructor() {
     super();
     this.state = { isShowList: false };
   }
 
-  onShowList = (e) => {
+  toggleList = (e) => {
     const { isShowList } = this.state;
     this.setState({ isShowList: !isShowList });
   };
@@ -18,7 +19,7 @@ class Accordion extends Component {
 
     return (
       <>
-        <button className="accordion-btn" onClick={this.onShowList}>
+        <button className="accordionBtn" onClick={this.toggleList}>
           {title}
           <span className={`arrow ${isShowList && 'rotate'}`}></span>
         </button>
@@ -30,10 +31,11 @@ class Accordion extends Component {
                   <Link to="/" className="characterLink">
                     <div className="character">
                       <img
+                        className="characterImg"
                         src="/images/PetCharacter.png"
                         alt={character.name}
                       />
-                      <span>{character.name}</span>
+                      <span className="characterSpan">{character.name}</span>
                     </div>
                   </Link>
                 </li>

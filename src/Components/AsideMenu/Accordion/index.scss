@@ -1,4 +1,4 @@
-.accordion-btn {
+.accordionBtn {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,11 +42,11 @@
         align-items: center;
         height: 74px;
 
-        img {
+        .characterImg {
           width: 50px;
         }
 
-        span {
+        .characterSpan {
           color: rgb(102, 102, 102);
           font-size: 13px;
         }
