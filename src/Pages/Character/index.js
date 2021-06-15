@@ -1,16 +1,92 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
 import ProductList from '../../Components/ProductList';
+import { categoryData } from '../../Data/categoryData';
+import { characterData } from '../../Data/characterData';
+
+import FilterModal from './FilterModal';
 import './index.scss';
 
 class Character extends Component {
-  clg = (e) => {
-    e.stopPropagation();
+  constructor() {
+    super();
+    this.state = {
+      isOpen: false,
+      categoryFilter: [],
+      characterFilter: [],
+      modalFilters: [
+        { name: '신상품순', isCheck: true },
+        { name: '판매량순', isCheck: false },
+        { name: '낮은가격순', isCheck: false },
+        { name: '높은가격순', isCheck: false },
+      ],
+      filteringName: '신상품순',
+      category: [],
+      character: [],
+    };
+  }
+
+  componentDidMount() {
+    this.setState({
+      categoryFilter: categoryData,
+      characterFilter: characterData,
+    });
+  }
+
+  onToggleFilterModal = (e) => {
+    const { isOpen } = this.state;
+    const classList = [...e.target.classList];
+
+    // if (!isOpen) {
+    //   this.setState({ isOpen: !isOpen });
+    // } else {
+    //   if (classList.includes('sideMenuWrap')) {
+    //     this.setState({ isOpen: !isOpen });
+    //   }
+    // }
+
+    // eslint-disable-next-line no-unused-expressions
+    !isOpen
+      ? this.setState({ isOpen: !isOpen })
+      : classList.includes('filterModalWrap')
+      ? this.setState({ isOpen: !isOpen })
+      : null;
+
+    this.setState({
+      isOpen: !isOpen,
+    });
   };
+
+  onToggleFilterCheck = (targetId) => {
+    const { modalFilters } = this.state;
+
+    // 기존 true 바꾸고
+    const prevChange = modalFilters.map((el) =>
+      el.isCheck ? { ...el, isCheck: !el.isCheck } : el,
+    );
+
+    // 새로운 true 반영
+    const nextFilters = prevChange.map((el, idx) =>
+      targetId === idx ? { ...el, isCheck: !el.isCheck } : el,
+    );
+
+    const nextfilterName = modalFilters.filter((el) => {
+      if (el.isCheck) {
+        const result = el.name;
+        return result;
+      } else return el;
+    });
+
+    this.setState({
+      modalFilters: nextFilters,
+      filteringName: nextfilterName[0].name,
+    });
+  };
+
   render() {
+    const { isOpen, modalFilters, filteringName } = this.state;
     const { history, location, match } = this.props;
-    // const isCheck = true;
+    // console.log(this.onToggleFilterCheck());
     return (
       <>
         {/* nav */}
@@ -23,24 +99,15 @@ class Character extends Component {
               alt="dropbox"
             />
             <select>
-              <option>전체</option>
-              <option>테마 기획전</option>
-              <option>토이</option>
-              <option>리빙</option>
-              <option>잡화</option>
-              <option>문구</option>
-              <option>의류</option>
-              <option>파자마</option>
-              <option>여행/레져</option>
-              <option>생활테크</option>
-              <option>폰 액세서리</option>
-              <option>식품</option>
+              {characterData.map((chac) => (
+                <option key={chac.id}>{chac.name}</option>
+              ))}
             </select>
           </div>
           <div className="filterWrap">
             <div className="filter">
-              <div>
-                <span>필터링명</span>
+              <div className="filterName" onClick={this.onToggleFilterModal}>
+                <span>{filteringName}</span>
                 <img src="/images/dropdown.png" alt="dropdown" />
               </div>
             </div>
@@ -63,36 +130,13 @@ class Character extends Component {
           </div>
         </section>
         {/* footer */}
-        {/* <div className="filterModalWrap">
-          <div className="filterModal">
-            <ul className="filterUl">
-              <li className="filterLi">
-                <Link to="/products/character" hover="true">
-                  신상품순
-                  {isCheck && <img src="/images/colorCheck.png" alt="check" />}
-                </Link>
-              </li>
-              <li className="filterLi">
-                <Link to="/products/character">
-                  판매량순
-                  {false && <img src="/images/colorCheck.png" alt="check" />}
-                </Link>
-              </li>
-              <li className="filterLi">
-                <Link to="/products/character">
-                  낮은가격순
-                  {false && <img src="/images/colorCheck.png" alt="check" />}
-                </Link>
-              </li>
-              <li className="filterLi">
-                <Link to="/products/character">
-                  높은가격순
-                  {false && <img src="/images/colorCheck.png" alt="check" />}
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div> */}
+        {isOpen && (
+          <FilterModal
+            filters={modalFilters}
+            onToggleFilterModal={this.onToggleFilterModal}
+            onToggleFilterCheck={this.onToggleFilterCheck}
+          />
+        )}
       </>
     );
   }

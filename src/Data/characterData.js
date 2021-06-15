@@ -1,32 +1,32 @@
 export const characterData = [
   {
     type: 'character',
-    code: 1,
+    id: 1,
     name: '강아지',
   },
   {
     type: 'character',
-    code: 2,
+    id: 2,
     name: '고양이',
   },
   {
     type: 'character',
-    code: 3,
+    id: 3,
     name: '햄스터',
   },
   {
     type: 'character',
-    code: 4,
+    id: 4,
     name: '토끼',
   },
   {
     type: 'character',
-    code: 5,
+    id: 5,
     name: '고슴도치',
   },
   {
     type: 'character',
-    code: 6,
+    id: 6,
     name: '앵무새',
   },
 ];
