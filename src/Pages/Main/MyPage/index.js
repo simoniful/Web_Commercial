@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
+import Cart from './Cart';
+// import SubTab from './Components/SubTab';
 
-export default class index extends Component {
+export default class MyPage extends Component {
   render() {
-    return <div></div>;
+    return (
+      <>
+        <Cart />
+      </>
+    );
   }
 }
