@@ -3,75 +3,56 @@ import { Link } from 'react-router-dom';
 import './index.scss';
 
 export default class MainTab extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      focusUnderline1: false,
-      focusUnderline2: false,
-      focusUnderline3: true,
+      currentId: 1,
     };
   }
-  makeLine = (index) => {
-    this.setState({
-      [`focusUnderline${index}`]: !this.state[`focusUnderline${index}`],
-    });
+
+  setCurrentId = (id) => {
+    this.setState({ currentId: id });
+    this.props.checkMenuId(this.state.currentId);
   };
 
   render() {
-    const { focusUnderline1, focusUnderline2, focusUnderline3 } = this.state;
+    const { currentId } = this.state;
     return (
       <div className="mainTabWrap">
         <ul className="mainTabUI">
-          <li className="tabList">
-            <Link to="/newproducts" onClick={() => this.makeLine(1)}>
-              <div className="tabItem">
-                <span
-                  className={focusUnderline1 ? 'tabName active' : 'tabName'}
+          {CATEGORY_ARR.map((category, idx) => {
+            return (
+              <li className="tabList" key={category}>
+                <Link
+                  to="/newproducts"
+                  onClick={() => {
+                    this.setCurrentId(idx + 1);
+                  }}
                 >
-                  신규
-                </span>
-              </div>
-            </Link>
-            <hr
-              className={
-                focusUnderline1 ? 'focusUnderline active' : 'focusUnderline'
-              }
-            ></hr>
-          </li>
-          <li className="tabList">
-            <Link to="/hotproducts" onClick={() => this.makeLine(2)}>
-              <div className="tabItem">
-                <span
-                  className={focusUnderline2 ? 'tabName active' : 'tabName'}
-                >
-                  인기<span className="badge"></span>
-                </span>
-              </div>
-            </Link>
-            <hr
-              className={
-                focusUnderline2 ? 'focusUnderline active' : 'focusUnderline'
-              }
-            ></hr>
-          </li>
-          <li className="tabList">
-            <Link to="/mypage" onClick={() => this.makeLine(3)}>
-              <div className="tabItem">
-                <span
-                  className={focusUnderline3 ? 'tabName active' : 'tabName'}
-                >
-                  마이
-                </span>
-              </div>
-            </Link>
-            <hr
-              className={
-                focusUnderline3 ? 'focusUnderline active' : 'focusUnderline'
-              }
-            ></hr>
-          </li>
+                  <div className="tabItem">
+                    <span
+                      className={
+                        currentId === idx ? 'tabName active' : 'tabName'
+                      }
+                    >
+                      {category}
+                    </span>
+                  </div>
+                </Link>
+                <hr
+                  className={
+                    currentId === idx
+                      ? 'focusUnderline active'
+                      : 'focusUnderline'
+                  }
+                ></hr>
+              </li>
+            );
+          })}
         </ul>
       </div>
     );
   }
 }
+
+const CATEGORY_ARR = ['신규', '인기', '마이'];

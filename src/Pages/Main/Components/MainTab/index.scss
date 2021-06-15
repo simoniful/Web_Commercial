@@ -36,15 +36,15 @@
           position: relative;
 
           .badge {
+            position: absolute;
+            top: 0;
+            right: -10px;
             width: 6px;
             height: 6px;
             border-radius: 100%;
             background-color: rgb(255, 85, 117);
             font-size: 1px;
             overflow: hidden;
-            position: absolute;
-            top: 0;
-            right: -10px;
           }
         }
 
