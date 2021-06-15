@@ -8,8 +8,11 @@ export const fetchPost = (api, obj) => {
     token ? { Authorization: token } : null,
   );
 
-  const headersWithBody = { ...headers, body: JSON.stringify(obj) };
-  const options = { method: 'POST', headersWithBody };
+  const options = {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(obj),
+  };
 
   return fetch(api, options);
 };
@@ -46,8 +49,11 @@ export const fetchPut = (api, obj) => {
     token ? { Authorization: token } : null,
   );
 
-  const headersWithBody = { ...headers, body: JSON.stringify(obj) };
-  const options = { method: 'PUT', headersWithBody };
+  const options = {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify(obj),
+  };
 
   return fetch(api, options);
 };
@@ -60,8 +66,11 @@ export const fetchPatch = (api, obj) => {
     token ? { Authorization: token } : null,
   );
 
-  const headersWithBody = { ...headers, body: JSON.stringify(obj) };
-  const options = { method: 'PATCH', headersWithBody };
+  const options = {
+    method: 'PATCH',
+    headers,
+    body: JSON.stringify(obj),
+  };
 
   return fetch(api, options);
 };
