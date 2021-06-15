@@ -9,7 +9,7 @@ export const fetchPost = (api, obj) => {
   );
 
   const headersWithBody = { ...headers, body: JSON.stringify(obj) };
-  const options = { method: 'GET', headersWithBody };
+  const options = { method: 'POST', headersWithBody };
 
   return fetch(api, options);
 };
@@ -21,7 +21,7 @@ export const fetchDelete = (api) => {
     { 'Content-Type': 'application/json' },
     token ? { Authorization: token } : null,
   );
-  const options = { method: 'GET', headers };
+  const options = { method: 'DELETE', headers };
 
   return fetch(api, options);
 };
@@ -47,7 +47,7 @@ export const fetchPut = (api, obj) => {
   );
 
   const headersWithBody = { ...headers, body: JSON.stringify(obj) };
-  const options = { method: 'GET', headersWithBody };
+  const options = { method: 'PUT', headersWithBody };
 
   return fetch(api, options);
 };
@@ -61,7 +61,7 @@ export const fetchPatch = (api, obj) => {
   );
 
   const headersWithBody = { ...headers, body: JSON.stringify(obj) };
-  const options = { method: 'GET', headersWithBody };
+  const options = { method: 'PATCH', headersWithBody };
 
   return fetch(api, options);
 };
