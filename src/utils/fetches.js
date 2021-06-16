@@ -2,7 +2,6 @@ import { getToken } from './storage';
 
 export const fetchPost = (api, obj) => {
   const token = getToken();
-
   const headers = Object.assign(
     { 'Content-Type': 'application/json' },
     token ? { Authorization: token } : null,
