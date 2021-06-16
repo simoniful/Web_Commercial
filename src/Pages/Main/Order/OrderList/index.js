@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import './index.scss';
 
 export default class OrderList extends Component {
   render() {
-    const { item, selectItem, subtractItem, addItem, deleteItem } = this.props;
+    const { item } = this.props;
     const price = Number(item.price).toLocaleString();
     return (
       <li className="basketItemWrap" id={item.id}>
-        <label className="checkboxLabel">
-          <i
-            id={item.id}
-            className={`fa-check-circle ${item.selected ? 'fas fill' : 'far'}`}
-            onClick={selectItem}
-          />
-        </label>
+        <label className="checkboxLabel"></label>
         <div className="thumbWrap">
           <Link className="linkThumb">
             <span className="thumbContainer">
@@ -29,33 +24,14 @@ export default class OrderList extends Component {
         </div>
         <div className="itemInfo">
           <div className="titleWrap">
-            <div className="title">{item.name}</div>
-            <button
-              className="deleteButton"
-              id={item.id}
-              onClick={deleteItem}
-            ></button>
+            <div className="itemtitle">{item.name}</div>
           </div>
-          <div className="priceWrap">
-            <span>{price}원</span>
-          </div>
-          <div className="countWrap">
-            <div className="itemCounter">
-              <button
-                id={item.id}
-                className="controlBtn"
-                onClick={subtractItem}
-              >
-                -
-              </button>
-              <input
-                value={`${item.quantity}`}
-                readOnly
-                className="qtyDp"
-              ></input>
-              <button id={item.id} className="controlBtn" onClick={addItem}>
-                +
-              </button>
+          <div className="specWrap">
+            <div className="countWrap">
+              <input value={`${item.count}`} readOnly className="qtyDp" />
+            </div>
+            <div className="priceWrap">
+              <span>{price}원</span>
             </div>
           </div>
         </div>

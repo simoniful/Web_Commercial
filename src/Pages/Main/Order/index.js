@@ -4,27 +4,40 @@ import OrderList from './OrderList';
 import OrderPrice from './OrderPrice';
 
 export default class Order extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       orderData: [],
-      name: '',
-      phone: '',
-      address: '',
-      detailedAddress: '',
-      request: '',
-      saveToMyInfo: false,
+      // name: '',
+      // phone: '',
+      // address: '',
+      // detailedAddress: '',
+      // request: '',
+      // saveToMyInfo: false,
     };
   }
 
-  //   componentDidMount() {
-  //     this.setState({
-  //         orderData : this.props.location.state.cartData
-  //     })
-  //   }
+  componentDidMount() {
+    fetch('/data/orderData.json')
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        this.setState({
+          orderData: data.items_in_cart,
+        });
+      });
+  }
 
   render() {
     const { orderData } = this.state;
+    const selectedAll = orderData.reduce(
+      (result, item) => (result = result && item.selected),
+      true,
+    );
+    const selectedItems = orderData.filter((item) => item.selected);
+    const totalPrice = Math.floor(
+      selectedItems.reduce((acc, item) => acc + item.price * item.count, 0),
+    );
     return (
       <div className="Order">
         <form className="formWrap">
@@ -32,22 +45,13 @@ export default class Order extends Component {
             <h3 className="title">01 주문상품</h3>
             <div className="contents">
               <ul className="orderDetailList">
-                {orderData.map((item) => {
+                {orderData.map((item, idx) => {
                   return (
-                    <OrderList
-                      key={item.id}
-                      id={item.id}
-                      item={item}
-                      name={item.name}
-                      price={item.price}
-                      quantity={item.quantity}
-                    />
+                    <OrderList key={item.order_item_id} id={idx} item={item} />
                   );
                 })}
               </ul>
-              <ul>
-                <OrderPrice item={this.state.orderData} />
-              </ul>
+              <OrderPrice totalPrice={totalPrice} />
             </div>
           </section>
           <section className="shippingInfo">
@@ -102,7 +106,7 @@ export default class Order extends Component {
                   className="
                 intendedDday"
                 >
-                  <i class="fas fa-shuttle-van"></i>6/16(수) 도착 예정
+                  <i className="fas fa-shuttle-van"></i>6/16(수) 도착 예정
                 </div>
                 <div className="para">
                   오후 3시 이전 주문시 당일 출고
@@ -117,7 +121,7 @@ export default class Order extends Component {
           <section>
             <h3>03 결제하기</h3>
             <div className="paymentWrap">
-              <OrderPrice />
+              <OrderPrice totalPrice={totalPrice} />
               <div className="payMethod">
                 <h4>결제수단 선택</h4>
                 <div className="selectBox">
