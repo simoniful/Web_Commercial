@@ -13,53 +13,30 @@ export default class Nav extends Component {
     };
   }
 
-  onToggleSearch = () => {
+  toggleSearchOpen = () => {
     const { isSearchbarOn } = this.state;
     this.setState({
       isSearchbarOn: !isSearchbarOn,
     });
   };
 
-  // searchbarOn = () => {
-  //   this.setState({
-  //     isSearchbarOn: true,
-  //   });
-  // };
-
-  // searchbarOff = () => {
-  //   this.setState({
-  //     isSearchbarOn: false,
-  //   });
-  // };
-
-  onToggleSideMenu = (e) => {
+  toggleSideMenu = (e) => {
     const { isOpenAside } = this.state;
     const classList = [...e.target.classList];
 
-    // if (!isOpenAside) {
-    //   this.setState({ isOpenAside: !isOpenAside });
-    // } else {
-    //   if (classList.includes('sideMenuWrap')) {
-    //     this.setState({ isOpenAside: !isOpenAside });
-    //   }
-    // }
-
-    // eslint-disable-next-line no-unused-expressions
-    !isOpenAside
-      ? this.setState({ isOpenAside: !isOpenAside })
-      : classList.includes('sideMenuWrap')
-      ? this.setState({ isOpenAside: !isOpenAside })
-      : null;
+    if (!isOpenAside || classList.includes('sideMenuWrap')) {
+      this.setState({ isOpenAside: !isOpenAside });
+    }
   };
 
   render() {
     const { isOpenAside, isSearchbarOn } = this.state;
-    console.log(isOpenAside);
+
     return (
       <>
-        {isOpenAside && <AsideMenu onToggleSideMenu={this.onToggleSideMenu} />}
+        {isOpenAside && <AsideMenu toggleSideMenu={this.toggleSideMenu} />}
         {isSearchbarOn ? (
-          <Searchbar searchbarOff={this.onToggleSearch} />
+          <Searchbar searchbarOff={this.toggleSearchOpen} />
         ) : (
           <header className="Nav">
             <div className="innerHead">
@@ -67,7 +44,7 @@ export default class Nav extends Component {
                 <button
                   type="button"
                   className="hamburgerBtn"
-                  onClick={this.onToggleSideMenu}
+                  onClick={this.toggleSideMenu}
                 >
                   <span className="hamburgerBtnLogo"></span>
                   <span className="hamburgerBtnBadge"></span>
@@ -78,7 +55,7 @@ export default class Nav extends Component {
                 <button
                   type="button"
                   className="searchBtn"
-                  onClick={this.onToggleSearch}
+                  onClick={this.toggleSearchOpen}
                 >
                   <span className="searchBtnLogo"></span>
                 </button>

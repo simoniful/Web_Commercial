@@ -19,33 +19,31 @@ class AsideMenu extends Component {
   componentDidMount() {
     const user = localStorage.getItem('user_name');
 
-    user
-      ? this.setState({
-          characters: characterData,
-          categories: categoryData,
-          isSlide: true,
-          user: user,
-        })
-      : this.setState({
-          characters: characterData,
-          categories: categoryData,
-          isSlide: true,
-        });
+    const nextState = Object.assign(
+      {
+        characters: characterData,
+        categories: categoryData,
+        isSlide: true,
+      },
+      user ? { user } : null,
+    );
+
+    this.setState(nextState);
   }
 
-  onToggleSlide = () => {
+  toggleSlide = () => {
     const { isSlide } = this.state;
     this.setState({ isSlide: !isSlide });
   };
 
   render() {
     const { user, characters, categories, isSlide } = this.state;
-    const { isOpen, onToggleSideMenu } = this.props;
+    const { isOpen, toggleSideMenu } = this.props;
 
     return (
       <div
         className={isSlide ? 'sideMenuWrap openBg' : 'sideMenuWrap'}
-        onClick={onToggleSideMenu}
+        onClick={toggleSideMenu}
       >
         <Menu
           isOpen={isOpen}

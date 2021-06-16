@@ -26,20 +26,21 @@ class Accordion extends Component {
         {isShowList &&
           (type === 'character' ? (
             <ul className="characters">
-              {characters?.map((character) => (
-                <li key={character.id} className="characterItem">
-                  <Link to="/" className="characterLink">
-                    <div className="character">
-                      <img
-                        className="characterImg"
-                        src="/images/PetCharacter.png"
-                        alt={character.name}
-                      />
-                      <span className="characterSpan">{character.name}</span>
-                    </div>
-                  </Link>
-                </li>
-              ))}
+              {characters.length &&
+                characters.map((character) => (
+                  <li key={character.id} className="characterItem">
+                    <Link to="/" className="characterLink">
+                      <div className="character">
+                        <img
+                          className="characterImg"
+                          src="/images/PetCharacter.png"
+                          alt={character.name}
+                        />
+                        <span className="characterSpan">{character.name}</span>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
             </ul>
           ) : (
             <ul className="category">

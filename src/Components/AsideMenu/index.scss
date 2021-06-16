@@ -3,7 +3,7 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0);
-  z-index: 1000000;
+  z-index: 1000;
   transition: background 300ms ease-in-out 0s;
 
   &.openBg {
@@ -18,7 +18,6 @@
     display: inline-block;
     width: 175px;
     border: none;
-    padding: 12px 0px;
 
     .categoryLink {
       height: 20px;
