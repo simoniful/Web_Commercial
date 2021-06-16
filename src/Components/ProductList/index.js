@@ -58,29 +58,26 @@ class ProductList extends Component {
       products: updatedProducts,
     });
 
-    //  TODO: fetchPost
     if (products[updatedId - 1].like) {
       fetchDelete(`${API}/users/like/product/${updatedId}`)
-        .then((res) => res.json())
-        .then((result) => {
-          if (result.status === 200) {
+        .then((res) => {
+          if (res.status === 204) {
             alert('Like Cancle Success');
           } else {
-            alert('Like Cancle Fail', result.message);
+            alert('Like Cancle Fail', res.message);
           }
         })
         .catch((error) => console.log(error.message));
     } else {
-      fetchPost(`${API}/users/like/product`, { product_id: updatedId })
-        .then((res) => res.json())
-        .then((result) => {
-          if (result.status === 200) {
+      fetchPost(`${API}/users/like/product`, { product_id: updatedId }).then(
+        (res) => {
+          if (res.status === 201) {
             alert('Like Success');
           } else {
-            alert('Like Fail', result.message);
+            alert('Like Fail', res.message);
           }
-        })
-        .catch((error) => console.log(error.message));
+        },
+      );
     }
   };
 
@@ -96,14 +93,16 @@ class ProductList extends Component {
       products: updatedProducts,
     });
 
-    if (products[updatedId - 1].cart) {
-      fetchPost(`${API}/users/cart/product`, { product_id: updatedId })
-        .then((res) => res.json())
-        .then((result) => {
-          if (result.status === 200) {
+    if (!products[updatedId - 1].cart) {
+      fetchPost(`${API}/orders/order-items`, {
+        product_id: updatedId,
+        count: 1,
+      })
+        .then((res) => {
+          if (res.ok) {
             alert('Add Cart Success');
           } else {
-            alert('Add Cart Fail', result.message);
+            alert('Add Cart Fail', res.message);
           }
         })
         .catch((error) => console.log(error.message));
@@ -112,7 +111,7 @@ class ProductList extends Component {
 
   render() {
     const { products } = this.state;
-
+    console.log(products);
     return (
       <ul className="itemUl">
         {products.map((product) => (
