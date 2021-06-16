@@ -39,7 +39,7 @@ export default class Cart extends Component {
       select:
         e.target.className === 'fa-check-circle fas fill' ? 'false' : 'true',
     };
-    await fetchPatch(`${CART_API}:8000/orders/${e.target.id}`, select).then(
+    await fetchPatch(`${CART_API}:8000/orders/order-items`, select).then(
       (res) => res.json(),
     );
     this.getCartData();
