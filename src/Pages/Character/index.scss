@@ -12,7 +12,6 @@
       right 0px / contain no-repeat;
 
     .bannerTitle {
-      height: 30px;
       margin-left: 20px;
       color: rgb(255, 255, 255);
       font-size: 24px;
@@ -23,7 +22,6 @@
 
     .DropBtn {
       width: 18px;
-      height: 18px;
       margin-left: 6px;
       border: 0 none;
 
@@ -76,7 +74,6 @@
 
         img {
           width: 18px;
-          height: 18px;
           object-fit: contain;
         }
       }
@@ -86,8 +83,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 70px;
-      padding: 20px;
+      padding: 23px;
 
       .filterTxt {
         span {
@@ -108,7 +104,6 @@
 
         img {
           width: 20px;
-          height: 20px;
           margin-right: 6px;
         }
 
@@ -130,9 +125,13 @@
   position: fixed;
   inset: 0px;
   background-color: rgba(0, 0, 0, 0.7);
-  z-index: 1000002;
-  opacity: 1;
+  z-index: 1002;
+  opacity: 0.2;
   transition: opacity 0.3s ease 0s;
+
+  &.dim {
+    opacity: 1;
+  }
 
   .filterModal {
     position: absolute;
@@ -154,7 +153,6 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 50px;
         line-height: 35px;
         cursor: pointer;
 
@@ -163,8 +161,7 @@
           justify-content: space-between;
           align-items: center;
           width: 100%;
-          height: 100%;
-          padding: 0px 17px;
+          padding: 13px 17px;
           font-size: 16px;
           line-height: 1.47;
           letter-spacing: -0.23px;
@@ -183,7 +180,6 @@
 
           img {
             width: 20px;
-            height: 22px;
             margin-bottom: 2px;
           }
         }

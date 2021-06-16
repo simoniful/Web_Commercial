@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
 import ProductList from '../../Components/ProductList';
+import { API } from '../../config';
 import { categoryData } from '../../Data/categoryData';
 import { characterData } from '../../Data/characterData';
+import { fetchGet } from '../../utils/fetches';
 
 import FilterModal from './FilterModal';
 import './index.scss';
@@ -33,42 +34,47 @@ class Character extends Component {
     });
   }
 
-  onToggleFilterModal = (e) => {
+  onSelectCharacter = (name) => {
+    fetchGet(`${API}/products/character?search={name}`);
+  };
+
+  toggleFilterModal = (e) => {
     const { isOpen } = this.state;
     const classList = [...e.target.classList];
 
-    // if (!isOpen) {
-    //   this.setState({ isOpen: !isOpen });
-    // } else {
-    //   if (classList.includes('sideMenuWrap')) {
-    //     this.setState({ isOpen: !isOpen });
-    //   }
-    // }
-
-    // eslint-disable-next-line no-unused-expressions
-    !isOpen
-      ? this.setState({ isOpen: !isOpen })
-      : classList.includes('filterModalWrap')
-      ? this.setState({ isOpen: !isOpen })
-      : null;
-
-    this.setState({
-      isOpen: !isOpen,
-    });
+    if (!isOpen) {
+      this.setState({ isOpen: !isOpen });
+    } else {
+      if (classList.includes('sideMenuWrap')) {
+        this.setState({ isOpen: !isOpen });
+      }
+    }
   };
 
-  onToggleFilterCheck = (targetId) => {
+  toggleFilterCheck = (targetId) => {
     const { modalFilters } = this.state;
 
-    // 기존 true 바꾸고
     const prevChange = modalFilters.map((el) =>
       el.isCheck ? { ...el, isCheck: !el.isCheck } : el,
     );
+    console.log('prev', prevChange);
 
-    // 새로운 true 반영
     const nextFilters = prevChange.map((el, idx) =>
       targetId === idx ? { ...el, isCheck: !el.isCheck } : el,
     );
+
+    this.setState(
+      {
+        modalFilters: nextFilters,
+      },
+      this.onChangeFilterName,
+    );
+
+    return targetId;
+  };
+
+  onChangeFilterName = () => {
+    const { modalFilters } = this.state;
 
     const nextfilterName = modalFilters.filter((el) => {
       if (el.isCheck) {
@@ -78,7 +84,6 @@ class Character extends Component {
     });
 
     this.setState({
-      modalFilters: nextFilters,
       filteringName: nextfilterName[0].name,
     });
   };
@@ -86,7 +91,7 @@ class Character extends Component {
   render() {
     const { isOpen, modalFilters, filteringName } = this.state;
     const { history, location, match } = this.props;
-    // console.log(this.onToggleFilterCheck());
+
     return (
       <>
         {/* nav */}
@@ -100,13 +105,18 @@ class Character extends Component {
             />
             <select>
               {characterData.map((chac) => (
-                <option key={chac.id}>{chac.name}</option>
+                <option
+                  key={chac.id}
+                  onClick={this.onSelectCharacter(chac.name)}
+                >
+                  {chac.name}
+                </option>
               ))}
             </select>
           </div>
           <div className="filterWrap">
             <div className="filter">
-              <div className="filterName" onClick={this.onToggleFilterModal}>
+              <div className="filterName" onClick={this.toggleFilterModal}>
                 <span>{filteringName}</span>
                 <img src="/images/dropdown.png" alt="dropdown" />
               </div>
@@ -133,8 +143,8 @@ class Character extends Component {
         {isOpen && (
           <FilterModal
             filters={modalFilters}
-            onToggleFilterModal={this.onToggleFilterModal}
-            onToggleFilterCheck={this.onToggleFilterCheck}
+            toggleFilterModal={this.toggleFilterModal}
+            toggleFilterCheck={this.toggleFilterCheck}
           />
         )}
       </>
@@ -142,4 +152,4 @@ class Character extends Component {
   }
 }
 
-export default withRouter(Character);
+export default Character;
