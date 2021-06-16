@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import CarouselList from '../CarouselList';
 import './index.scss';
 
+const CARD_WIDTH = 640;
+
 export default class CarouselFrame extends Component {
   constructor() {
     super();
@@ -20,14 +22,15 @@ export default class CarouselFrame extends Component {
   }
   render() {
     const { imgLists } = this.state;
-    const { count, listTransition, moveToPre, moveToNext } = this.props;
+    const { listTransform, listTransition, moveToPrev, moveToNext } =
+      this.props;
     return (
       <div className="frameWrap">
         <div className="frameContainer">
           <div
             className="carouselList"
             style={{
-              transform: `translateX(${count}px)`,
+              transform: `translateX(${listTransform}px)`,
               transition: `${listTransition}`,
             }}
           >
@@ -44,11 +47,15 @@ export default class CarouselFrame extends Component {
             })}
           </div>
         </div>
-        <button type="button" className="btnPrev" onClick={moveToPre}></button>
+        <button type="button" className="btnPrev" onClick={moveToPrev}></button>
         <button type="button" className="btnNext" onClick={moveToNext}></button>
         <div className="countNumBox">
           <span className="countNum">
-            <span>{count === 0 ? 1 : Math.abs(count / 640) + 1}</span>
+            <span>
+              {listTransform === 0
+                ? 1
+                : Math.abs(listTransform / CARD_WIDTH) + 1}
+            </span>
             <span> / 5</span>
           </span>
         </div>

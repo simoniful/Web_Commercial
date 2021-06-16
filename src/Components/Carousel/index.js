@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import CarouselFrame from './CarouselFrame';
 import './index.scss';
 
+const CARD_WIDTH = 640;
+const INTERVAL = 4000;
+
 export default class Carousel extends Component {
   constructor(props) {
     super(props);
@@ -12,9 +15,9 @@ export default class Carousel extends Component {
   }
 
   moveToNext = () => {
-    if (this.state.listTransform > -640 * 4) {
+    if (this.state.listTransform > -CARD_WIDTH * 4) {
       this.setState({
-        listTransform: this.state.listTransform - 640,
+        listTransform: this.state.listTransform - CARD_WIDTH,
         listTransition: '1s ease-in-out',
       });
     } else {
@@ -25,15 +28,15 @@ export default class Carousel extends Component {
     }
   };
 
-  moveToPre = () => {
+  moveToPrev = () => {
     if (this.state.listTransform < 0) {
       this.setState({
-        listTransform: this.state.listTransform + 640,
+        listTransform: this.state.listTransform + CARD_WIDTH,
         listTransition: '1s ease-in-out',
       });
     } else {
       this.setState({
-        listTransform: -640 * 4,
+        listTransform: -CARD_WIDTH * 4,
         listTransition: '0s',
       });
     }
@@ -46,21 +49,20 @@ export default class Carousel extends Component {
   componentDidMount() {
     this.interval = setInterval(() => {
       this.moveToNext();
-    }, 4000);
+    }, INTERVAL);
   }
 
   render() {
-    const { listTransition } = this.state;
-    const { moveToPre, moveToNext } = this;
-    const count = this.state.listTransform;
+    const { listTransition, listTransform } = this.state;
+    const { moveToPrev, moveToNext } = this;
     return (
       <>
         <div className="Carousel">
           <section className="carouselWrap">
             <CarouselFrame
-              count={count}
+              listTransform={listTransform}
               listTransition={listTransition}
-              moveToPre={moveToPre}
+              moveToPrev={moveToPrev}
               moveToNext={moveToNext}
             />
           </section>
