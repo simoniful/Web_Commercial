@@ -2,20 +2,41 @@ import React, { Component } from 'react';
 import './index.scss';
 import OrderList from './OrderList';
 import OrderPrice from './OrderPrice';
+import { fetchPost } from '../../../utils/fetches';
+import { API } from '../../../config';
 
 export default class Order extends Component {
   constructor() {
     super();
     this.state = {
+      // order_item_list
       orderData: [],
-      // name: '',
-      // phone: '',
-      // address: '',
-      // detailedAddress: '',
-      // request: '',
-      // saveToMyInfo: false,
+      name: '',
+      phone_number: '',
+      address: '',
+      request: '',
     };
   }
+
+  handleInput = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { email, password, phone_number, nickname, gender } = this.state;
+    if (!this.validateInputData(this.state.email, this.state.password)) return;
+    fetchPost(API, {
+      email,
+      password,
+      phone_number,
+      nickname,
+      gender,
+      birth: `${this.state.year}.${this.state.month}.${this.state.day}`,
+    })
+      .then((res) => console.log('결과: ', res))
+      .then((res) => res.ok && this.props.history.push('/login'));
+  };
 
   componentDidMount() {
     fetch('/data/orderData.json')
@@ -30,17 +51,13 @@ export default class Order extends Component {
 
   render() {
     const { orderData } = this.state;
-    const selectedAll = orderData.reduce(
-      (result, item) => (result = result && item.selected),
-      true,
-    );
     const selectedItems = orderData.filter((item) => item.selected);
     const totalPrice = Math.floor(
       selectedItems.reduce((acc, item) => acc + item.price * item.count, 0),
     );
     return (
       <div className="Order">
-        <form className="formWrap">
+        <form className="formWrap" onSubmit={this.handleSubmit}>
           <section className="itemToOrder">
             <h3 className="title">01 주문상품</h3>
             <div className="contents">
@@ -71,7 +88,7 @@ export default class Order extends Component {
               <div className="phoneContainer">
                 <input
                   className="phone"
-                  name="phonenumber"
+                  name="phone_number"
                   type="text"
                   placeholder="전화번호 (-없이 입력)"
                 />
@@ -150,11 +167,11 @@ export default class Order extends Component {
                 </div>
                 <div className="agreeBox">
                   <label className="agreeToNotice">
-                    <input type="checkbox" />
+                    <input className="checkbox" type="checkbox" />
                     상품 주문 및 배송정보 수집에 동의합니다<span>[필수]</span>
                   </label>
                   <label className="agreeToNotice">
-                    <input type="checkbox" />
+                    <input className="checkbox" type="checkbox" />
                     주문 상품의 명시내용과 사용조건을 확인하였으며, 취소환불
                     규정에 동의합니다<span>[필수]</span>
                   </label>
