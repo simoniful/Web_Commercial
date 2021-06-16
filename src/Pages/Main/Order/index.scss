@@ -12,7 +12,7 @@
     font-weight: bold;
     font-size: 24px;
     letter-spacing: -0.2px;
-    padding: 11px 0px 26px;
+    padding: 11px 0px 0px;
   }
 
   .itemToOrder {
@@ -64,6 +64,7 @@
     .noticeContainer {
       padding: 10px 0;
       border-top: 1px solid rgb(227, 229, 232);
+      border-bottom: 1px solid rgb(227, 229, 232);
 
       i {
         margin-right: 4px;
@@ -78,5 +79,29 @@
 
   .payment {
     padding: 0px 20px 25px;
+
+    .subtitle {
+      font-weight: bold;
+    }
+
+    .payMethod {
+      padding: 30px 0;
+    }
+    .agreeBox {
+      padding: 15px 0;
+      .agreeToNotice {
+        display: block;
+        padding: 8px 0;
+        font-size: 15px;
+        letter-spacing: -0.2px;
+      }
+    }
+    .submitBtn {
+      width: 100%;
+      background-color: rgb(255, 234, 1);
+      line-height: 1.5;
+      padding: 15px 0;
+      margin: 20px 0;
+    }
   }
 }
