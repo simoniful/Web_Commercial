@@ -30,7 +30,7 @@ class FilterModal extends Component {
                 className="filterLi"
                 key={el.name}
                 id={idx}
-                onClick={(e) => toggleFilterCheck(e)}
+                onClick={() => toggleFilterCheck(idx)}
               >
                 <Link
                   to={`/products/character/type=character?search=${el.name}`}

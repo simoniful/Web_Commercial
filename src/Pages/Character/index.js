@@ -57,36 +57,34 @@ class Character extends Component {
     const prevChange = modalFilters.map((el) =>
       el.isCheck ? { ...el, isCheck: !el.isCheck } : el,
     );
-    console.log('prev', prevChange);
 
     const nextFilters = prevChange.map((el, idx) =>
       targetId === idx ? { ...el, isCheck: !el.isCheck } : el,
     );
 
-    this.setState(
-      {
-        modalFilters: nextFilters,
-      },
-      this.onChangeFilterName,
-    );
+    //map() ...element, isCheck: targetId === index ? true:false
+    this.setState({
+      modalFilters: nextFilters,
+      filteringName: modalFilters[targetId].name,
+    });
 
     return targetId;
   };
 
-  onChangeFilterName = () => {
-    const { modalFilters } = this.state;
+  // onChangeFilterName = () => {
+  //   const { modalFilters } = this.state;
 
-    const nextfilterName = modalFilters.filter((el) => {
-      if (el.isCheck) {
-        const result = el.name;
-        return result;
-      } else return el;
-    });
+  //   const nextfilterName = modalFilters.filter((el) => {
+  //     if (el.isCheck) {
+  //       const result = el.name;
+  //       return result;
+  //     } else return el;
+  //   });
 
-    this.setState({
-      filteringName: nextfilterName[0].name,
-    });
-  };
+  //   this.setState({
+  //     filteringName: nextfilterName[0].name,
+  //   });
+  // };
 
   render() {
     const { isOpen, modalFilters, filteringName } = this.state;
