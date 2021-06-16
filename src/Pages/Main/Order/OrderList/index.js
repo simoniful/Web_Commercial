@@ -10,7 +10,7 @@ export default class OrderList extends Component {
       <li className="basketItemWrap" id={item.id}>
         <label className="checkboxLabel"></label>
         <div className="thumbWrap">
-          <Link className="linkThumb">
+          <Link to="/" className="linkThumb">
             <span className="thumbContainer">
               <span className="imgBox">
                 <img

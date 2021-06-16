@@ -114,6 +114,7 @@ export default class Order extends Component {
                     className="saveToMyInfoCheck"
                     type="checkbox"
                     name="saveToMyInfo"
+                    readOnly
                   />
                   내 정보 및 기본 배송지로 저장
                 </label>
@@ -146,23 +147,13 @@ export default class Order extends Component {
               <div className="payMethod">
                 <h4 className="subtitle">결제수단 선택</h4>
                 <div className="selectBox">
-                  <label for="kakaopay" className="">
+                  <label htmlFor="kakaopay" className="">
                     카카오페이
-                    <input
-                      id="kakaopay"
-                      type="radio"
-                      value="kakaopay"
-                      checked=""
-                    />
+                    <input id="kakaopay" type="radio" value="kakaopay" />
                   </label>
-                  <label for="creditcard" className="">
+                  <label htmlFor="creditcard" className="">
                     신용카드
-                    <input
-                      id="creditcard"
-                      type="radio"
-                      value="creditcard"
-                      checked=""
-                    />
+                    <input id="creditcard" type="radio" value="creditcard" />
                   </label>
                 </div>
                 <div className="agreeBox">
