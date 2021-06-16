@@ -30,7 +30,7 @@ export default class Cart extends Component {
     //     .then((res) =>
     //       this.setState({
     //         cartData: res.items_in_cart,
-    //         selectedArr: Array(res.items_in_cart.length).fill(false),
+    //         selectedArr: Array(res.length).fill(true),
     //       }),
     //     );
     // } catch {
@@ -41,6 +41,7 @@ export default class Cart extends Component {
       data.selected = true;
       return data;
     });
+
     this.setState({
       cartData: cartData,
       selectedArr: Array(cartData.length).fill(true),
@@ -66,29 +67,29 @@ export default class Cart extends Component {
     });
     this.setState({ cartData: newQuantity });
 
-    // if (className === 'quantity-plus') {
-    //   fetchPatch(`${CART_API}:8000/orders/order-items`, {
-    //     order_item_id: event.target.id,
-    //     count: +event.target.dataset.count + 1,
-    //   })
-    //     .then((res) => res.json())
-    //     .then((result) => {
-    //       result.message === 'SUCCESS'
-    //         ? console.log('수량증가 성공!')
-    //         : console.log('수량증가 실패!');
-    //     });
-    // } else if (className === 'quantity-minus') {
-    //   fetchPatch(`${CART_API}:8000/orders/order-items`, {
-    //     order_item_id: event.target.id,
-    //     count: +event.target.dataset.count - 1,
-    //   })
-    //     .then((res) => res.json())
-    //     .then((result) => {
-    //       result.message === 'SUCCESS'
-    //         ? console.log('수량감소 성공!')
-    //         : console.log('수량감소 실패!');
-    //     });
-    // }
+    if (className === 'quantity-plus') {
+      fetchPatch(`${CART_API}:8000/orders/order-items`, {
+        order_item_id: event.target.id,
+        count: +event.target.dataset.count + 1,
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          result.message === 'SUCCESS'
+            ? console.log('수량증가 성공!')
+            : console.log('수량증가 실패!');
+        });
+    } else if (className === 'quantity-minus') {
+      fetchPatch(`${CART_API}:8000/orders/order-items`, {
+        order_item_id: event.target.id,
+        count: +event.target.dataset.count - 1,
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          result.message === 'SUCCESS'
+            ? console.log('수량감소 성공!')
+            : console.log('수량감소 실패!');
+        });
+    }
   };
 
   isCheckArr = () => {
@@ -110,61 +111,60 @@ export default class Cart extends Component {
       return parseInt(id) === parseInt(cartItem.id);
     });
     this.setState({ cartData: newCartData, deletedArr: deletedData });
-    // fetchDelete(`${CART_API}:8000/orders/order-items/${event.target.id}`)
-    //   .then((res) => res.status)
-    //   .then((status) => {
-    //     status === 204 ? alert('삭제성공') : alert('삭제를 실패하였습니다.');
-    //   });
+    fetchDelete(`${CART_API}:8000/orders/order-items/${event.target.id}`)
+      .then((res) => res.status)
+      .then((status) => {
+        status === 204 ? alert('삭제성공') : alert('삭제를 실패하였습니다.');
+      });
   };
 
   handleIsChecked = (event, id) => {
-    console.log(event, id);
     const { selectedArr } = this.state;
     const newCheck = [...selectedArr];
     newCheck[id] = !newCheck[id];
     this.setState({ selectedArr: newCheck });
-    // const select = {
-    //   order_item_id: event.target.id,
-    //   select:
-    //     event.target.className === 'fa-check-circle fas fill'
-    //       ? 'false'
-    //       : 'true',
-    // };
-    // fetchPatch(`${CART_API}:8000/orders/${event.target.id}`, select).then(
-    //   (res) => res.json(),
-    // );
+    const select = {
+      order_item_id: event.target.id,
+      select:
+        event.target.className === 'fa-check-circle fas fill'
+          ? 'false'
+          : 'true',
+    };
+    fetchPatch(`${CART_API}:8000/orders/${event.target.id}`, select).then(
+      (res) => res.json(),
+    );
   };
 
   selectAll = () => {
     const { selectedArr } = this.state;
     const newCheckArr = Array(selectedArr.length).fill(this.isCheckArr());
     this.setState({ selectedArr: newCheckArr });
-    // this.updateCartSelection();
+    this.updateCartSelection();
   };
 
-  // updateCartSelection = () => {
-  //   this.state.cartData.forEach((item) => {
-  //     const itemToSelect = {
-  //       order_item_id: item.order_item_id,
-  //       select: 'False',
-  //     };
-  //     !item.selected &&
-  //       fetchPatch(`${CART_API}:8000/orders/order-items`, itemToSelect)
-  //         .then((res) => res.json())
-  //         .then((result) => console.log(result));
-  //   });
+  updateCartSelection = () => {
+    this.state.cartData.forEach((item) => {
+      const itemToSelect = {
+        order_item_id: item.order_item_id,
+        select: 'False',
+      };
+      !item.selected &&
+        fetchPatch(`${CART_API}:8000/orders/order-items`, itemToSelect)
+          .then((res) => res.json())
+          .then((result) => console.log(result));
+    });
 
-  //   this.state.cartData.forEach((item) => {
-  //     const itemToUnselect = {
-  //       order_item_id: item.order_item_id,
-  //       select: 'true',
-  //     };
-  //     item.selected &&
-  //       fetchPatch(`${CART_API}:8000/orders/order-items`, itemToUnselect)
-  //         .then((res) => res.json())
-  //         .then((result) => console.log(result));
-  //   });
-  // };
+    this.state.cartData.forEach((item) => {
+      const itemToUnselect = {
+        order_item_id: item.order_item_id,
+        select: 'true',
+      };
+      item.selected &&
+        fetchPatch(`${CART_API}:8000/orders/order-items`, itemToUnselect)
+          .then((res) => res.json())
+          .then((result) => console.log(result));
+    });
+  };
 
   selectDelete = () => {
     const { cartData, selectedArr } = this.state;
@@ -185,17 +185,17 @@ export default class Cart extends Component {
       deletedArr: newDeletedArr,
       selectedArr: Array(newCheckedArr.length).fill(false),
     });
-    // const itemsToDelete = cartData.filter((item) => item.selected);
-    // const idsToDelete = itemsToDelete.map((item) => item.order_item_id);
-    // for (let itemId in idsToDelete) {
-    //   fetchDelete(`${CART_API}:8000/orders/order-items/${idsToDelete[itemId]}`)
-    //     .then((res) => res.status)
-    //     .then((status) => {
-    //       status === 204
-    //         ? alert('다중 삭제성공!')
-    //         : alert('삭제를 실패하였습니다.');
-    //     });
-    // }
+    const itemsToDelete = cartData.filter((item) => item.selected);
+    const idsToDelete = itemsToDelete.map((item) => item.order_item_id);
+    for (let itemId in idsToDelete) {
+      fetchDelete(`${CART_API}:8000/orders/order-items/${idsToDelete[itemId]}`)
+        .then((res) => res.status)
+        .then((status) => {
+          status === 204
+            ? alert('다중 삭제성공!')
+            : alert('삭제를 실패하였습니다.');
+        });
+    }
   };
 
   goToOrder = () => {
@@ -234,7 +234,7 @@ export default class Cart extends Component {
                 <div className="checkboxLabel">
                   <i
                     className={`fa-check-circle ${
-                      !this.isCheckArr() ? 'fas fill' : 'far'
+                      this.isCheckArr() ? 'far' : 'fas fill'
                     }`}
                     onClick={this.selectAll}
                   />
