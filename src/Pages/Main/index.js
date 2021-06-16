@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Carousel from '../../Components/Carousel';
 import Footer from '../../Components/Footer';
 import Nav from '../../Components/Nav';
 import MainTab from './Components/MainTab';
@@ -26,6 +27,7 @@ export default class Main extends Component {
         <div className="mainArticle">
           <MainTab checkMenuId={this.bringMenuId} />
           {MAPPING_OBJ[this.state.currentId]}
+          <Carousel />
         </div>
         <Footer />
       </div>
