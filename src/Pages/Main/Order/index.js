@@ -106,7 +106,7 @@ export default class Order extends Component {
                   className="
                 intendedDday"
                 >
-                  <i className="fas fa-shuttle-van"></i>6/16(수) 도착 예정
+                  <i className="fas fa-shuttle-van"></i> 6/16(수) 도착 예정
                 </div>
                 <div className="para">
                   오후 3시 이전 주문시 당일 출고
@@ -118,8 +118,8 @@ export default class Order extends Component {
               </div>
             </div>
           </section>
-          <section>
-            <h3>03 결제하기</h3>
+          <section className="payment">
+            <h3 className="title">03 결제하기</h3>
             <div className="paymentWrap">
               <OrderPrice totalPrice={totalPrice} />
               <div className="payMethod">
