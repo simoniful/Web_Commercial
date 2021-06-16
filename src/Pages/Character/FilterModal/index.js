@@ -7,8 +7,6 @@ class FilterModal extends Component {
     this.state = {
       isSlide: false,
     };
-
-    this.linkRef = React.createRef();
   }
 
   componentDidMount() {
@@ -16,23 +14,14 @@ class FilterModal extends Component {
     this.setState({ isSlide: !isSlide });
   }
 
-  //TODO: default hover
-  onHover = () => {
-    const node = this.linkRef.current;
-    console.log(node);
-    console.log(node.classList);
-    node.classList.toggle('hoverClass');
-  };
-
   render() {
     const { isSlide } = this.state;
-    const { filters, onToggleFilterModal, onToggleCheck, onToggleFilterCheck } =
-      this.props;
+    const { filters, toggleFilterModal, toggleFilterCheck } = this.props;
 
     return (
       <div
-        className={isSlide ? 'filterModalWrap' : ''}
-        onClick={(e) => onToggleFilterModal(e)}
+        className={isSlide ? 'filterModalWrap dim' : 'filterModalWrap'}
+        onClick={(e) => toggleFilterModal(e)}
       >
         <div className="filterModal">
           <ul className="filterUl">
@@ -41,13 +30,11 @@ class FilterModal extends Component {
                 className="filterLi"
                 key={el.name}
                 id={idx}
-                onClick={(e) => onToggleFilterModal(e)}
+                onClick={(e) => toggleFilterCheck(e)}
               >
                 <Link
-                  to="/products/character/1"
+                  to={`/products/character/type=character?search=${el.name}`}
                   className="fileterModalLink"
-                  ref={this.linkRef}
-                  onMonse={this.onHover}
                 >
                   {el.name}
                   {el.isCheck && (

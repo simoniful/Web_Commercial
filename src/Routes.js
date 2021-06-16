@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
 import Character from './Pages/Character';
-import Category from './Pages/Category';
 import NewProducts from './Pages/Main/NewProducts';
 import HotProducts from './Pages/Main/HotProducts';
 import MyPage from './Pages/Main/MyPage';
@@ -22,11 +21,6 @@ class Routes extends React.Component {
             exact
             path="/products/character/:keyword"
             component={Character}
-          />
-          <Route
-            exact
-            path="/products/category/:keyword"
-            component={Category}
           />
           {/* <Route exact path="/products/:id" component={Detail} /> */}
           <Route exact path="/mypage/:keyword" component={MyPage} />

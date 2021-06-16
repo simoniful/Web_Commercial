@@ -35,7 +35,7 @@ class Character extends Component {
   }
 
   onSelectCharacter = (name) => {
-    fetchGet(`${API}/products/character?search={name}`);
+    fetchGet(`${API}/products/character?search=${name}`);
   };
 
   toggleFilterModal = (e) => {
@@ -45,7 +45,7 @@ class Character extends Component {
     if (!isOpen) {
       this.setState({ isOpen: !isOpen });
     } else {
-      if (classList.includes('sideMenuWrap')) {
+      if (classList.includes('dim')) {
         this.setState({ isOpen: !isOpen });
       }
     }
