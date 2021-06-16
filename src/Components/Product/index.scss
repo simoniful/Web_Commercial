@@ -10,6 +10,7 @@
     z-index: 1;
     background: url('http://localhost:3000/images/heart.png') center center /
       cover no-repeat;
+    cursor: pointer;
 
     &.addToLike {
       width: 32px;
@@ -32,7 +33,6 @@
       position: relative;
       overflow: hidden;
       width: 275px;
-      height: 275px;
       margin-right: 20px;
       margin-bottom: 12px;
       border-radius: 6px;
@@ -104,6 +104,7 @@
     top: 299px;
     background: url('http://localhost:3000/images/cart.png') center center /
       contain no-repeat;
+    cursor: pointer;
 
     &.addToCart {
       background: url('http://localhost:3000/images/addToCart.png') center

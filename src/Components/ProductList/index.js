@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Product from '../Product';
 import { newProductData } from './newProductData';
 import { fetchDelete, fetchGet, fetchPost } from '../../utils/fetches';
-import { getToken } from '../../utils/storage';
 import { API } from '../../config';
 import './index.scss';
 
@@ -19,14 +18,13 @@ class ProductList extends Component {
   //TODO: props로 받은 match와 location에 따라 데이터 요청
 
   componentDidMount() {
-    //TODO:: '/products?type=new' 데이터 받아오기
-    //const token = getTokenInStorage();
-    // if (token) {
-    //   fetchGet(`/products?type=new&pageSize=10&page=1`, token).then((products) => {
-    //     this.setState({
-    //       products: products.resultList,
-    //     });
-    //   });
+    fetchGet(`${API}/products/${this.props.location.search}`)
+      .then((res) => res.json())
+      .then((products) => {
+        this.setState({
+          products: products.resultList,
+        });
+      });
 
     this.setState({
       products: newProductData.resultList,
@@ -34,50 +32,82 @@ class ProductList extends Component {
   }
 
   componentDidUpdate() {
-    //TODO:: 무한 스크롤을 위한 '/products?type=new' 추가 데이터 받아오기
-    // const token = getTokenInStorage();
-    // const { products, page } = this.state;
-    // if (token) {
-    //   fetchGet(
-    //     `/products?type=new&pageSize=${10}&page=${page + 1}`,
-    //     token,
-    //   ).then((newProducts) => {
-    //     this.setState({
-    //       // 데이터 추가
-    //       products: products.concant(newProducts),
-    //       page: page + 1,
-    //     });
-    //   });
-    // }
+    //TODO: 무한 스크롤을 위한 '/products?type=new' 추가 데이터
+
+    //스크롤 좌표에 따라 fetch url 수정
+    const { products, page } = this.state;
+    fetchGet(`/products?${`type=new`}&pageSize=${20}&page=${page + 1}`)
+      .then((res) => res.json())
+      .then((newProducts) => {
+        this.setState({
+          products: products.concant(newProducts),
+          page: page + 1,
+        });
+      })
+      .catch((error) => console.log(error.message));
   }
 
-  updatedProducts = (updatedId, type) => {
+  toggleProductLike = (updatedId) => {
     const { products } = this.state;
 
     const updatedProducts = products.map((product) =>
-      updatedId === product.id
-        ? { ...product, [type]: !product[type] }
+      updatedId === product.id ? { ...product, like: !product.like } : product,
+    );
+
+    this.setState({
+      products: updatedProducts,
+    });
+
+    //  TODO: fetchPost
+    if (products[updatedId - 1].like) {
+      fetchDelete(`${API}/users/like/product/${updatedId}`)
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.status === 200) {
+            alert('Like Cancle Success');
+          } else {
+            alert('Like Cancle Fail', result.message);
+          }
+        })
+        .catch((error) => console.log(error.message));
+    } else {
+      fetchPost(`${API}/users/like/product`, { product_id: updatedId })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.status === 200) {
+            alert('Like Success');
+          } else {
+            alert('Like Fail', result.message);
+          }
+        })
+        .catch((error) => console.log(error.message));
+    }
+  };
+
+  onCart = (updatedId) => {
+    const { products } = this.state;
+    const updatedProducts = products.map((product) =>
+      updatedId === product.id && product.cart === false
+        ? { ...product, cart: !product.cart }
         : product,
     );
 
     this.setState({
       products: updatedProducts,
     });
-  };
 
-  onToggleLike = (updatedId) => {
-    this.updatedProducts(updatedId, 'like');
-
-    const { products } = this.state;
-
-    products[updatedId - 1].like
-      ? fetchDelete(`http://10.58.7.239:8000/users/like/product/${updatedId}`)
-      : fetchPost(`${API}/users/like/product`, { product_id: updatedId });
-  };
-
-  onToggleCart = (e, updatedId) => {
-    this.updatedProducts(updatedId, 'cart');
-    //TODO: fetchPut
+    if (products[updatedId - 1].cart) {
+      fetchPost(`${API}/users/cart/product`, { product_id: updatedId })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.status === 200) {
+            alert('Add Cart Success');
+          } else {
+            alert('Add Cart Fail', result.message);
+          }
+        })
+        .catch((error) => console.log(error.message));
+    }
   };
 
   render() {
@@ -89,8 +119,8 @@ class ProductList extends Component {
           <li className="itemLi" key={product.id}>
             <Product
               product={product}
-              onToggleCart={this.onToggleCart}
-              onToggleLike={this.onToggleLike}
+              onCart={this.onCart}
+              toggleProductLike={this.toggleProductLike}
             />
           </li>
         ))}

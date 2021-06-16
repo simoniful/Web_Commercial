@@ -5,7 +5,7 @@
 
   .itemLi {
     width: 275px;
-    height: 401px;
+    margin-bottom: 40px;
     padding: 0px;
 
     &:nth-child(odd) {
@@ -18,16 +18,14 @@
       .heart {
         position: absolute;
         left: 14px;
-        top: 234px;
+        top: 237px;
         width: 32px;
-        height: 32px;
         z-index: 1;
         background: url('http://localhost:3000/images/heart.png') center center /
           cover no-repeat;
 
         &.addToLike {
           width: 32px;
-          height: 32px;
           background: url('http://localhost:3000/images/heartRed.png') center
             center / cover no-repeat;
         }
@@ -46,7 +44,6 @@
           position: relative;
           overflow: hidden;
           width: 275px;
-          height: 275px;
           margin-right: 20px;
           margin-bottom: 12px;
           border-radius: 6px;
