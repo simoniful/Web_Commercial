@@ -56,18 +56,16 @@ export default class Carousel extends Component {
     const { listTransition, listTransform } = this.state;
     const { moveToPrev, moveToNext } = this;
     return (
-      <>
-        <div className="Carousel">
-          <section className="carouselWrap">
-            <CarouselFrame
-              listTransform={listTransform}
-              listTransition={listTransition}
-              moveToPrev={moveToPrev}
-              moveToNext={moveToNext}
-            />
-          </section>
-        </div>
-      </>
+      <div className="Carousel">
+        <section className="carouselWrap">
+          <CarouselFrame
+            listTransform={listTransform}
+            listTransition={listTransition}
+            moveToPrev={moveToPrev}
+            moveToNext={moveToNext}
+          />
+        </section>
+      </div>
     );
   }
 }
