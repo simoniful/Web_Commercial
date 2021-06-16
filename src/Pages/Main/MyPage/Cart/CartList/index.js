@@ -3,15 +3,24 @@ import { Link } from 'react-router-dom';
 
 export default class CartList extends Component {
   render() {
-    const { item, selectItem, subtractItem, addItem, deleteItem } = this.props;
+    const {
+      id,
+      item,
+      selectedArr,
+      handleQuantity,
+      removeCartItem,
+      handleIsChecked,
+    } = this.props;
     const price = Number(item.price).toLocaleString();
     return (
       <li className="basketItemWrap" key={item.order_item_id}>
         <label className="checkboxLabel">
           <i
             id={item.order_item_id}
-            className={`fa-check-circle ${item.selected ? 'fas fill' : 'far'}`}
-            onClick={selectItem}
+            className={`fa-check-circle ${
+              selectedArr[id] ? 'fas fill' : 'far'
+            }`}
+            onClick={(e) => handleIsChecked.call(this, e, id)}
           />
         </label>
         <div className="thumbWrap">
@@ -33,7 +42,7 @@ export default class CartList extends Component {
             <button
               className="deleteButton"
               id={item.order_item_id}
-              onClick={deleteItem}
+              onClick={(e) => removeCartItem.call(this, e, id)}
             ></button>
           </div>
           <div className="priceWrap">
@@ -42,19 +51,21 @@ export default class CartList extends Component {
           <div className="countWrap">
             <div className="itemCounter">
               <button
+                value={id}
                 id={item['order_item_id']}
                 data-count={item['count']}
-                className="controlBtn"
-                onClick={subtractItem}
+                className="quantity-minus"
+                onClick={handleQuantity}
               >
                 -
               </button>
               <input value={`${item.count}`} readOnly className="qtyDp"></input>
               <button
+                value={id}
                 id={item['order_item_id']}
                 data-count={item['count']}
-                className="controlBtn"
-                onClick={addItem}
+                className="quantity-plus"
+                onClick={handleQuantity}
               >
                 +
               </button>
