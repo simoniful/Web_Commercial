@@ -8,7 +8,6 @@ import {
 import { CART_API } from '../../../../config.js';
 import CartList from './CartList';
 import './index.scss';
-import { findAllByTestId } from '@testing-library/react';
 
 export default class Cart extends Component {
   constructor() {
@@ -35,7 +34,8 @@ export default class Cart extends Component {
     //       }),
     //     );
     // } catch {
-    const response = await fetch(`data/cartdata.json`);
+
+    const response = await fetchGet(`/data/cartdata.json`);
     const data = await response.json();
     const cartData = data.items_in_cart.map((data) => ({
       ...data,
@@ -186,8 +186,14 @@ export default class Cart extends Component {
     }
   };
 
-  goToOrder = () => {
-    this.props.history.push('/order');
+  delieveDateToOrder = () => {
+    this.getCartData();
+    return {
+      pathname: '/mypage/order',
+      state: {
+        orderData: this.state.cartData,
+      },
+    };
   };
 
   render() {
@@ -285,7 +291,7 @@ export default class Cart extends Component {
           </div>
         </div>
         <div className="bottomBarWrap">
-          <Link to="/order">
+          <Link to={this.delieveDateToOrder}>
             <button>
               <span>{totalPrice.toLocaleString()}</span>원 주문 하기
             </button>

@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import './index.scss';
 import OrderList from './OrderList';
 import OrderPrice from './OrderPrice';
-import { fetchPost } from '../../../utils/fetches';
-import { API } from '../../../config';
+import { fetchPost } from '../../../../../utils/fetches';
+import { API } from '../../../../../config';
 
 export default class Order extends Component {
   constructor() {
     super();
     this.state = {
-      // order_item_list
-      orderData: [],
+      orderData: this.props.location.state.orderData,
       name: '',
       phone_number: '',
       address: '',
@@ -39,6 +38,7 @@ export default class Order extends Component {
     }).then((res) => res.ok && this.props.history.push('/login'));
   };
 
+  // 확인 후 삭제 예정
   componentDidMount() {
     fetch('/data/orderData.json')
       .then((res) => res.json())

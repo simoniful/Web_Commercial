@@ -18,7 +18,7 @@ class ProductList extends Component {
   //TODO: props로 받은 match와 location에 따라 데이터 요청
 
   componentDidMount() {
-    fetchGet(`${API}/products/${this.props.location.search}`)
+    fetchGet(`./newProductData.js`)
       .then((res) => res.json())
       .then((products) => {
         this.setState({
@@ -29,6 +29,17 @@ class ProductList extends Component {
     this.setState({
       products: newProductData.resultList,
     });
+    // fetchGet(`${API}/products/order=${this.props.match.params}`)
+    //   .then((res) => res.json())
+    //   .then((products) => {
+    //     this.setState({
+    //       products: products.resultList,
+    //     });
+    //   });
+
+    // this.setState({
+    //   products: newProductData.resultList,
+    // });
   }
 
   componentDidUpdate() {
@@ -104,17 +115,19 @@ class ProductList extends Component {
     const { products } = this.state;
     console.log(products);
     return (
-      <ul className="itemUl">
-        {products.map((product) => (
-          <li className="itemLi" key={product.id}>
-            <Product
-              product={product}
-              addToCart={this.addToCart}
-              toggleProductLike={this.toggleProductLike}
-            />
-          </li>
-        ))}
-      </ul>
+      <div className="ProductWrap">
+        <ul className="itemUl">
+          {products.map((product) => (
+            <li className="itemLi" key={product.id}>
+              <Product
+                product={product}
+                addToCart={this.addToCart}
+                toggleProductLike={this.toggleProductLike}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
     );
   }
 }
