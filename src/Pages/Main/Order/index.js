@@ -31,10 +31,10 @@ export default class Order extends Component {
     fetchPost(API, {
       order_item_list: idsToOrder,
       recipient_info: {
-        name: name,
-        phone_number: phone_number,
-        address: address,
-        request: request,
+        name,
+        phone_number,
+        address,
+        request,
       },
     }).then((res) => res.ok && this.props.history.push('/login'));
   };
@@ -43,7 +43,6 @@ export default class Order extends Component {
     fetch('/data/orderData.json')
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         this.setState({
           orderData: data.items_in_cart,
         });
