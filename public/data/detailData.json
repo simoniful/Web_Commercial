@@ -4,7 +4,7 @@
   "price": "5900.000",
   "content": "콘텐츠",
   "stock": 10,
-  "starPoint": 1.0,
+  "starPoint": 4,
   "starPointCount": 0,
   "imageUrls": ["url1", "url2", "url3"],
   "like": false,

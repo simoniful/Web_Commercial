@@ -1,3 +1,15 @@
+%boldTxt {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+%downUpArrow {
+  display: inline-block;
+  background: url('http://localhost:3000/images/sprite.png') no-repeat -30px -300px;
+  width: 16px;
+  height: 9px;
+}
+
 .detailWrap {
   width: 640px;
   margin: 0 auto;
@@ -39,59 +51,152 @@
 
   .detailContent {
   }
-  .detailAccordion {
-    input[id*='answer'] {
-      display: none;
 
-      & + label {
-        position: relative;
-        display: block;
-        padding: 20px;
-        border: 1px solid #232188;
-        color: #fff;
-        font-weight: 900;
-        background-color: blue;
+  .detailInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 81px;
+    padding: 0px 7px 0px 20px;
+    border-top: 1px solid #e3e5e8;
+    color: rgb(51, 51, 51);
+    font-size: 15px;
+    line-height: 24px;
+    letter-spacing: -0.2px;
+    cursor: pointer;
+  }
 
-        em {
-          position: absolute;
-          display: inline-block;
-          top: 50%;
-          right: 10px;
-          margin-top: -15px;
-          padding: 4px 7px;
+  .infoBtn {
+    @extend %downUpArrow;
+  }
 
-          span {
-            display: inline-block;
-            background: url('http://localhost:3000/images/sprite.png') no-repeat -30px -300px;
-            width: 16px;
-            height: 9px;
-          }
-        }
-        & + div {
-          max-height: 0;
-          transition: all 0.35s;
-          overflow: hidden;
-          background-color: #ebf8ff;
+  .boldTxt {
+    @extend %boldTxt;
+  }
 
-          p {
-            display: inline-block;
-            padding: 20px;
-          }
-        }
-      }
+  .downUpArrow {
+    @extend %downUpArrow;
+  }
 
-      &:checked + label + div {
-        max-height: 100px;
-      }
+  .infoUl {
+    padding: 0 20px;
+    .infoLi {
+      position: relative;
+      padding-left: 8px;
+      font-size: 15px;
+      line-height: 24px;
+      letter-spacing: -0.2px;
+      color: rgb(51, 51, 51);
 
-      &:checked + label em {
-        background-color: 0 -30px;
+      &::before {
+        position: absolute;
+        top: 10.75px;
+        left: 0px;
+        content: '';
+        width: 2.5px;
+        height: 2.5px;
+        background-color: rgb(51, 51, 51);
+        border-radius: 50%;
       }
     }
   }
+  .delevery {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 81px;
+    padding: 0px 7px 0px 20px;
+    border-top: 1px solid #e3e5e8;
+    color: rgb(51, 51, 51);
+    font-size: 15px;
+    line-height: 24px;
+    letter-spacing: -0.2px;
+    cursor: pointer;
+  }
 
   .inquire {
+    .inquireBtn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 81px;
+      padding: 0px 7px 0px 20px;
+      border-top: 1px solid #e3e5e8;
+      border-bottom: 1px solid #e3e5e8;
+
+      .counselBtn {
+        display: flex;
+        align-items: center;
+        color: rgb(102, 102, 102);
+        font-size: 15px;
+        line-height: 1.5;
+        letter-spacing: -0.2px;
+
+        &::before {
+          content: '';
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          margin-right: 5px;
+          background: url('http://localhost:3000/images/grayTalk.png') no-repeat;
+          background-size: 20px 20px;
+        }
+      }
+    }
   }
   .purchase {
+    position: fixed;
+    bottom: 0;
+    background-color: rgba(251, 46, 69, 0.95);
   }
 }
+
+// input[id*='answer'] {
+//   display: none;
+
+//   & + label {
+//     position: relative;
+//     display: block;
+//     padding: 20px;
+//     border: 1px solid #232188;
+//     color: #fff;
+//     font-weight: 900;
+//     background-color: blue;
+
+//     em {
+//       position: absolute;
+//       display: inline-block;
+//       top: 50%;
+//       right: 10px;
+//       margin-top: -15px;
+//       padding: 4px 7px;
+
+//       span {
+//         display: inline-block;
+//         background: url('http://localhost:3000/images/sprite.png') no-repeat -30px -300px;
+//         width: 16px;
+//         height: 9px;
+//       }
+//     }
+//     & + div {
+//       max-height: 0;
+//       transition: all 0.35s;
+//       overflow: hidden;
+//       background-color: #ebf8ff;
+
+//       p {
+//         display: inline-block;
+//         padding: 20px;
+//       }
+//     }
+//   }
+
+//   &:checked + label + div {
+//     max-height: 100px;
+//   }
+
+//   &:checked + label em {
+//     background-color: 0 -30px;
+//   }
+// }
