@@ -8,6 +8,7 @@ import {
 import { CART_API } from '../../../../config.js';
 import CartList from './CartList';
 import './index.scss';
+import { findAllByTestId } from '@testing-library/react';
 
 export default class Cart extends Component {
   constructor() {
@@ -86,13 +87,7 @@ export default class Cart extends Component {
 
   isCheckArr = () => {
     const { selectedArr } = this.state;
-    selectedArr.every((el) => !el);
-    for (let isChecked of selectedArr) {
-      if (isChecked) {
-        return false;
-      }
-    }
-    return true;
+    return selectedArr.every((el) => el === false);
   };
 
   removeCartItem = (event, id) => {
