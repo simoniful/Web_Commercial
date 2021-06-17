@@ -36,11 +36,10 @@ export default class Cart extends Component {
     // } catch {
     const response = await fetch(`data/cartdata.json`);
     const data = await response.json();
-    let cartData = data.items_in_cart;
-    cartData = cartData.map((data) => {
-      data.selected = true;
-      return data;
-    });
+    const cartData = data.items_in_cart.map((data) => ({
+      ...data,
+      selected: true,
+    }));
 
     this.setState({
       cartData: cartData,
@@ -52,54 +51,48 @@ export default class Cart extends Component {
   handleQuantity = (event) => {
     const { cartData } = this.state;
     const { value, className } = event.target;
-    if (className === 'quantity-minus' && cartData[parseInt(value)].count === 1)
-      return;
+    const isMinusBtn = className === 'quantity-minus';
+    const isCountOne = cartData[parseInt(value)].count === 1;
+
+    if (isMinusBtn && isCountOne) return;
     const newQuantity = cartData.map((cartItem, index) => {
       return parseInt(value) !== index
         ? cartItem
         : {
             ...cartItem,
-            count:
-              className === 'quantity-plus'
-                ? cartItem.count + 1
-                : cartItem.count - 1,
+            count: isMinusBtn ? cartItem.count - 1 : cartItem.count + 1,
           };
     });
     this.setState({ cartData: newQuantity });
 
-    if (className === 'quantity-plus') {
-      fetchPatch(`${CART_API}:8000/orders/order-items`, {
-        order_item_id: event.target.id,
-        count: +event.target.dataset.count + 1,
-      })
-        .then((res) => res.json())
-        .then((result) => {
-          result.message === 'SUCCESS'
-            ? console.log('수량증가 성공!')
-            : console.log('수량증가 실패!');
+    const res = !isMinusBtn
+      ? fetchPatch(`${CART_API}:8000/orders/order-items`, {
+          order_item_id: event.target.dataset.id,
+          count: +event.target.dataset.count + 1,
+        })
+      : fetchPatch(`${CART_API}:8000/orders/order-items`, {
+          order_item_id: event.target.dataset.id,
+          count: +event.target.dataset.count - 1,
         });
-    } else if (className === 'quantity-minus') {
-      fetchPatch(`${CART_API}:8000/orders/order-items`, {
-        order_item_id: event.target.id,
-        count: +event.target.dataset.count - 1,
+
+    res
+      .then((res) => {
+        if (res.ok) {
+          return alert('성공');
+        } else throw new Error();
       })
-        .then((res) => res.json())
-        .then((result) => {
-          result.message === 'SUCCESS'
-            ? console.log('수량감소 성공!')
-            : console.log('수량감소 실패!');
-        });
-    }
+      .catch((err) => console.error(err));
   };
 
   isCheckArr = () => {
     const { selectedArr } = this.state;
+    selectedArr.every((el) => !el);
     for (let isChecked of selectedArr) {
-      if (!isChecked) {
-        return true;
+      if (isChecked) {
+        return false;
       }
     }
-    return false;
+    return true;
   };
 
   removeCartItem = (event, id) => {
@@ -111,7 +104,9 @@ export default class Cart extends Component {
       return parseInt(id) === parseInt(cartItem.id);
     });
     this.setState({ cartData: newCartData, deletedArr: deletedData });
-    fetchDelete(`${CART_API}:8000/orders/order-items/${event.target.id}`)
+    fetchDelete(
+      `${CART_API}:8000/orders/order-items/${event.target.dataset.id}`,
+    )
       .then((res) => res.status)
       .then((status) => {
         status === 204 ? alert('삭제성공') : alert('삭제를 실패하였습니다.');
@@ -124,12 +119,13 @@ export default class Cart extends Component {
     newCheck[id] = !newCheck[id];
     this.setState({ selectedArr: newCheck });
     const select = {
-      order_item_id: event.target.id,
+      order_item_id: event.target.dataset.id,
       select: event.target.className === 'fa-check-circle fas fill' ? 0 : 1,
     };
-    fetchPatch(`${CART_API}:8000/orders/${event.target.id}`, select).then(
-      (res) => res.json(),
-    );
+    fetchPatch(
+      `${CART_API}:8000/orders/${event.target.dataset.id}`,
+      select,
+    ).then((res) => res.json());
   };
 
   selectAll = () => {

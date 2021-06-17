@@ -16,11 +16,11 @@ export default class CartList extends Component {
       <li className="basketItemWrap" key={item.order_item_id}>
         <label className="checkboxLabel">
           <i
-            id={item.order_item_id}
+            data-id={item.order_item_id}
             className={`fa-check-circle ${
               selectedArr[id] ? 'fas fill' : 'far'
             }`}
-            onClick={(e) => handleIsChecked.call(this, e, id)}
+            onClick={(e) => handleIsChecked(e, id)}
           />
         </label>
         <div className="thumbWrap">
@@ -41,9 +41,9 @@ export default class CartList extends Component {
             <div className="title">{item.name}</div>
             <button
               className="deleteButton"
-              id={item.order_item_id}
-              onClick={(e) => removeCartItem.call(this, e, id)}
-            ></button>
+              data-id={item.order_item_id}
+              onClick={(e) => removeCartItem(e, id)}
+            />
           </div>
           <div className="priceWrap">
             <span>{price}원</span>
@@ -52,8 +52,8 @@ export default class CartList extends Component {
             <div className="itemCounter">
               <button
                 value={id}
-                id={item['order_item_id']}
-                data-count={item['count']}
+                data-id={item.order_item_id}
+                data-count={item.count}
                 className="quantity-minus"
                 onClick={handleQuantity}
               >
@@ -62,8 +62,8 @@ export default class CartList extends Component {
               <input value={`${item.count}`} readOnly className="qtyDp"></input>
               <button
                 value={id}
-                id={item['order_item_id']}
-                data-count={item['count']}
+                data-id={item.order_item_id}
+                data-count={item.count}
                 className="quantity-plus"
                 onClick={handleQuantity}
               >
