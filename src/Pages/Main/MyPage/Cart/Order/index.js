@@ -9,7 +9,7 @@ export default class Order extends Component {
   constructor() {
     super();
     this.state = {
-      orderData: [],
+      orderData: this.props.location.state.orderData,
       name: '',
       phone_number: '',
       address: '',
@@ -38,6 +38,7 @@ export default class Order extends Component {
     }).then((res) => res.ok && this.props.history.push('/login'));
   };
 
+  // 확인 후 삭제 예정
   componentDidMount() {
     fetch('/data/orderData.json')
       .then((res) => res.json())
