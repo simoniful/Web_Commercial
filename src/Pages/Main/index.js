@@ -5,6 +5,7 @@ import Nav from '../../Components/Nav';
 import MainTab from './Components/MainTab';
 import HotProducts from './HotProducts';
 import './index.scss';
+import Order from './Order';
 import Mypage from './MyPage';
 import NewProducts from './NewProducts';
 
@@ -27,7 +28,8 @@ export default class Main extends Component {
         <div className="mainArticle">
           <MainTab checkMenuId={this.bringMenuId} />
           {MAPPING_OBJ[this.state.currentId]}
-          <Carousel />
+          {/* <Carousel /> */}
+          <Order />
         </div>
         <Footer />
       </div>
