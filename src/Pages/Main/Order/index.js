@@ -50,6 +50,7 @@ export default class Order extends Component {
   }
 
   render() {
+    console.log(this.state);
     const { orderData } = this.state;
     const selectedItems = orderData.filter((item) => item.selected);
     const totalPrice = Math.floor(
@@ -83,6 +84,7 @@ export default class Order extends Component {
                   name="name"
                   type="text"
                   placeholder="이름"
+                  onChange={this.handleInput}
                 />
               </div>
               <div className="phoneContainer">
@@ -91,6 +93,7 @@ export default class Order extends Component {
                   name="phone_number"
                   type="text"
                   placeholder="전화번호 (-없이 입력)"
+                  onChange={this.handleInput}
                 />
               </div>
               <div className="addressContainer">
@@ -99,6 +102,7 @@ export default class Order extends Component {
                   name="address"
                   type="text"
                   placeholder="주소"
+                  onChange={this.handleInput}
                 />
               </div>
               <div className="requestContainer">
@@ -106,6 +110,7 @@ export default class Order extends Component {
                   className="request"
                   name="request"
                   placeholder="배송 요청메시지가 있으시면 남겨주세요."
+                  onChange={this.handleInput}
                 ></textarea>
               </div>
               <div className="saveToMyInfoContainer">
