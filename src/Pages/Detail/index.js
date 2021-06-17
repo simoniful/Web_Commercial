@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { fetchGet } from '../../utils/fetches';
 import './index.scss';
 
 class Detail extends Component {
@@ -6,36 +7,42 @@ class Detail extends Component {
     super(props);
 
     this.state = {
-      product: [],
+      product: {},
       isOpen: false,
       count: 0,
     };
   }
+
+  componentDidMount() {
+    fetchGet('/data/detailData.json')
+      .then((res) => res.json())
+      .then((result) => {
+        this.setState({
+          product: result,
+        });
+      });
+  }
+
   render() {
+    const { product } = this.state;
+    const starPoint = Math.floor(Number(product.starPoint));
+    const starArr = Array(5).fill(false, 0, 5);
     return (
       <main>
         <div className="detailWrap">
           {/* slider */}
           <div className="detailHeader">
-            <h2 className="detailTitle">초록방학 개구리 라이언 인형</h2>
+            <h2 className="detailTitle">{product.name}</h2>
             <p className="detailPrice">
-              <span>32,000</span>원
+              <span>{product.price}</span>원
             </p>
             <div className="starGrade">
-              <span className="star"></span>
-              <span className="star"></span>
-              <span className="star"></span>
-              <span className="star"></span>
-              <span className="star"></span>
+              {starArr.map((star, i) => (
+                <span key={i} className="star"></span>
+              ))}
             </div>
-            {/* <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
-            </ul> */}
           </div>
-          <div className="detailContent"></div>
+          <div className="detailContent">{product.content}</div>
           <div className="detailAccordion">
             <div className="detailInfo">
               <input type="checkbox" id="answer1" />

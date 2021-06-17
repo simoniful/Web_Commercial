@@ -25,10 +25,14 @@
         display: inline-block;
         width: 14px;
         height: 14px;
-
         margin: 0px 2.5px 2px;
-        background: url('http://localhost:3000/images/star.png') left center /
+        background: url('http://localhost:3000/images/starOff.png') left center /
           auto 100% no-repeat;
+
+        &.starOn {
+          background: url('http://localhost:3000/images/starOn.png') left center /
+            auto 100% no-repeat;
+        }
       }
     }
   }
