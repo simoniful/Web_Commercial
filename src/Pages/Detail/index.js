@@ -28,57 +28,29 @@ class Detail extends Component {
       });
   }
 
-  toggleInfoOpen = () => {
-    const { isInfo } = this.state;
-    this.setState({ isInfo: !isInfo });
-  };
-
-  toggleInfoOpen = () => {
-    const { isInfo } = this.state;
-    this.setState({ isInfo: !isInfo });
-  };
-
-  toggleDeleveryOpen = () => {
-    const { isDelevery } = this.state;
-    this.setState({ isDelevery: !isDelevery });
-  };
-
-  togglePurchaseOpen = () => {
-    const { isPurchase } = this.state;
-    this.setState({ isPurchase: !isPurchase });
+  toggleTargetOpen = (target) => {
+    this.setState({ [target]: !this.state[target] });
   };
 
   minusPlusCount = (e) => {
     const { count } = this.state;
     const { name } = e.target;
 
-    // if (name === 'minus') {
-    //   if (count > 0) this.setState({ count: count - 1 });
-    // } else {
-    //   this.setState({ count: count + 1 });
-    // }
-
-    name === 'minus' && count > 0
-      ? this.setState({ count: count - 1 })
-      : this.setState({ count: count + 1 });
-    // if (count > 0) {
-    //   this.setState({ count: count - 1 });
-    // }
+    if (name === 'minus') {
+      if (count > 0) this.setState({ count: count - 1 });
+    } else {
+      this.setState({ count: count + 1 });
+    }
   };
 
-  plusCount = (e) => {
-    const { count } = this.state;
-    const { name } = e.target;
-    console.log(name);
-    this.setState({ count: count + 1 });
-  };
   render() {
     const { product, isInfo, isDelevery, isPurchase, count } = this.state;
     const starPoint = Math.floor(Number(product.starPoint));
     const starArr = Array(5)
-      .fill(false, 0, 5)
-      .map((el, i) => i);
+      .fill(1, 0, 5)
+      .map((el, i) => el + i);
 
+    console.log(starArr, isPurchase);
     return (
       <main>
         <div className="detailWrap">
@@ -100,7 +72,10 @@ class Detail extends Component {
           </div>
           <div className="detailContent">{product.content}</div>
           <div className="detailBottom">
-            <div className="detailInfo" onClick={this.toggleInfoOpen}>
+            <div
+              className="detailInfo"
+              onClick={() => this.toggleTargetOpen('isInfo')}
+            >
               <span className="boldTxt">세부정보</span>
               <button type="button" className="infoBtn"></button>
             </div>
@@ -145,7 +120,10 @@ class Detail extends Component {
                 </li>
               </ul>
             )}
-            <div className="delevery" onClick={this.toggleDeleveryOpen}>
+            <div
+              className="delevery"
+              onClick={() => this.toggleTargetOpen('isDelevery')}
+            >
               <span className="boldTxt">배송반품</span>
               <button type="button" className="downUpArrow"></button>
             </div>
@@ -182,19 +160,22 @@ class Detail extends Component {
             </button>
           </div>
           <div className="purchase">
-            <div>
-              <button name="minus" onClick={this.minusPlusCount}>
-                -
-              </button>
-              <span>{count}</span>
-              <button name="plus" onClick={this.minusPlusCount}>
-                +
-              </button>
-            </div>
-
-            <div className="purchase" onClick={this.togglePurchaseOpen}>
-              <span>바로구매</span>
-              <button>btn</button>
+            {isPurchase && (
+              <div className="addOrMinus">
+                <button name="minus" onClick={this.minusPlusCount}>
+                  -
+                </button>
+                <span>{count}</span>
+                <button name="plus" onClick={this.minusPlusCount}>
+                  +
+                </button>
+              </div>
+            )}
+            <div className="purchase">
+              <div onClick={() => this.toggleTargetOpen('isPurchase')}>
+                바로구매
+              </div>
+              <button>장바구니</button>
             </div>
           </div>
         </div>

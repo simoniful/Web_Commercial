@@ -150,4 +150,10 @@
     bottom: 0;
     background-color: rgba(251, 46, 69, 0.95);
   }
+
+  .addOrMinus {
+    position: absolute;
+    bottom: 48px;
+    display: flex;
+  }
 }
