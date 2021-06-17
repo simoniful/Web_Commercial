@@ -4,6 +4,17 @@ import Accordion from '../Accordion';
 import './index.scss';
 
 class Menu extends Component {
+  onLogInOut = () => {
+    const { user, history, toggleSideMenu } = this.props;
+
+    if (user) {
+      localStorage.removeItem('user_name');
+      toggleSideMenu();
+    } else {
+      history.push('/login');
+    }
+  };
+
   render() {
     const { isSlide, user, characters, categories } = this.props;
 
@@ -14,12 +25,12 @@ class Menu extends Component {
             <p className="userHiTxt">
               {user ? (
                 <>
-                  <Link to="/">{user}</Link>
+                  <Link to="/mypage">{user}</Link>
                   <span>님 반가워요!</span>
                 </>
               ) : (
                 <>
-                  <Link to="/">로그인</Link>
+                  <Link to="/login">로그인</Link>
                   <span>이 필요해요!</span>
                 </>
               )}
@@ -63,8 +74,8 @@ class Menu extends Component {
               <Link to="/">매장안내</Link>
             </li>
           </ul>
-          <div className="loginInOutBtn topPadding">
-            <Link to="/">{user ? '로그아웃' : '로그인'}</Link>
+          <div className="loginInOutBtn topPadding" onClick={this.onLogInOut}>
+            <p>{user ? '로그아웃' : '로그인'}</p>
           </div>
         </div>
       </div>

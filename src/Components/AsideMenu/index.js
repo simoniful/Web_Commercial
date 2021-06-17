@@ -3,6 +3,7 @@ import { characterData } from '../../Data/characterData';
 import { categoryData } from '../../Data/categoryData';
 import Menu from './Menu';
 import './index.scss';
+import { withRouter } from 'react-router-dom';
 
 class AsideMenu extends Component {
   constructor() {
@@ -38,7 +39,7 @@ class AsideMenu extends Component {
 
   render() {
     const { user, characters, categories, isSlide } = this.state;
-    const { isOpen, toggleSideMenu } = this.props;
+    const { isOpen, toggleSideMenu, history } = this.props;
 
     return (
       <div
@@ -51,10 +52,12 @@ class AsideMenu extends Component {
           user={user}
           characters={characters}
           categories={categories}
+          toggleSideMenu={toggleSideMenu}
+          history={history}
         />
       </div>
     );
   }
 }
 
-export default AsideMenu;
+export default withRouter(AsideMenu);
