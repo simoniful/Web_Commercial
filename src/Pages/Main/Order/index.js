@@ -24,18 +24,19 @@ export default class Order extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password, phone_number, nickname, gender } = this.state;
-    if (!this.validateInputData(this.state.email, this.state.password)) return;
+    const { name, phone_number, address, request, orderData } = this.state;
+    const itemsToOrder = orderData.filter((item) => item.selected);
+    const idsToOrder = itemsToOrder.map((item) => item.order_item_id);
+
     fetchPost(API, {
-      email,
-      password,
-      phone_number,
-      nickname,
-      gender,
-      birth: `${this.state.year}.${this.state.month}.${this.state.day}`,
-    })
-      .then((res) => console.log('결과: ', res))
-      .then((res) => res.ok && this.props.history.push('/login'));
+      order_item_list: idsToOrder,
+      recipient_info: {
+        name: name,
+        phone_number: phone_number,
+        address: address,
+        request: request,
+      },
+    }).then((res) => res.ok && this.props.history.push('/login'));
   };
 
   componentDidMount() {
