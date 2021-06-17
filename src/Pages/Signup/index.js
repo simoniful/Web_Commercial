@@ -56,18 +56,7 @@ class Signup extends Component {
       nickname,
       gender,
       birth: `${this.state.year}.${this.state.month}.${this.state.day}`,
-<<<<<<< HEAD
     }).then((res) => res.ok && this.props.history.push('/login'));
-=======
-<<<<<<< HEAD
-    })
-      .then((res) => res.json())
-      .then((res) => console.log('결과: ', res))
-      .then((res) => res.ok && this.props.history.push('/login'));
-=======
-    }).then((res) => res.ok && this.props.history.push('/login'));
->>>>>>> main
->>>>>>> main
   };
 
   render() {
