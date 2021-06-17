@@ -125,10 +125,7 @@ export default class Cart extends Component {
     this.setState({ selectedArr: newCheck });
     const select = {
       order_item_id: event.target.id,
-      select:
-        event.target.className === 'fa-check-circle fas fill'
-          ? 'false'
-          : 'true',
+      select: event.target.className === 'fa-check-circle fas fill' ? 0 : 1,
     };
     fetchPatch(`${CART_API}:8000/orders/${event.target.id}`, select).then(
       (res) => res.json(),
@@ -146,7 +143,7 @@ export default class Cart extends Component {
     this.state.cartData.forEach((item) => {
       const itemToSelect = {
         order_item_id: item.order_item_id,
-        select: 'False',
+        select: 0,
       };
       !item.selected &&
         fetchPatch(`${CART_API}:8000/orders/order-items`, itemToSelect)
@@ -157,7 +154,7 @@ export default class Cart extends Component {
     this.state.cartData.forEach((item) => {
       const itemToUnselect = {
         order_item_id: item.order_item_id,
-        select: 'true',
+        select: 1,
       };
       item.selected &&
         fetchPatch(`${CART_API}:8000/orders/order-items`, itemToUnselect)
