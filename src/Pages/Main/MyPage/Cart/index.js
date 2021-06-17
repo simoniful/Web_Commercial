@@ -34,6 +34,7 @@ export default class Cart extends Component {
     //       }),
     //     );
     // } catch {
+
     const response = await fetchGet(`/data/cartdata.json`);
     const data = await response.json();
     const cartData = data.items_in_cart.map((data) => ({
@@ -195,7 +196,7 @@ export default class Cart extends Component {
     const totalPrice = Math.floor(
       selectedItems.reduce((acc, item) => acc + item.price * item.count, 0),
     );
-    console.log(cartData);
+
     return this.state.cartData.length === 0 ? (
       <div className="myPage">
         <div className="contents">
