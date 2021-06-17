@@ -50,7 +50,6 @@ class Detail extends Component {
       .fill(1, 0, 5)
       .map((el, i) => el + i);
 
-    console.log(starArr, isPurchase);
     return (
       <main>
         <div className="detailWrap">
@@ -159,6 +158,7 @@ class Detail extends Component {
               <span className="counselBtn boldTxt">상담하기</span>
             </button>
           </div>
+
           <div className="purchase">
             {isPurchase && (
               <div className="addOrMinus">
@@ -171,11 +171,11 @@ class Detail extends Component {
                 </button>
               </div>
             )}
-            <div className="purchase">
+            <div>
               <div onClick={() => this.toggleTargetOpen('isPurchase')}>
                 바로구매
               </div>
-              <button>장바구니</button>
+              <button className="cartBtn"></button>
             </div>
           </div>
         </div>
@@ -183,5 +183,7 @@ class Detail extends Component {
     );
   }
 }
+
+//t1.kakaocdn.net/friends/new_store/2.0/common/product-detail-cart2-off.svg") center center / 27px 27px no-repeat
 
 export default Detail;
