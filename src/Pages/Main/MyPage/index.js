@@ -7,13 +7,15 @@ import Order from './Cart/Order';
 export default class Mypage extends Component {
   render() {
     const { match } = this.props;
+    console.log(match.params.keyword);
+
     return (
       <>
         <Nav />
         <MainTab />
         <SubTab />
-        {match.params === 'cart' && <Cart />}
-        {match.params === 'order' && <Order />}
+        {match.params.keyword === 'cart' && <Cart />}
+        {match.params.keyword === 'order' && <Order />}
       </>
     );
   }

@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import './index.scss';
 import OrderList from './OrderList';
 import OrderPrice from './OrderPrice';
-import { fetchPost } from '../../../utils/fetches';
-import { API } from '../../../config';
+import { fetchPost } from '../../../../../utils/fetches';
+import { API } from '../../../../../config';
 
 export default class Order extends Component {
   constructor() {
     super();
     this.state = {
-      // order_item_list
       orderData: [],
       name: '',
       phone_number: '',
