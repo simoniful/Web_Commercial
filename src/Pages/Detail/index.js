@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import InnerCarousel from './InnerCarousel';
-import { fetchGet } from '../../utils/fetches';
+import { fetchGet, fetchPost } from '../../utils/fetches';
+import { API } from '../../config';
 import './index.scss';
 
 class Detail extends Component {
@@ -32,13 +33,20 @@ class Detail extends Component {
 
   minusPlusCount = (e) => {
     const { count } = this.state;
-    const { name } = e.target;
+    const { id } = e.target;
 
-    if (name === 'minus') {
+    if (id === 'minus') {
       if (count > 0) this.setState({ count: count - 1 });
     } else {
       this.setState({ count: count + 1 });
     }
+  };
+
+  submitCart = () => {
+    const { count } = this.state;
+    fetchPost(`${API}/orders/order-items`, { count }).then((res) => {
+      res.ok ? alert('Add to Cart Success') : alert('Add to Cart Fail');
+    });
   };
 
   render() {
@@ -158,22 +166,33 @@ class Detail extends Component {
           </div>
 
           <div className="purchase">
-            <div className="">
-              <div onClick={() => this.toggleTargetOpen('isPurchase')}>
-                <span>장바구니</span>
+            <div className="purchaseContent">
+              <p>장바구니</p>
+
+              <div className="addOrMinus">
+                <div>
+                  <span
+                    className="calculation"
+                    id="minus"
+                    onClick={this.minusPlusCount}
+                  >
+                    -
+                  </span>
+                  <span>{count}</span>
+                  <span
+                    className="calculation"
+                    id="plus"
+                    onClick={this.minusPlusCount}
+                  >
+                    +
+                  </span>
+                </div>
               </div>
-              <button className="cartBtn"></button>
-            </div>
-            <div className="addOrMinus">
-              <div>
-                <button name="minus" onClick={this.minusPlusCount}>
-                  -
-                </button>
-                <span>{count}</span>
-                <button name="plus" onClick={this.minusPlusCount}>
-                  +
-                </button>
-              </div>
+
+              <i
+                className="fas fa-shopping-cart detailCartBtn"
+                onClick={this.submitCart}
+              ></i>
             </div>
           </div>
         </div>
