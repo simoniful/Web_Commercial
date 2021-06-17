@@ -24,7 +24,11 @@ export default class Nav extends Component {
     const { isOpenAside } = this.state;
     const classList = [...e.target.classList];
 
-    if (!isOpenAside || classList.includes('sideMenuWrap')) {
+    if (
+      !isOpenAside ||
+      classList.includes('sideMenuWrap') ||
+      classList.includes('loginInOutBtn')
+    ) {
       this.setState({ isOpenAside: !isOpenAside });
     }
   };

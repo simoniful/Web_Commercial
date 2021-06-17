@@ -17,10 +17,12 @@ class Product extends Component {
           </button>
         </div>
 
-        <Link to={`/detail/${product.id}`} className="productLink">
+        <Link to={`/products/${product.id}`} className="productLink">
           <div className="productImgWrap">
             <img
-              src="https://t1.daumcdn.net/friends/prod/product/20210601174532087_8809721509166_AW_00.jpg?type=thumb&opt=R255x255@2xa"
+              src={
+                'https://jotasic.github.io/21-kaka0-pet-shop-images/images/product.jpg'
+              }
               alt="상품 이미지"
             />
           </div>

@@ -4,7 +4,7 @@ import './index.scss';
 
 class GridCard extends Component {
   render() {
-    const { product, onCart, toggleProductLike } = this.props;
+    const { product, addToCart, toggleProductLike } = this.props;
 
     return (
       <div className="gridItem">
@@ -36,7 +36,7 @@ class GridCard extends Component {
 
         <div
           className={product.cart ? 'girdCart girdAddToCart' : 'girdCart'}
-          onClick={() => onCart(product.id)}
+          onClick={() => addToCart(product.id)}
         >
           <button className="gridCartBtn" type="button">
             담기

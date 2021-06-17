@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import InnerCarousel from './InnerCarousel';
+import Nav from '../../Components/Nav';
 import { fetchGet, fetchPost } from '../../utils/fetches';
 import { API } from '../../config';
 import './index.scss';
@@ -25,6 +26,15 @@ class Detail extends Component {
           product: result,
         });
       });
+
+    // const { match } = this.props;
+    // fetchGet(`${API}/${match.params.id}`)
+    //   .then((res) => res.json())
+    //   .then((result) => {
+    //     this.setState({
+    //       product: result,
+    //     });
+    //   });
   }
 
   toggleTargetOpen = (target) => {
@@ -51,6 +61,7 @@ class Detail extends Component {
 
   render() {
     const { product, isInfo, isDelevery, count } = this.state;
+
     const starPoint = Math.floor(Number(product.starPoint));
     const starArr = Array(5)
       .fill(1)
@@ -58,6 +69,7 @@ class Detail extends Component {
 
     return (
       <main>
+        <Nav />
         <div className="detailWrap">
           <InnerCarousel />
           <div className="detailHeader">

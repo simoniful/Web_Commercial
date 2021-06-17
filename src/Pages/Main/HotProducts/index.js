@@ -17,9 +17,16 @@ export default class HotProducts extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      products: hotData.resultList,
-    });
+    fetchGet(`${API}/products?order=popular&pageSize=20&page=1`)
+      .then((res) => res.json())
+      .then((result) => {
+        this.setState({
+          products: hotData.resultList,
+        });
+      });
+    // this.setState({
+    //   products: hotData.resultList,
+    // });
   }
 
   bringMenuId = (id) => {
@@ -60,7 +67,7 @@ export default class HotProducts extends Component {
     }
   };
 
-  onCart = (updatedId) => {
+  addToCart = (updatedId) => {
     const { products } = this.state;
     const updatedProducts = products.map((product) =>
       updatedId === product.id && product.cart === false
@@ -103,7 +110,7 @@ export default class HotProducts extends Component {
                 <GridCard
                   key={product.id}
                   product={product}
-                  onCart={this.onCart}
+                  addToCart={this.addToCart}
                   toggleProductLike={this.toggleProductLike}
                 />
               ))}
@@ -113,7 +120,7 @@ export default class HotProducts extends Component {
                 <GridCard
                   key={product.id}
                   product={product}
-                  onCart={this.onCart}
+                  addToCart={this.addToCart}
                   toggleProductLike={this.toggleProductLike}
                 />
               ))}
@@ -123,7 +130,7 @@ export default class HotProducts extends Component {
                 <GridCard
                   key={product.id}
                   product={product}
-                  onCart={this.onCart}
+                  addToCart={this.addToCart}
                   toggleProductLike={this.toggleProductLike}
                 />
               ))}

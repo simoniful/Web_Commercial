@@ -4,6 +4,7 @@ import { newProductData } from './newProductData';
 import { fetchDelete, fetchGet, fetchPost } from '../../utils/fetches';
 import { API } from '../../config';
 import './index.scss';
+import { withRouter } from 'react-router-dom';
 
 class ProductList extends Component {
   constructor() {
@@ -15,10 +16,8 @@ class ProductList extends Component {
     };
   }
 
-  //TODO: props로 받은 match와 location에 따라 데이터 요청
-
   componentDidMount() {
-    fetchGet(`./newProductData.js`)
+    fetchGet(`./newProductData `)
       .then((res) => res.json())
       .then((products) => {
         this.setState({
@@ -29,7 +28,13 @@ class ProductList extends Component {
     this.setState({
       products: newProductData.resultList,
     });
-    // fetchGet(`${API}/products/order=${this.props.match.params}`)
+
+    // const { match, location } = this.props;
+    // const res = !location.search
+    //   ? fetchGet(`${API}/${match.path}`)
+    //   : fetchGet(`${API}/${match.path}/${location.search}`);
+
+    // res
     //   .then((res) => res.json())
     //   .then((products) => {
     //     this.setState({
@@ -44,18 +49,29 @@ class ProductList extends Component {
 
   componentDidUpdate() {
     //TODO: 무한 스크롤을 위한 '/products?type=new' 추가 데이터
-
     //스크롤 좌표에 따라 fetch url 수정
-    const { products, page } = this.state;
-    fetchGet(`/products?${`type=new`}&pageSize=${20}&page=${page + 1}`)
-      .then((res) => res.json())
-      .then((newProducts) => {
-        this.setState({
-          products: products.concat(newProducts),
-          page: page + 1,
-        });
-      })
-      .catch((error) => console.log(error.message));
+    // const { products, page } = this.state;
+    // const { match, location } = this.props;
+    // const arr = match.split('/');
+    // const lastPath = arr[arr.length - 1];
+    // const res = location.search
+    //   ? fetchGet(
+    //       `${API}/products?order=${lastPath}&pageSize=${20}&page=${page + 1}`,
+    //     )
+    //   : fetchGet(
+    //       `${API}${match.path}${location.search}&pageSize=${20}&page=${
+    //         page + 1
+    //       }`,
+    //     );
+    // res
+    //   .then((res) => res.json())
+    //   .then((newProducts) => {
+    //     this.setState({
+    //       products: products.concat(newProducts),
+    //       page: page + 1,
+    //     });
+    //   })
+    //   .catch((error) => console.log(error.message));
   }
 
   toggleProductLike = (updatedId) => {
@@ -77,8 +93,8 @@ class ProductList extends Component {
 
     res
       .then((res) => {
-        if (res.ok) return alert('성공');
-        else throw new Error();
+        if (res.ok) return alert('Like Success');
+        else throw new Error(res.message);
       })
       .catch((err) => console.error(err));
   };
@@ -113,7 +129,9 @@ class ProductList extends Component {
 
   render() {
     const { products } = this.state;
-    console.log(products);
+    const { match, location } = this.props;
+    console.log('m', match);
+    console.log('l', location);
     return (
       <div className="ProductWrap">
         <ul className="itemUl">
@@ -132,4 +150,4 @@ class ProductList extends Component {
   }
 }
 
-export default ProductList;
+export default withRouter(ProductList);
