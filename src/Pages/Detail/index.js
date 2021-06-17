@@ -1,10 +1,71 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import CarouselFrame from './CarouselFrame';
+import './index.scss';
 
-class Detail extends Component {
+const CARD_WIDTH = 640;
+const INTERVAL = 3000;
+
+export default class InnerCarousel extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      listTransform: 0,
+      listTransition: '1s ease-in-out',
+    };
+  }
+
+  moveToNext = () => {
+    if (this.state.listTransform > -CARD_WIDTH * 2) {
+      this.setState({
+        listTransform: this.state.listTransform - CARD_WIDTH,
+        listTransition: '1s ease-in-out',
+      });
+    } else {
+      this.setState({
+        listTransform: 0,
+        listTransition: '0s',
+      });
+    }
+  };
+
+  moveToPrev = () => {
+    if (this.state.listTransform < 0) {
+      this.setState({
+        listTransform: this.state.listTransform + CARD_WIDTH,
+        listTransition: '1s ease-in-out',
+      });
+    } else {
+      this.setState({
+        listTransform: -CARD_WIDTH * 2,
+        listTransition: '0s',
+      });
+    }
+  };
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      this.moveToNext();
+    }, INTERVAL);
+  }
+
   render() {
-    return <div>ditailProduct</div>;
+    const { listTransition, listTransform } = this.state;
+    const { moveToPrev, moveToNext } = this;
+    return (
+      <div className="Carousel">
+        <section className="carouselWrap">
+          <CarouselFrame
+            listTransform={listTransform}
+            listTransition={listTransition}
+            moveToPrev={moveToPrev}
+            moveToNext={moveToNext}
+          />
+        </section>
+      </div>
+    );
   }
 }
-
-export default withRouter(Detail);
