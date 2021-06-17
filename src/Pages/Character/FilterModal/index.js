@@ -21,23 +21,23 @@ class FilterModal extends Component {
     return (
       <div
         className={isSlide ? 'filterModalWrap dim' : 'filterModalWrap'}
-        onClick={(e) => toggleFilterModal(e)}
+        onClick={toggleFilterModal}
       >
         <div className="filterModal">
           <ul className="filterUl">
-            {filters.map((el, idx) => (
+            {filters.map((filter, idx) => (
               <li
                 className="filterLi"
-                key={el.name}
+                key={filter.name}
                 id={idx}
                 onClick={() => toggleFilterCheck(idx)}
               >
                 <Link
-                  to={`/products/character/type=character?search=${el.name}`}
+                  to={`/products/character/type=character?search=${filter.name}`}
                   className="fileterModalLink"
                 >
-                  {el.name}
-                  {el.isCheck && (
+                  {filter.name}
+                  {filter.isCheck && (
                     <img src="/images/colorCheck.png" alt="check" />
                   )}
                 </Link>

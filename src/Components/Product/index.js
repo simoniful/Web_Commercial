@@ -4,7 +4,7 @@ import './index.scss';
 
 class Product extends Component {
   render() {
-    const { product, onCart, toggleProductLike } = this.props;
+    const { product, addToCart, toggleProductLike } = this.props;
 
     return (
       <div className="product">
@@ -39,7 +39,7 @@ class Product extends Component {
 
         <div
           className={product.cart ? 'cart addToCart' : 'cart'}
-          onClick={(e) => onCart(product.id)}
+          onClick={(e) => addToCart(product.id)}
         >
           <button className="cartBtn" type="button">
             담기

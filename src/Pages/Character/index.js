@@ -12,7 +12,7 @@ class Character extends Component {
   constructor() {
     super();
     this.state = {
-      isOpen: false,
+      isModalOpen: false,
       categoryFilter: [],
       characterFilter: [],
       modalFilters: [
@@ -39,14 +39,14 @@ class Character extends Component {
   };
 
   toggleFilterModal = (e) => {
-    const { isOpen } = this.state;
+    const { isModalOpen } = this.state;
     const classList = [...e.target.classList];
 
-    if (!isOpen) {
-      this.setState({ isOpen: !isOpen });
+    if (!isModalOpen) {
+      this.setState({ isModalOpen: !isModalOpen });
     } else {
       if (classList.includes('dim')) {
-        this.setState({ isOpen: !isOpen });
+        this.setState({ isModalOpen: !isModalOpen });
       }
     }
   };
@@ -62,32 +62,14 @@ class Character extends Component {
       targetId === idx ? { ...el, isCheck: !el.isCheck } : el,
     );
 
-    //map() ...element, isCheck: targetId === index ? true:false
     this.setState({
       modalFilters: nextFilters,
       filteringName: modalFilters[targetId].name,
     });
-
-    return targetId;
   };
 
-  // onChangeFilterName = () => {
-  //   const { modalFilters } = this.state;
-
-  //   const nextfilterName = modalFilters.filter((el) => {
-  //     if (el.isCheck) {
-  //       const result = el.name;
-  //       return result;
-  //     } else return el;
-  //   });
-
-  //   this.setState({
-  //     filteringName: nextfilterName[0].name,
-  //   });
-  // };
-
   render() {
-    const { isOpen, modalFilters, filteringName } = this.state;
+    const { isModalOpen, modalFilters, filteringName } = this.state;
     const { history, location, match } = this.props;
 
     return (
@@ -138,7 +120,7 @@ class Character extends Component {
           </div>
         </section>
         {/* footer */}
-        {isOpen && (
+        {isModalOpen && (
           <FilterModal
             filters={modalFilters}
             toggleFilterModal={this.toggleFilterModal}

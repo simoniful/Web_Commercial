@@ -40,7 +40,7 @@ class ProductList extends Component {
       .then((res) => res.json())
       .then((newProducts) => {
         this.setState({
-          products: products.concant(newProducts),
+          products: products.concat(newProducts),
           page: page + 1,
         });
       })
@@ -58,30 +58,21 @@ class ProductList extends Component {
       products: updatedProducts,
     });
 
-    if (products[updatedId - 1].like) {
-      fetchDelete(`${API}/users/like/product/${updatedId}`)
-        .then((res) => {
-          if (res.status === 204) {
-            alert('Like Cancle Success');
-          } else {
-            alert('Like Cancle Fail', res.message);
-          }
-        })
-        .catch((error) => console.log(error.message));
-    } else {
-      fetchPost(`${API}/users/like/product`, { product_id: updatedId }).then(
-        (res) => {
-          if (res.status === 201) {
-            alert('Like Success');
-          } else {
-            alert('Like Fail', res.message);
-          }
-        },
-      );
-    }
+    const isDeleteProduct = products[updatedId - 1].like;
+
+    const res = isDeleteProduct
+      ? fetchDelete(`${API}/users/like/product/${updatedId}`)
+      : fetchPost(`${API}/users/like/product`, { product_id: updatedId });
+
+    res
+      .then((res) => {
+        if (res.ok) return alert('성공');
+        else throw new Error();
+      })
+      .catch((err) => console.error(err));
   };
 
-  onCart = (updatedId) => {
+  addToCart = (updatedId) => {
     const { products } = this.state;
     const updatedProducts = products.map((product) =>
       updatedId === product.id && product.cart === false
@@ -118,7 +109,7 @@ class ProductList extends Component {
           <li className="itemLi" key={product.id}>
             <Product
               product={product}
-              onCart={this.onCart}
+              addToCart={this.addToCart}
               toggleProductLike={this.toggleProductLike}
             />
           </li>
