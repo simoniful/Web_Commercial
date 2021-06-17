@@ -47,7 +47,7 @@ class Detail extends Component {
     const { product, isInfo, isDelevery, isPurchase, count } = this.state;
     const starPoint = Math.floor(Number(product.starPoint));
     const starArr = Array(5)
-      .fill(1, 0, 5)
+      .fill(1)
       .map((el, i) => el + i);
 
     return (
