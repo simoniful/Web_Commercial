@@ -5,6 +5,7 @@ import './index.scss';
 import MainTab from '../Components/MainTab';
 import Carousel from '../../../Components/Carousel';
 import Footer from '../../Login/Footer';
+
 export default class NewProducts extends Component {
   constructor(props) {
     super(props);
