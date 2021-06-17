@@ -148,24 +148,23 @@
   .purchase {
     position: fixed;
     bottom: 0;
+    display: flex;
     width: 640px;
     height: 62px;
     background-color: rgba(251, 46, 69, 0.95);
+    color: #fff;
 
     .cartBtn {
       width: 62px;
       height: 62px;
       background: url('http://localhost:3000/images/cart.png');
     }
-  }
-
-  .addOrMinus {
-    position: absolute;
-    bottom: 62px;
-    display: flex;
-    align-items: center;
-    width: 640px;
-    height: 62px;
-    background: #eee;
+    .addOrMinus {
+      display: flex;
+      align-items: center;
+      width: 640px;
+      height: 62px;
+      color: #fff;
+    }
   }
 }

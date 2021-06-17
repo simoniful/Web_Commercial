@@ -13,7 +13,6 @@ class Detail extends Component {
       count: 0,
       isInfo: false,
       isDelevery: false,
-      isPurchase: false,
     };
   }
 
@@ -43,7 +42,7 @@ class Detail extends Component {
   };
 
   render() {
-    const { product, isInfo, isDelevery, isPurchase, count } = this.state;
+    const { product, isInfo, isDelevery, count } = this.state;
     const starPoint = Math.floor(Number(product.starPoint));
     const starArr = Array(5)
       .fill(1)
@@ -127,17 +126,17 @@ class Detail extends Component {
             </div>
             {isDelevery && (
               <ul className="infoUl">
-                <strong class="deleveryTxt">배송</strong>
-                <li class="infoLi">
-                  <span class="">배송사 : CJ대한통운</span>
+                <strong className="deleveryTxt">배송</strong>
+                <li className="infoLi">
+                  <span className="">배송사 : CJ대한통운</span>
                 </li>
-                <li class="infoLi">
-                  <span class="">
+                <li className="infoLi">
+                  <span className="">
                     배송비 : 국내 3,000원 (3만 원 이상 구매 시 무료배송)
                   </span>
                 </li>
-                <li class="infoLi">
-                  <span class="">
+                <li className="infoLi">
+                  <span className="">
                     오후 3시 이전 결제 완료 주문건은 당일 출고, 오후 3시 이후
                     주문 건은 익일 출고됩니다.
                     <br />
@@ -159,8 +158,14 @@ class Detail extends Component {
           </div>
 
           <div className="purchase">
-            {isPurchase && (
-              <div className="addOrMinus">
+            <div className="">
+              <div onClick={() => this.toggleTargetOpen('isPurchase')}>
+                <span>장바구니</span>
+              </div>
+              <button className="cartBtn"></button>
+            </div>
+            <div className="addOrMinus">
+              <div>
                 <button name="minus" onClick={this.minusPlusCount}>
                   -
                 </button>
@@ -169,12 +174,6 @@ class Detail extends Component {
                   +
                 </button>
               </div>
-            )}
-            <div>
-              <div onClick={() => this.toggleTargetOpen('isPurchase')}>
-                바로구매
-              </div>
-              <button className="cartBtn"></button>
             </div>
           </div>
         </div>
@@ -182,7 +181,5 @@ class Detail extends Component {
     );
   }
 }
-
-//t1.kakaocdn.net/friends/new_store/2.0/common/product-detail-cart2-off.svg") center center / 27px 27px no-repeat
 
 export default Detail;
