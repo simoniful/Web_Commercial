@@ -7,6 +7,7 @@ import Main from './Pages/Main';
 import NewProducts from './Pages/Main/NewProducts';
 import HotProducts from './Pages/Main/HotProducts';
 import MyPage from './Pages/Main/MyPage';
+import Detail from './Pages/Detail';
 
 class Routes extends React.Component {
   render() {
@@ -19,6 +20,7 @@ class Routes extends React.Component {
           <Route exact path="/newproducts" component={NewProducts} />
           <Route exact path="/hotproducts" component={HotProducts} />
           <Route exact path="/mypage" component={MyPage} />
+          <Route exact path="/detail" component={Detail} />
         </Switch>
       </Router>
     );

@@ -1,0 +1,93 @@
+.detailWrap {
+  width: 640px;
+  margin: 0 auto;
+
+  .detailHeader {
+    margin: 25px 12px 0 20px;
+
+    .detailTitle {
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.2;
+      max-width: 500px;
+      padding-bottom: 12px;
+    }
+
+    .detailPrice {
+      color: rgb(51, 51, 51);
+      font-size: 18px;
+    }
+
+    .starGrade {
+      margin-top: 11px;
+
+      .star {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+
+        margin: 0px 2.5px 2px;
+        background: url('http://localhost:3000/images/star.png') left center /
+          auto 100% no-repeat;
+      }
+    }
+  }
+
+  .detailContent {
+  }
+  .detailAccordion {
+    input[id*='answer'] {
+      display: none;
+
+      & + label {
+        position: relative;
+        display: block;
+        padding: 20px;
+        border: 1px solid #232188;
+        color: #fff;
+        font-weight: 900;
+        background-color: blue;
+
+        em {
+          position: absolute;
+          display: inline-block;
+          top: 50%;
+          right: 10px;
+          margin-top: -15px;
+          padding: 4px 7px;
+
+          span {
+            display: inline-block;
+            background: url('http://localhost:3000/images/sprite.png') no-repeat -30px -300px;
+            width: 16px;
+            height: 9px;
+          }
+        }
+        & + div {
+          max-height: 0;
+          transition: all 0.35s;
+          overflow: hidden;
+          background-color: #ebf8ff;
+
+          p {
+            display: inline-block;
+            padding: 20px;
+          }
+        }
+      }
+
+      &:checked + label + div {
+        max-height: 100px;
+      }
+
+      &:checked + label em {
+        background-color: 0 -30px;
+      }
+    }
+  }
+
+  .inquire {
+  }
+  .purchase {
+  }
+}
