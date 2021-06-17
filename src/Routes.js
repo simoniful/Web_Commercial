@@ -1,9 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
-import Main from './Pages/Main';
+import Character from './Pages/Character';
 import NewProducts from './Pages/Main/NewProducts';
 import HotProducts from './Pages/Main/HotProducts';
 import MyPage from './Pages/Main/MyPage';
@@ -16,11 +15,11 @@ class Routes extends React.Component {
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
-          <Route exact path="/main" component={Main} />
-          <Route exact path="/newproducts" component={NewProducts} />
-          <Route exact path="/hotproducts" component={HotProducts} />
-          <Route exact path="/mypage" component={MyPage} />
-          <Route exact path="/detail/:id" component={Detail} />
+          <Route exact path="/products/new" component={NewProducts} />
+          <Route exact path="/products/hot" component={HotProducts} />
+          <Route exact path="/products/character" component={Character} />
+          <Route exact path="/products/:id" component={Detail} />
+          <Route exact path="/mypage/:cart" component={MyPage} />
         </Switch>
       </Router>
     );

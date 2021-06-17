@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import InnerCarousel from './InnerCarousel';
 import { fetchGet } from '../../utils/fetches';
 import './index.scss';
-import { Link } from 'react-router-dom';
 
 class Detail extends Component {
   constructor(props) {
