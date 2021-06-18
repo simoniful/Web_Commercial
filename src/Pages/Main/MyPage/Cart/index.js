@@ -25,27 +25,26 @@ export default class Cart extends Component {
 
   getCartData = async () => {
     // try {
-    //   fetchGet(`${CART_API}:8000/orders/order-items`)
-    //     .then((res) => res.json())
-    //     .then((res) =>
-    //       this.setState({
-    //         cartData: res.items_in_cart,
-    //         selectedArr: Array(res.length).fill(true),
-    //       }),
-    //     );
+    fetchGet(`${CART_API}/orders/order-items`)
+      .then((res) => res.json())
+      .then((res) =>
+        this.setState({
+          cartData: res.items_in_cart,
+          selectedArr: Array(res.length).fill(true),
+        }),
+      );
     // } catch {
+    //   const response = await fetchGet(`/data/cartdata.json`);
+    //   const data = await response.json();
+    //   const cartData = data.items_in_cart.map((data) => ({
+    //     ...data,
+    //     selected: true,
+    //   }));
 
-    const response = await fetchGet(`/data/cartdata.json`);
-    const data = await response.json();
-    const cartData = data.items_in_cart.map((data) => ({
-      ...data,
-      selected: true,
-    }));
-
-    this.setState({
-      cartData: cartData,
-      selectedArr: Array(cartData.length).fill(true),
-    });
+    //   this.setState({
+    //     cartData: cartData,
+    //     selectedArr: Array(cartData.length).fill(true),
+    //   });
     // }
   };
 
@@ -67,11 +66,11 @@ export default class Cart extends Component {
     this.setState({ cartData: newQuantity });
 
     const res = !isMinusBtn
-      ? fetchPatch(`${CART_API}:8000/orders/order-items`, {
+      ? fetchPatch(`${CART_API}/orders/order-items`, {
           order_item_id: event.target.dataset.id,
           count: +event.target.dataset.count + 1,
         })
-      : fetchPatch(`${CART_API}:8000/orders/order-items`, {
+      : fetchPatch(`${CART_API}/orders/order-items`, {
           order_item_id: event.target.dataset.id,
           count: +event.target.dataset.count - 1,
         });
@@ -87,7 +86,12 @@ export default class Cart extends Component {
 
   isCheckArr = () => {
     const { selectedArr } = this.state;
-    return selectedArr.every((el) => el === false);
+    for (let isChecked of selectedArr) {
+      if (isChecked) {
+        return false;
+      }
+    }
+    return true;
   };
 
   removeCartItem = (event, id) => {
@@ -99,9 +103,7 @@ export default class Cart extends Component {
       return parseInt(id) === parseInt(cartItem.id);
     });
     this.setState({ cartData: newCartData, deletedArr: deletedData });
-    fetchDelete(
-      `${CART_API}:8000/orders/order-items/${event.target.dataset.id}`,
-    )
+    fetchDelete(`${CART_API}/orders/order-items/${event.target.dataset.id}`)
       .then((res) => res.status)
       .then((status) => {
         status === 204 ? alert('삭제성공') : alert('삭제를 실패하였습니다.');
@@ -117,10 +119,9 @@ export default class Cart extends Component {
       order_item_id: event.target.dataset.id,
       select: event.target.className === 'fa-check-circle fas fill' ? 0 : 1,
     };
-    fetchPatch(
-      `${CART_API}:8000/orders/${event.target.dataset.id}`,
-      select,
-    ).then((res) => res.json());
+    fetchPatch(`${CART_API}/orders/order-items`, select).then((res) =>
+      res.json(),
+    );
   };
 
   selectAll = () => {
@@ -137,7 +138,7 @@ export default class Cart extends Component {
         select: 0,
       };
       !item.selected &&
-        fetchPatch(`${CART_API}:8000/orders/order-items`, itemToSelect)
+        fetchPatch(`${CART_API}/orders/order-items`, itemToSelect)
           .then((res) => res.json())
           .then((result) => console.log(result));
     });
@@ -148,7 +149,7 @@ export default class Cart extends Component {
         select: 1,
       };
       item.selected &&
-        fetchPatch(`${CART_API}:8000/orders/order-items`, itemToUnselect)
+        fetchPatch(`${CART_API}/orders/order-items`, itemToUnselect)
           .then((res) => res.json())
           .then((result) => console.log(result));
     });
@@ -176,18 +177,18 @@ export default class Cart extends Component {
     const itemsToDelete = cartData.filter((item) => item.selected);
     const idsToDelete = itemsToDelete.map((item) => item.order_item_id);
     for (let itemId in idsToDelete) {
-      fetchDelete(`${CART_API}:8000/orders/order-items/${idsToDelete[itemId]}`)
-        .then((res) => res.status)
-        .then((status) => {
-          status === 204
-            ? alert('다중 삭제성공!')
-            : alert('삭제를 실패하였습니다.');
-        });
+      fetchDelete(`${CART_API}/orders/order-items/${idsToDelete[itemId]}`).then(
+        (res) => res.status,
+      );
+      // .then((status) => {
+      //   status === 204
+      //     ? alert('다중 삭제성공!')
+      //     : alert('삭제를 실패하였습니다.');
+      // });
     }
   };
 
   delieveDateToOrder = () => {
-    this.getCartData();
     return {
       pathname: '/mypage/order',
       state: {
@@ -291,7 +292,14 @@ export default class Cart extends Component {
           </div>
         </div>
         <div className="bottomBarWrap">
-          <Link to={this.delieveDateToOrder}>
+          <Link
+            to={{
+              pathname: '/mypage/order',
+              state: {
+                orderData: cartData,
+              },
+            }}
+          >
             <button>
               <span>{totalPrice.toLocaleString()}</span>원 주문 하기
             </button>
