@@ -30,7 +30,7 @@ class Accordion extends Component {
                 characters.map((character) => (
                   <li key={character.id} className="characterItem">
                     <Link
-                      to={`/products?character=${character.name}`}
+                      to={`/products/character/${character.name}`}
                       className="characterLink"
                     >
                       <div className="character">
@@ -49,10 +49,7 @@ class Accordion extends Component {
             <ul className="category">
               {categories?.map((category) => (
                 <li key={category.id} className="categoryItem">
-                  <Link
-                    to={`/products?category=${category.name}`}
-                    className="categoryLink"
-                  >
+                  <Link to={`/products/category`} className="categoryLink">
                     {category.name}
                   </Link>
                 </li>

@@ -25,7 +25,7 @@ class ProductList extends Component {
     console.log('location', location);
 
     const res = !location.search
-      ? fetchGet(`${PRODUCT_API}/products?order=${newMatch}`)
+      ? fetchGet(`${PRODUCT_API}/products?order=new`)
       : fetchGet(`${PRODUCT_API}/products/${newMatch}/${location.search}`);
 
     res

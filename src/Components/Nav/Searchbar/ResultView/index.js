@@ -13,7 +13,7 @@ export default class ResultView extends Component {
         <ul>
           {searchResult.map((data) => (
             <li key={data.id} onClick={searchbarOff}>
-              <Link to={`/product/${data.id}`}>{data.name}</Link>
+              <Link to={`/products/${data.id}`}>{data.name}</Link>
             </li>
           ))}
         </ul>

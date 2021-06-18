@@ -54,7 +54,7 @@ export default class Nav extends Component {
                   <span className="hamburgerBtnBadge"></span>
                 </button>
                 <h1 className="titleWrap">
-                  <Link to="/" className="titleLink"></Link>
+                  <Link to="/products/newList" className="titleLink"></Link>
                 </h1>
                 <button
                   type="button"
@@ -63,9 +63,11 @@ export default class Nav extends Component {
                 >
                   <span className="searchBtnLogo"></span>
                 </button>
-                <button type="button" className="cartBtn">
-                  <span className="cartBtnLogo"></span>
-                </button>
+                <Link to="/mypage/cart">
+                  <button type="button" className="cartBtn">
+                    <span className="cartBtnLogo"></span>
+                  </button>
+                </Link>
               </div>
             </div>
           </header>

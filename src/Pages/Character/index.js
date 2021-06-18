@@ -35,7 +35,7 @@ class Character extends Component {
   }
 
   onSelectCharacter = (name) => {
-    fetchGet(`${API}/products/character?search=${name}`);
+    fetchGet(`${API}/products?character=${name}`);
   };
 
   toggleFilterModal = (e) => {

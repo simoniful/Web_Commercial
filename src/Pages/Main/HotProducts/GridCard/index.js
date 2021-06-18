@@ -17,7 +17,7 @@ class GridCard extends Component {
           </button>
         </div>
 
-        <Link to={`/detail/${product.id}`} className="gridLink">
+        <Link to={`/products/${product.id}`} className="gridLink">
           <div className="gridImg">
             <img alt={product.name} src={product.image} alt="상품 이미지" />
           </div>

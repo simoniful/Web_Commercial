@@ -39,7 +39,7 @@ class FilterModal extends Component {
                   {filter.name}
                   {filter.isCheck && (
                     <img
-                      src="https://jotasic.github.io/21-kaka0-pet-shop-images/images/colorCheck.png"
+                      src="https://jotasic.github.io/21-kaka0-pet-shop-images/images/colorcheck.png"
                       alt="check"
                     />
                   )}

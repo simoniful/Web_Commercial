@@ -23,7 +23,7 @@ class Product extends Component {
           </div>
           <p className="productName">{product.name}</p>
           <p className="productPrice">
-            <span className="price">{product.price}</span>
+            <span className="price">{(+product.price)?.toLocaleString()}</span>
             <span className="unit">원</span>
           </p>
 

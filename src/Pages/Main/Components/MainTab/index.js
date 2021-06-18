@@ -12,6 +12,7 @@ export default class MainTab extends Component {
 
   setCurrentId = (id) => {
     this.setState({ currentId: id });
+    console.log(this.props);
     this.props.checkMenuId(this.state.currentId);
   };
 
