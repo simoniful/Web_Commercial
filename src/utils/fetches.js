@@ -1,7 +1,8 @@
 import { getToken } from './storage';
 
 export const fetchPost = (api, obj) => {
-  const token = getToken();
+  const token =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTR9.FjXLPjASLffiLw7i5IGi8N0-L8XUgtiYoqTnIICx8vw';
   const headers = Object.assign(
     { 'Content-Type': 'application/json' },
     token ? { Authorization: token } : null,
@@ -17,7 +18,8 @@ export const fetchPost = (api, obj) => {
 };
 
 export const fetchDelete = (api) => {
-  const token = getToken();
+  const token =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTR9.FjXLPjASLffiLw7i5IGi8N0-L8XUgtiYoqTnIICx8vw';
 
   const headers = Object.assign(
     { 'Content-Type': 'application/json' },
@@ -29,7 +31,8 @@ export const fetchDelete = (api) => {
 };
 
 export const fetchGet = (api) => {
-  const token = getToken();
+  const token =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTR9.FjXLPjASLffiLw7i5IGi8N0-L8XUgtiYoqTnIICx8vw';
 
   const headers = Object.assign(
     { 'Content-Type': 'application/json' },
@@ -41,7 +44,8 @@ export const fetchGet = (api) => {
 };
 
 export const fetchPut = (api, obj) => {
-  const token = getToken();
+  const token =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTR9.FjXLPjASLffiLw7i5IGi8N0-L8XUgtiYoqTnIICx8vw';
 
   const headers = Object.assign(
     { 'Content-Type': 'application/json' },
@@ -58,7 +62,8 @@ export const fetchPut = (api, obj) => {
 };
 
 export const fetchPatch = (api, obj) => {
-  const token = getToken();
+  const token =
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTR9.FjXLPjASLffiLw7i5IGi8N0-L8XUgtiYoqTnIICx8vw';
 
   const headers = Object.assign(
     { 'Content-Type': 'application/json' },
