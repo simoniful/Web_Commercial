@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { API } from '../../config';
+import { API, USER_API } from '../../config';
 import { fetchPost } from '../../utils/fetches';
 import { REGEXP, validate } from '../../utils/regex';
 import Footer from './Footer';
@@ -33,18 +33,22 @@ class Login extends Component {
 
     if (!this.validateInputData(userId, userPw)) return;
 
-    fetchPost(`${API}/users/login`, {
+    fetchPost(`${USER_API}/users/login`, {
       email: userId,
       password: userPw,
     })
-      .then((res) => {
-        if (res.token) {
-          localStorage.setItem('token', res.token);
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        if (result.token) {
+          localStorage.setItem('token', result.token);
+          localStorage.setItem('user_name', result['user_name']);
+
           this.setState({
-            loggedUser: res.userInfo,
+            loggedUser: result.userInfo,
           });
 
-          this.props.history.push('/products/new');
+          this.props.history.push('/products/newList');
         }
       })
       .catch((error) => {
@@ -123,7 +127,7 @@ class Login extends Component {
                   </button>
 
                   <div className="infoUser">
-                    <Link to="/">회원가입</Link>
+                    <Link to="/signup">회원가입</Link>
                     <div>
                       <Link to="/">카카오계정</Link>
                       <Link to="/">비밀번호 찾기</Link>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Nav from '../../../Components/Nav';
 import MainTab from '../Components/MainTab';
 import GridCard from './GridCard';
-import { API } from '../../../config';
+import { API, PRODUCT_API } from '../../../config';
 import { fetchDelete, fetchGet, fetchPost } from '../../../utils/fetches';
 import { hotData } from './hotData';
 import './index.scss';
@@ -17,11 +17,11 @@ export default class HotProducts extends Component {
   }
 
   componentDidMount() {
-    fetchGet(`${API}/products?order=popular&pageSize=20&page=1`)
+    fetchGet(`${PRODUCT_API}/products?order=hot&pageSize=16&page=1`)
       .then((res) => res.json())
       .then((result) => {
         this.setState({
-          products: hotData.resultList,
+          products: result.resultList,
         });
       });
     // this.setState({

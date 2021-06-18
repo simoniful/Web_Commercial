@@ -4,13 +4,13 @@ import './index.scss';
 
 class Product extends Component {
   render() {
-    const { product, addToCart, toggleProductLike } = this.props;
+    const { product, index, addToCart, toggleProductLike } = this.props;
 
     return (
       <div className="product">
         <div
           className={product.like ? 'heart addToLike' : 'heart'}
-          onClick={() => toggleProductLike(product.id)}
+          onClick={() => toggleProductLike(product.id, index)}
         >
           <button className="likeBtn" type="button">
             좋아요
@@ -19,12 +19,7 @@ class Product extends Component {
 
         <Link to={`/products/${product.id}`} className="productLink">
           <div className="productImgWrap">
-            <img
-              src={
-                'https://jotasic.github.io/21-kaka0-pet-shop-images/images/product.jpg'
-              }
-              alt="상품 이미지"
-            />
+            <img src={product.image} alt="상품 이미지" />
           </div>
           <p className="productName">{product.name}</p>
           <p className="productPrice">
@@ -41,7 +36,7 @@ class Product extends Component {
 
         <div
           className={product.cart ? 'cart addToCart' : 'cart'}
-          onClick={(e) => addToCart(product.id)}
+          onClick={(e) => addToCart(product.id, index)}
         >
           <button className="cartBtn" type="button">
             담기

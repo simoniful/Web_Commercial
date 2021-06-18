@@ -35,14 +35,18 @@ class Menu extends Component {
                 </>
               )}
             </p>
-            <Link to="/products/new" className="alertBell"></Link>
+            <Link to="/products/newList" className="alertBell"></Link>
           </article>
           <ul className="menuUl">
             <li className="menuLi topPadding">
-              <Link to={user ? '/mypage/cart' : '/'}>장바구니 내역</Link>
+              <Link to={user ? '/mypage/cart' : '/products/newList'}>
+                장바구니 내역
+              </Link>
             </li>
             <li className="menuLi borderPaddingBottom">
-              <Link to={user ? '/mypage/order' : '/'}>주문·배송 내역</Link>
+              <Link to={user ? '/mypage/order' : '/products/newList'}>
+                주문·배송 내역
+              </Link>
             </li>
             <li className="menuLi topPadding">
               <Accordion

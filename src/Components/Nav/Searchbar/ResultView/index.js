@@ -6,9 +6,10 @@ export default class ResultView extends Component {
     const { searchResult, searchbarOff } = this.props;
     return (
       <>
-        if (!searchResult.length) return{' '}
-        <div className="noResult">검색결과가 없습니다.</div>
-        return (
+        {!searchResult.length && (
+          <div className="noResult">검색결과가 없습니다.</div>
+        )}
+
         <ul>
           {searchResult.map((data) => (
             <li key={data.id} onClick={searchbarOff}>
@@ -16,7 +17,6 @@ export default class ResultView extends Component {
             </li>
           ))}
         </ul>
-        )
       </>
     );
   }

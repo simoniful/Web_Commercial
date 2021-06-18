@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import Product from '../Product';
 import { newProductData } from './newProductData';
 import { fetchDelete, fetchGet, fetchPost } from '../../utils/fetches';
-import { API } from '../../config';
+import { USER_API, CART_API, PRODUCT_API } from '../../config';
 import './index.scss';
 import { withRouter } from 'react-router-dom';
+import { matchParser } from '../../utils/queryString';
 
 class ProductList extends Component {
   constructor() {
@@ -17,34 +18,23 @@ class ProductList extends Component {
   }
 
   componentDidMount() {
-    fetchGet(`./newProductData `)
+    const { match, location } = this.props;
+    const newMatch = matchParser(match.path);
+    console.log('newMatch', newMatch);
+    console.log('url', `${PRODUCT_API}/products/${newMatch}`);
+    console.log('location', location);
+
+    const res = !location.search
+      ? fetchGet(`${PRODUCT_API}/products?order=${newMatch}`)
+      : fetchGet(`${PRODUCT_API}/products/${newMatch}/${location.search}`);
+
+    res
       .then((res) => res.json())
       .then((products) => {
         this.setState({
           products: products.resultList,
         });
       });
-
-    this.setState({
-      products: newProductData.resultList,
-    });
-
-    // const { match, location } = this.props;
-    // const res = !location.search
-    //   ? fetchGet(`${API}/${match.path}`)
-    //   : fetchGet(`${API}/${match.path}/${location.search}`);
-
-    // res
-    //   .then((res) => res.json())
-    //   .then((products) => {
-    //     this.setState({
-    //       products: products.resultList,
-    //     });
-    //   });
-
-    // this.setState({
-    //   products: newProductData.resultList,
-    // });
   }
 
   componentDidUpdate() {
@@ -74,7 +64,7 @@ class ProductList extends Component {
     //   .catch((error) => console.log(error.message));
   }
 
-  toggleProductLike = (updatedId) => {
+  toggleProductLike = (updatedId, updatedIndex) => {
     const { products } = this.state;
 
     const updatedProducts = products.map((product) =>
@@ -85,21 +75,24 @@ class ProductList extends Component {
       products: updatedProducts,
     });
 
-    const isDeleteProduct = products[updatedId - 1].like;
+    const isDeleteProduct = products[updatedIndex].like;
 
     const res = isDeleteProduct
-      ? fetchDelete(`${API}/users/like/product/${updatedId}`)
-      : fetchPost(`${API}/users/like/product`, { product_id: updatedId });
+      ? fetchDelete(`${USER_API}/users/like/product/${updatedId}`)
+      : fetchPost(`${USER_API}/users/like/product`, { product_id: updatedId });
 
     res
       .then((res) => {
-        if (res.ok) return alert('Like Success');
-        else throw new Error(res.message);
+        if (res.status === 201) {
+          return alert('Like Success');
+        } else if (res.status === 204) {
+          return alert('Like Cancle Success');
+        } else throw new Error(res.message);
       })
       .catch((err) => console.error(err));
   };
 
-  addToCart = (updatedId) => {
+  addToCart = (updatedId, updatedIndex) => {
     const { products } = this.state;
     const updatedProducts = products.map((product) =>
       updatedId === product.id && product.cart === false
@@ -111,8 +104,8 @@ class ProductList extends Component {
       products: updatedProducts,
     });
 
-    if (!products[updatedId - 1].cart) {
-      fetchPost(`${API}/orders/order-items`, {
+    if (!products[updatedIndex].cart) {
+      fetchPost(`${CART_API}/orders/order-items`, {
         product_id: updatedId,
         count: 1,
       })
@@ -120,7 +113,7 @@ class ProductList extends Component {
           if (res.ok) {
             alert('Add Cart Success');
           } else {
-            alert('Add Cart Fail', res.message);
+            alert('Add Cart Fail');
           }
         })
         .catch((error) => console.log(error.message));
@@ -132,12 +125,14 @@ class ProductList extends Component {
     const { match, location } = this.props;
     console.log('m', match);
     console.log('l', location);
+
     return (
       <div className="ProductWrap">
         <ul className="itemUl">
-          {products.map((product) => (
+          {products.map((product, i) => (
             <li className="itemLi" key={product.id}>
               <Product
+                index={i}
                 product={product}
                 addToCart={this.addToCart}
                 toggleProductLike={this.toggleProductLike}

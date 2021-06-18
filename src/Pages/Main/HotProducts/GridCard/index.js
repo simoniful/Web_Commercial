@@ -19,12 +19,7 @@ class GridCard extends Component {
 
         <Link to={`/detail/${product.id}`} className="gridLink">
           <div className="gridImg">
-            <img
-              src="https://t1.daumcdn.net/friends/prod/product/20210610111123085_8809721509548_ZW_00.jpg?type=thumb&opt=R352x352@2xa"
-              // alt={product.name}
-              // src={product.imgSrc}
-              alt="상품 이미지"
-            />
+            <img alt={product.name} src={product.image} alt="상품 이미지" />
           </div>
 
           {!Number(product.stock) && (

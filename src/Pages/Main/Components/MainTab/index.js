@@ -6,7 +6,7 @@ export default class MainTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentId: 1,
+      currentId: 0,
     };
   }
 
@@ -17,6 +17,7 @@ export default class MainTab extends Component {
 
   render() {
     const { currentId } = this.state;
+
     return (
       <div className="mainTabWrap">
         <ul className="mainTabUI">
@@ -24,9 +25,9 @@ export default class MainTab extends Component {
             return (
               <li className="tabList" key={category}>
                 <Link
-                  to="/newproducts"
+                  to={`${PAGE_ARR[idx]}`}
                   onClick={() => {
-                    this.setCurrentId(idx + 1);
+                    this.setCurrentId(idx);
                   }}
                 >
                   <div className="tabItem">
@@ -40,11 +41,12 @@ export default class MainTab extends Component {
                   </div>
                 </Link>
                 <hr
-                  className={
-                    currentId === idx
-                      ? 'focusUnderline active'
-                      : 'focusUnderline'
-                  }
+                  className="focusUnderline"
+                  // className={
+                  //   currentId === idx
+                  //     ? 'focusUnderline active'
+                  //     : 'focusUnderline'
+                  // }
                 ></hr>
               </li>
             );
@@ -56,3 +58,5 @@ export default class MainTab extends Component {
 }
 
 const CATEGORY_ARR = ['신규', '인기', '마이'];
+
+const PAGE_ARR = ['/products/newList', '/products/hot', '/mypage/cart'];

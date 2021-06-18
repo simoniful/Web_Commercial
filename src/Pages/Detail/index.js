@@ -10,7 +10,7 @@ class Detail extends Component {
     super(props);
 
     this.state = {
-      product: {},
+      product: [],
       isOpen: false,
       count: 0,
       isInfo: false,
@@ -19,22 +19,14 @@ class Detail extends Component {
   }
 
   componentDidMount() {
-    fetchGet('/data/detailData.json')
+    const { match } = this.props;
+    fetchGet(`${API}/products/${match.params.id}`)
       .then((res) => res.json())
       .then((result) => {
         this.setState({
           product: result,
         });
       });
-
-    // const { match } = this.props;
-    // fetchGet(`${API}/${match.params.id}`)
-    //   .then((res) => res.json())
-    //   .then((result) => {
-    //     this.setState({
-    //       product: result,
-    //     });
-    //   });
   }
 
   toggleTargetOpen = (target) => {
@@ -52,11 +44,21 @@ class Detail extends Component {
     }
   };
 
-  submitCart = () => {
-    const { count } = this.state;
-    fetchPost(`${API}/orders/order-items`, { count }).then((res) => {
-      res.ok ? alert('Add to Cart Success') : alert('Add to Cart Fail');
-    });
+  submitCart = (productId, boolPost) => {
+    const { count, product } = this.state;
+
+    if (!boolPost && count > 0) {
+      fetchPost(`${API}/orders/order-items`, {
+        product_id: productId,
+        count,
+      }).then((res) => {
+        res.ok ? alert('Add to Cart Success') : alert('Add to Cart Fail');
+      });
+
+      this.setState({
+        product: { ...product, cart: !product.cart },
+      });
+    }
   };
 
   render() {
@@ -71,7 +73,7 @@ class Detail extends Component {
       <main>
         <Nav />
         <div className="detailWrap">
-          <InnerCarousel />
+          <InnerCarousel imgData={product} />
           <div className="detailHeader">
             <h2 className="detailTitle">{product.name}</h2>
             <p className="detailPrice">
@@ -87,7 +89,11 @@ class Detail extends Component {
               )}
             </div>
           </div>
-          <div className="detailContent">{product.content}</div>
+          <img
+            className="detailContent"
+            src={product.content}
+            alt={product.name}
+          />
           <div className="detailBottom">
             <div
               className="detailInfo"
@@ -203,7 +209,7 @@ class Detail extends Component {
 
               <i
                 className="fas fa-shopping-cart detailCartBtn"
-                onClick={this.submitCart}
+                onClick={() => this.submitCart(product.id, product.cart)}
               ></i>
             </div>
           </div>

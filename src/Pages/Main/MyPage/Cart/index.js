@@ -5,7 +5,7 @@ import {
   fetchDelete,
   fetchGet,
 } from '../../../../utils/fetches.js';
-import { CART_API } from '../../../../config.js';
+import { CART_API, API } from '../../../../config';
 import CartList from './CartList';
 import './index.scss';
 
@@ -25,7 +25,7 @@ export default class Cart extends Component {
 
   getCartData = async () => {
     // try {
-    //   fetchGet(`${CART_API}:8000/orders/order-items`)
+    //   fetchGet(`${CART_API}/orders/order-items`)
     //     .then((res) => res.json())
     //     .then((res) =>
     //       this.setState({
@@ -67,11 +67,11 @@ export default class Cart extends Component {
     this.setState({ cartData: newQuantity });
 
     const res = !isMinusBtn
-      ? fetchPatch(`${CART_API}:8000/orders/order-items`, {
+      ? fetchPatch(`${CART_API}/orders/order-items`, {
           order_item_id: event.target.dataset.id,
           count: +event.target.dataset.count + 1,
         })
-      : fetchPatch(`${CART_API}:8000/orders/order-items`, {
+      : fetchPatch(`${CART_API}/orders/order-items`, {
           order_item_id: event.target.dataset.id,
           count: +event.target.dataset.count - 1,
         });
@@ -99,9 +99,7 @@ export default class Cart extends Component {
       return parseInt(id) === parseInt(cartItem.id);
     });
     this.setState({ cartData: newCartData, deletedArr: deletedData });
-    fetchDelete(
-      `${CART_API}:8000/orders/order-items/${event.target.dataset.id}`,
-    )
+    fetchDelete(`${CART_API}/orders/order-items/${event.target.dataset.id}`)
       .then((res) => res.status)
       .then((status) => {
         status === 204 ? alert('삭제성공') : alert('삭제를 실패하였습니다.');
@@ -117,10 +115,9 @@ export default class Cart extends Component {
       order_item_id: event.target.dataset.id,
       select: event.target.className === 'fa-check-circle fas fill' ? 0 : 1,
     };
-    fetchPatch(
-      `${CART_API}:8000/orders/${event.target.dataset.id}`,
-      select,
-    ).then((res) => res.json());
+    fetchPatch(`${CART_API}/orders/${event.target.dataset.id}`, select).then(
+      (res) => res.json(),
+    );
   };
 
   selectAll = () => {
@@ -137,7 +134,7 @@ export default class Cart extends Component {
         select: 0,
       };
       !item.selected &&
-        fetchPatch(`${CART_API}:8000/orders/order-items`, itemToSelect)
+        fetchPatch(`${CART_API}/orders/order-items`, itemToSelect)
           .then((res) => res.json())
           .then((result) => console.log(result));
     });
@@ -148,7 +145,7 @@ export default class Cart extends Component {
         select: 1,
       };
       item.selected &&
-        fetchPatch(`${CART_API}:8000/orders/order-items`, itemToUnselect)
+        fetchPatch(`${CART_API}/orders/order-items`, itemToUnselect)
           .then((res) => res.json())
           .then((result) => console.log(result));
     });
@@ -176,7 +173,7 @@ export default class Cart extends Component {
     const itemsToDelete = cartData.filter((item) => item.selected);
     const idsToDelete = itemsToDelete.map((item) => item.order_item_id);
     for (let itemId in idsToDelete) {
-      fetchDelete(`${CART_API}:8000/orders/order-items/${idsToDelete[itemId]}`)
+      fetchDelete(`${CART_API}/orders/order-items/${idsToDelete[itemId]}`)
         .then((res) => res.status)
         .then((status) => {
           status === 204
@@ -187,7 +184,6 @@ export default class Cart extends Component {
   };
 
   delieveDateToOrder = () => {
-    this.getCartData();
     return {
       pathname: '/mypage/order',
       state: {
