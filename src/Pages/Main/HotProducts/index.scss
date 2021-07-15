@@ -33,11 +33,13 @@
         grid-area: 1/1/2/2;
 
         .gridHeart {
-          top: 174px;
+          top: 180px;
+          left: 145px;
         }
 
         .girdCart {
           top: 174px;
+          right: 13px;
         }
       }
       .gridItem:nth-child(2) {

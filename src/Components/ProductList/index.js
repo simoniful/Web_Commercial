@@ -20,13 +20,10 @@ class ProductList extends Component {
   componentDidMount() {
     const { match, location } = this.props;
     const newMatch = matchParser(match.path);
-    console.log('newMatch', newMatch);
-    console.log('url', `${PRODUCT_API}/products/${newMatch}`);
-    console.log('location', location);
-
-    const res = !location.search
-      ? fetchGet(`${PRODUCT_API}/products?order=new`)
-      : fetchGet(`${PRODUCT_API}/products/${newMatch}/${location.search}`);
+    const res =
+      location.state === undefined
+        ? fetchGet(`${PRODUCT_API}/products?order=popular`)
+        : fetchGet(`${PRODUCT_API}/products/${newMatch}/${location.search}`);
 
     res
       .then((res) => res.json())
@@ -35,33 +32,6 @@ class ProductList extends Component {
           products: products.resultList,
         });
       });
-  }
-
-  componentDidUpdate() {
-    //TODO: 무한 스크롤을 위한 '/products?type=new' 추가 데이터
-    //스크롤 좌표에 따라 fetch url 수정
-    // const { products, page } = this.state;
-    // const { match, location } = this.props;
-    // const arr = match.split('/');
-    // const lastPath = arr[arr.length - 1];
-    // const res = location.search
-    //   ? fetchGet(
-    //       `${API}/products?order=${lastPath}&pageSize=${20}&page=${page + 1}`,
-    //     )
-    //   : fetchGet(
-    //       `${API}${match.path}${location.search}&pageSize=${20}&page=${
-    //         page + 1
-    //       }`,
-    //     );
-    // res
-    //   .then((res) => res.json())
-    //   .then((newProducts) => {
-    //     this.setState({
-    //       products: products.concat(newProducts),
-    //       page: page + 1,
-    //     });
-    //   })
-    //   .catch((error) => console.log(error.message));
   }
 
   toggleProductLike = (updatedId, updatedIndex) => {
@@ -123,8 +93,6 @@ class ProductList extends Component {
   render() {
     const { products } = this.state;
     const { match, location } = this.props;
-    console.log('m', match);
-    console.log('l', location);
 
     return (
       <div className="ProductWrap">

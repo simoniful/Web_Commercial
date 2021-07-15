@@ -1,4 +1,4 @@
-export const hotData = {
+export const newProductData = {
   resultList: [
     {
       id: 1,
@@ -7,7 +7,7 @@ export const hotData = {
       stock: 0,
       like: true,
       cart: true,
-      imgSrc: 'https://picsum.photos/200/300?random=1',
+      image: 'https://picsum.photos/200/300?random=1',
     },
     {
       id: 2,
@@ -16,7 +16,7 @@ export const hotData = {
       stock: 1,
       like: false,
       cart: false,
-      imgSrc: 'https://picsum.photos/200/300?random=1',
+      image: 'https://picsum.photos/200/300?random=1',
     },
     {
       id: 3,
@@ -25,7 +25,7 @@ export const hotData = {
       stock: 2,
       like: true,
       cart: true,
-      imgSrc: 'https://picsum.photos/200/300?random=1',
+      image: 'https://picsum.photos/200/300?random=1',
     },
     {
       id: 4,
@@ -34,7 +34,7 @@ export const hotData = {
       stock: 3,
       like: false,
       cart: false,
-      imgSrc: 'https://picsum.photos/200/300?random=1',
+      image: 'https://picsum.photos/200/300?random=1',
     },
     {
       id: 5,
@@ -43,7 +43,7 @@ export const hotData = {
       stock: 4,
       like: true,
       cart: false,
-      imgSrc: 'https://picsum.photos/200/300?random=1',
+      image: 'https://picsum.photos/200/300?random=1',
     },
     {
       id: 6,
@@ -52,7 +52,7 @@ export const hotData = {
       stock: 0,
       like: false,
       cart: false,
-      imgSrc: 'https://picsum.photos/200/300?random=1',
+      image: 'https://picsum.photos/200/300?random=1',
     },
     {
       id: 7,
@@ -61,7 +61,7 @@ export const hotData = {
       stock: 0,
       like: true,
       cart: false,
-      imgSrc: 'https://picsum.photos/200/300?random=1',
+      image: 'https://picsum.photos/200/300?random=1',
     },
     {
       id: 8,
@@ -70,7 +70,7 @@ export const hotData = {
       stock: 0,
       like: false,
       cart: false,
-      imgSrc: 'https://picsum.photos/200/300?random=1',
+      image: 'https://picsum.photos/200/300?random=1',
     },
     {
       id: 9,
@@ -79,7 +79,7 @@ export const hotData = {
       stock: 0,
       like: true,
       cart: true,
-      imgSrc: 'https://picsum.photos/200/300?random=1',
+      image: 'https://picsum.photos/200/300?random=1',
     },
     {
       id: 10,
@@ -88,7 +88,7 @@ export const hotData = {
       stock: 0,
       like: false,
       cart: false,
-      imgSrc: 'https://picsum.photos/200/300?random=1',
+      image: 'https://picsum.photos/200/300?random=1',
     },
     {
       id: 11,
@@ -97,7 +97,7 @@ export const hotData = {
       stock: 1,
       like: true,
       cart: true,
-      imgSrc: 'https://picsum.photos/200/300?random=1',
+      image: 'https://picsum.photos/200/300?random=1',
     },
     {
       id: 12,
@@ -106,7 +106,7 @@ export const hotData = {
       stock: 2,
       like: false,
       cart: false,
-      imgSrc: 'https://picsum.photos/200/300?random=1',
+      image: 'https://picsum.photos/200/300?random=1',
     },
     {
       id: 13,
@@ -115,7 +115,7 @@ export const hotData = {
       stock: 1,
       like: true,
       cart: false,
-      imgSrc: 'https://picsum.photos/200/300?random=1',
+      image: 'https://picsum.photos/200/300?random=1',
     },
     {
       id: 14,
@@ -124,7 +124,7 @@ export const hotData = {
       stock: 2,
       like: false,
       cart: false,
-      imgSrc: 'https://picsum.photos/200/300?random=1',
+      image: 'https://picsum.photos/200/300?random=1',
     },
     {
       id: 15,
@@ -133,7 +133,7 @@ export const hotData = {
       stock: 0,
       like: true,
       cart: false,
-      imgSrc: 'https://picsum.photos/200/300?random=1',
+      image: 'https://picsum.photos/200/300?random=1',
     },
     {
       id: 16,
@@ -142,7 +142,7 @@ export const hotData = {
       stock: 0,
       like: false,
       cart: false,
-      imgSrc: 'https://picsum.photos/200/300?random=1',
+      image: 'https://picsum.photos/200/300?random=1',
     },
   ],
   page: 1,

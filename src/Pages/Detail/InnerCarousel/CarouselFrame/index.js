@@ -12,7 +12,7 @@ export default withRouter(
         this.props;
 
       return (
-        <div className="frameWrap">
+        <div className="FrameWrap">
           <div className="frameContainer">
             <div
               className="innerCarouselList"
@@ -29,12 +29,12 @@ export default withRouter(
           </div>
           <button
             type="button"
-            className="btnPrev"
+            className="semi_btnPrev"
             onClick={moveToPrev}
           ></button>
           <button
             type="button"
-            className="btnNext"
+            className="semi_btnNext"
             onClick={moveToNext}
           ></button>
           <div className="countNumBox">

@@ -21,40 +21,44 @@
   .header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     max-width: 640px;
     height: 47px;
     margin: 0px auto;
+    border-bottom: 1px solid rgb(227, 229, 232);
   }
 
-  .hamburgerBtn {
+  .rightsideBtns,
+  .leftsideBtns {
+    display: flex;
+    align-items: center;
+  }
+
+  .backBtn {
     @extend %BtnSetting;
     position: relative;
 
-    .hamburgerBtnLogo {
-      background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/hamburgerIcon.png')
+    .backBtnLogo {
+      background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/back.png')
         center center / 18px no-repeat;
       @extend %BtnLogoSetting;
     }
+  }
 
-    .hamburgerBtnBadge {
-      position: absolute;
-      top: 5.45px;
-      left: 66%;
-      width: 8px;
-      height: 8px;
-      margin-left: 0px;
-      border-radius: 100%;
-      display: block;
-      background-color: rgb(255, 85, 117);
-      color: rgb(255, 255, 255);
-      border: 1px solid rgb(255, 255, 255);
+  .homeBtn {
+    @extend %BtnSetting;
+    position: relative;
+    .homeBtnLogo {
+      background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/gnb-home.png')
+        center center / 18px no-repeat;
+      @extend %BtnLogoSetting;
     }
   }
 
   .titleWrap {
     width: 147px;
     padding: 11px 0;
-    margin: 0px auto 0px 200px;
+    margin: 0px auto;
 
     .titleLink {
       display: block;

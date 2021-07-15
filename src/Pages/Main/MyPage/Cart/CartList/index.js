@@ -3,28 +3,20 @@ import { Link } from 'react-router-dom';
 
 export default class CartList extends Component {
   render() {
-    const {
-      id,
-      item,
-      selectedArr,
-      handleQuantity,
-      removeCartItem,
-      handleIsChecked,
-    } = this.props;
+    const { id, item, handleQuantity, removeCartItem, handleIsChecked } =
+      this.props;
     const price = Number(item.price).toLocaleString();
     return (
       <li className="basketItemWrap" key={item.order_item_id}>
         <label className="checkboxLabel">
           <i
             data-id={item.order_item_id}
-            className={`fa-check-circle ${
-              selectedArr[id] ? 'fas fill' : 'far'
-            }`}
+            className={`fa-check-circle ${item.selected ? 'fas fill' : 'far'}`}
             onClick={(e) => handleIsChecked(e, id)}
           />
         </label>
         <div className="thumbWrap">
-          <Link to="/" className="linkThumb">
+          <Link to={`/products/${item.product_id}`} className="linkThumb">
             <span className="thumbContainer">
               <span className="imgBox">
                 <img

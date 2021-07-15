@@ -13,6 +13,34 @@ class Login extends Component {
     this.state = { userId: '', userPw: '', loggedUser: {} };
   }
 
+  // loginWithKakao = () => {
+  //   window.Kakao.Auth.login({
+  //     success: (auth) => {
+  //       fetch(`${GET_SIGNIN_API}`, {
+  //         method: 'post',
+  //         headers: {
+  //           Authorization: auth.access_token,
+  //         },
+  //       })
+  //         .then((res) => res.json())
+  //         .then((res) => {
+  //           if (res.self_token) {
+  //             localStorage.setItem('user-info', JSON.stringify(res));
+  //             localStorage.setItem('access_token', res.self_token);
+  //             setGetInfo(JSON.parse(localStorage.getItem('user-info')));
+  //             setGetToken(localStorage.getItem('access_token'));
+  //           } else {
+  //             localStorage.setItem('user-info', JSON.stringify(res));
+  //             history.push('/editusername');
+  //           }
+  //         });
+  //     },
+  //     fail: (err) => {
+  //       console.error(err);
+  //     },
+  //   });
+  // };
+
   validateInputData = (id, pw) => {
     return (
       validate(id, REGEXP.emailRegExp) && validate(pw, REGEXP.passwordRegExp)
@@ -39,7 +67,6 @@ class Login extends Component {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         if (result.token) {
           localStorage.setItem('token', result.token);
           localStorage.setItem('user_name', result['user_name']);

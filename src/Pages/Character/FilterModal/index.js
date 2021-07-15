@@ -32,10 +32,7 @@ class FilterModal extends Component {
                 id={idx}
                 onClick={() => toggleFilterCheck(idx)}
               >
-                <Link
-                  to={`/products/character?category=character&search=${filter.name}&page=1&pageSize=10`}
-                  className="fileterModalLink"
-                >
+                <span className="fileterModalLink">
                   {filter.name}
                   {filter.isCheck && (
                     <img
@@ -43,7 +40,7 @@ class FilterModal extends Component {
                       alt="check"
                     />
                   )}
-                </Link>
+                </span>
               </li>
             ))}
           </ul>

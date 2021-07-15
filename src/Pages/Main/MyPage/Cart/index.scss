@@ -149,7 +149,7 @@
       background-color: #fff;
 
       .basketDetailLists {
-        border-top: 10px solid rgb(247, 247, 247);
+        border-top: 3px solid rgb(247, 247, 247);
 
         .basketItemWrap {
           display: flex;
@@ -233,18 +233,18 @@
               .itemCounter {
                 display: flex;
                 justify-content: space-between;
-                width: 90px;
+                width: 75px;
                 height: 27px;
                 border: 1px solid #efa543;
               }
               .qtyDp {
                 border: none;
                 width: 30px;
-                height: 25px;
+                height: 19px;
                 background-color: #fff;
                 text-indent: 4px;
                 padding: 0;
-                margin: 0;
+                margin-top: 6px;
               }
 
               .quantity-plus,
@@ -252,11 +252,12 @@
                 appearance: none;
                 color: #fff;
                 background-color: #efa543;
-                width: 25px;
+                width: 20px;
                 height: 25px;
-                font-size: 16px;
+                font-size: 20px;
                 padding: 0;
                 margin: 0;
+                line-height: 28px;
               }
             }
           }

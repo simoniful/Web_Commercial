@@ -1,38 +1,38 @@
-.gridItem {
+.product {
   position: relative;
 
-  .gridHeart {
+  .heart {
     position: absolute;
-    left: 145px;
-    top: 180px;
-    width: 22px;
-    height: 22px;
+    left: 14px;
+    top: 234px;
+    width: 20px;
+    height: 20px;
     z-index: 1;
     background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/heart.png')
-      center center / cover no-repeat;
+      center center no-repeat / 20px 20px;
     cursor: pointer;
 
-    &.gridAddToLike {
+    &.addToLike {
       width: 20px;
       height: 20px;
-      background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/heartRed.png')
-        center center / cover no-repeat;
+      background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/heartRed.png') /
+        center center no-repeat;
     }
 
-    .gridLikeBtn {
+    .likeBtn {
       border-radius: 3px;
       text-indent: -9999em;
       font-size: 1px;
     }
   }
 
-  .gridLink {
+  .productLink {
     display: block;
 
-    .gridImg {
+    .productImgWrap {
       position: relative;
       overflow: hidden;
-      width: 100%;
+      width: 275px;
       margin-right: 20px;
       margin-bottom: 12px;
       border-radius: 6px;
@@ -49,15 +49,45 @@
 
       img {
         width: 100%;
+        height: 275px;
       }
     }
 
-    .gridSoldout {
+    .productName {
+      width: 220px;
+      margin: 15px 0px 5px;
+      color: rgb(119, 119, 119);
+      font-size: 16px;
+      line-height: 20px;
+      letter-spacing: -0.23px;
+      overflow: hidden;
+      overflow-wrap: break-word;
+    }
+
+    .productPrice {
+      .price {
+        color: rgb(0, 0, 0);
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 20px;
+        letter-spacing: -0.25px;
+      }
+
+      .unit {
+        color: rgb(0, 0, 0);
+        font-size: 15px;
+        font-weight: bold;
+        line-height: 20px;
+        letter-spacing: -0.23px;
+      }
+    }
+
+    .soldout {
       position: absolute;
       top: 12px;
       left: 12px;
 
-      .gridSoldoutLabel {
+      .soldoutLabel {
         display: inline-block;
         width: 61px;
         height: 22px;
@@ -67,38 +97,25 @@
     }
   }
 
-  .girdCart {
+  .cart {
     position: absolute;
     width: 32px;
     height: 32px;
-    right: 13px;
-    top: 174px;
+    right: 0px;
+    top: 299px;
     background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/cart.png')
       center center / contain no-repeat;
     cursor: pointer;
 
-    &.girdAddToCart {
+    &.addToCart {
       background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/addToCart.png')
         center center / contain no-repeat;
     }
 
-    .gridCartBtn {
+    .cartBtn {
       border-radius: 3px;
       text-indent: -9999em;
       font-size: 1px;
     }
-  }
-}
-
-.sectionGrid1 .gridItem:nth-child(1),
-.sectionGrid3 .gridItem:nth-child(1) {
-  .gridHeart {
-    left: 362px;
-    top: 390px;
-  }
-
-  .girdCart {
-    right: 10px;
-    top: 385px;
   }
 }

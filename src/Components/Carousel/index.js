@@ -1,71 +1,53 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import CarouselFrame from './CarouselFrame';
 import './index.scss';
 
 const CARD_WIDTH = 640;
 const INTERVAL = 4000;
 
-export default class Carousel extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      listTransform: 0,
-      listTransition: '1s ease-in-out',
-    };
-  }
+export default function Carousel() {
+  const [listTransform, setListTransform] = useState(0);
+  const [listTransition, setListTransition] = useState('1s ease-in-out');
 
-  moveToNext = () => {
-    if (this.state.listTransform > -CARD_WIDTH * 4) {
-      this.setState({
-        listTransform: this.state.listTransform - CARD_WIDTH,
-        listTransition: '1s ease-in-out',
-      });
+  const moveToNext = () => {
+    if (listTransform > -CARD_WIDTH * 4) {
+      setListTransform(listTransform - CARD_WIDTH);
+      setListTransition('1s ease-in-out');
     } else {
-      this.setState({
-        listTransform: 0,
-        listTransition: '0s',
-      });
+      setListTransform(0);
+      setListTransition('0s');
     }
   };
 
-  moveToPrev = () => {
-    if (this.state.listTransform < 0) {
-      this.setState({
-        listTransform: this.state.listTransform + CARD_WIDTH,
-        listTransition: '1s ease-in-out',
-      });
+  const moveToPrev = () => {
+    if (listTransform < 0) {
+      setListTransform(listTransform + CARD_WIDTH);
+      setListTransition('1s ease-in-out');
     } else {
-      this.setState({
-        listTransform: -CARD_WIDTH * 4,
-        listTransition: '0s',
-      });
+      setListTransform(-CARD_WIDTH * 4);
+      setListTransition('0s');
     }
   };
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-
-  componentDidMount() {
-    this.interval = setInterval(() => {
-      this.moveToNext();
+  useEffect(() => {
+    let interval = setInterval(() => {
+      moveToNext();
     }, INTERVAL);
-  }
+    return () => {
+      clearInterval(interval);
+    };
+  });
 
-  render() {
-    const { listTransition, listTransform } = this.state;
-    const { moveToPrev, moveToNext } = this;
-    return (
-      <div className="Carousel">
-        <section className="carouselWrap">
-          <CarouselFrame
-            listTransform={listTransform}
-            listTransition={listTransition}
-            moveToPrev={moveToPrev}
-            moveToNext={moveToNext}
-          />
-        </section>
-      </div>
-    );
-  }
+  return (
+    <div className="Carousel">
+      <section className="carouselWrap">
+        <CarouselFrame
+          listTransform={listTransform}
+          listTransition={listTransition}
+          moveToPrev={moveToPrev}
+          moveToNext={moveToNext}
+        />
+      </section>
+    </div>
+  );
 }

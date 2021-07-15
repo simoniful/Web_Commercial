@@ -1,61 +1,74 @@
-import React, { Component } from 'react';
-import Nav from '../../../Components/Nav';
-import MainTab from '../Components/MainTab';
+import React, { useState, useEffect } from 'react';
 import GridCard from './GridCard';
+import Footer from '../../../Components/Footer';
 import { API, PRODUCT_API } from '../../../config';
 import { fetchDelete, fetchGet, fetchPost } from '../../../utils/fetches';
-import { hotData } from './hotData';
 import './index.scss';
 
-export default class HotProducts extends Component {
-  constructor() {
-    super();
-    this.state = {
-      products: [],
-      currentId: '',
-    };
-  }
+export default function HotProducts() {
+  const [productLists, setProductLists] = useState([]);
+  const [page, setPage] = useState(1);
 
-  componentDidMount() {
-    fetchGet(`${PRODUCT_API}/products?order=hot&pageSize=16&page=1`)
-      .then((res) => res.json())
-      .then((result) => {
-        this.setState({
-          products: result.resultList,
-        });
-      });
-    // this.setState({
-    //   products: hotData.resultList,
-    // });
-  }
+  useEffect(() => {
+    getData();
+    window.addEventListener('scroll', infiniteScroll);
+    return () => window.removeEventListener('scroll', infiniteScroll);
+  }, [page]);
 
-  bringMenuId = (id) => {
-    this.setState({ currentId: id });
+  const infiniteScroll = () => {
+    const { documentElement, body } = document;
+    const scrollHeight = Math.max(
+      documentElement.scrollHeight,
+      body.scrollHeight,
+    );
+    const scrollTop = Math.max(documentElement.scrollTop, body.scrollTop);
+    const clientHeight = documentElement.clientHeight;
+    if (scrollTop + clientHeight >= scrollHeight) {
+      setPage(page + 1);
+      getData();
+    }
   };
 
-  toggleProductLike = (updatedId) => {
-    const { products } = this.state;
+  const getData = () => {
+    fetchGet(`${PRODUCT_API}/products?order=popular&pageSize=12&page=${page}`)
+      .then((res) => res.json())
+      .then((res) => {
+        const result = res.resultList;
+        if (result.length > 0) {
+          const newList = Object.assign([], productLists);
+          newList.push(result);
+          setProductLists(newList);
+        } else {
+          return;
+        }
+      });
+  };
 
-    const updatedProducts = products.map((product) =>
-      updatedId === product.id ? { ...product, like: !product.like } : product,
+  const toggleProductLike = (updatedId, accessIdx) => {
+    const updatedProductLists = productLists.map((products) =>
+      products.map((product) =>
+        updatedId === product.id
+          ? { ...product, like: !product.like }
+          : product,
+      ),
     );
 
-    this.setState({
-      products: updatedProducts,
-    });
+    setProductLists(updatedProductLists);
 
-    if (products[updatedId - 1].like) {
+    if (productLists[accessIdx][updatedId - accessIdx * 12 - 1].like) {
       fetchDelete(`${API}/users/like/product/${updatedId}`)
         .then((res) => {
           if (res.status === 204) {
-            alert('Like Cancle Success');
+            alert('Like Cancel');
           } else {
-            alert('Like Cancle Fail');
+            alert('Like Cancel Fail');
           }
         })
         .catch((error) => console.log(error.message));
     } else {
-      fetchPost(`${API}/users/like/product`, { product_id: updatedId })
+      fetchPost(`${API}/users/like/product`, {
+        product_id: updatedId,
+      })
         .then((res) => {
           if (res.status === 201) {
             alert('Like Success');
@@ -67,19 +80,18 @@ export default class HotProducts extends Component {
     }
   };
 
-  addToCart = (updatedId) => {
-    const { products } = this.state;
-    const updatedProducts = products.map((product) =>
-      updatedId === product.id && product.cart === false
-        ? { ...product, cart: !product.cart }
-        : product,
+  const addToCart = (updatedId, accessIdx) => {
+    const updatedProductLists = productLists.map((products) =>
+      products.map((product) =>
+        updatedId === product.id && product.cart === false
+          ? { ...product, cart: !product.cart }
+          : product,
+      ),
     );
 
-    this.setState({
-      products: updatedProducts,
-    });
+    setProductLists(updatedProductLists);
 
-    if (!products[updatedId - 1].cart) {
+    if (!productLists[accessIdx][updatedId - accessIdx * 12 - 1].cart) {
       fetchPost(`${API}/orders/order-items`, {
         product_id: updatedId,
         count: 1,
@@ -95,23 +107,19 @@ export default class HotProducts extends Component {
     }
   };
 
-  render() {
-    const { products } = this.state;
-    console.log(products);
-    return (
-      <>
-        <Nav />
-        <MainTab checkMenuId={this.bringMenuId} />
-
-        <div className="hotGridWrap">
-          <div className="hotGrid">
+  return (
+    <>
+      <div className="hotGridWrap">
+        {productLists.map((products, idx) => (
+          <div className="hotGrid" key={idx}>
             <div className="sectionGrid1">
               {products.slice(0, 3).map((product) => (
                 <GridCard
                   key={product.id}
+                  accessIdx={idx}
                   product={product}
-                  addToCart={this.addToCart}
-                  toggleProductLike={this.toggleProductLike}
+                  addToCart={addToCart}
+                  toggleProductLike={toggleProductLike}
                 />
               ))}
             </div>
@@ -119,9 +127,10 @@ export default class HotProducts extends Component {
               {products.slice(3, 9).map((product) => (
                 <GridCard
                   key={product.id}
+                  accessIdx={idx}
                   product={product}
-                  addToCart={this.addToCart}
-                  toggleProductLike={this.toggleProductLike}
+                  addToCart={addToCart}
+                  toggleProductLike={toggleProductLike}
                 />
               ))}
             </div>
@@ -129,15 +138,17 @@ export default class HotProducts extends Component {
               {products.slice(9, 12).map((product) => (
                 <GridCard
                   key={product.id}
+                  accessIdx={idx}
                   product={product}
-                  addToCart={this.addToCart}
-                  toggleProductLike={this.toggleProductLike}
+                  addToCart={addToCart}
+                  toggleProductLike={toggleProductLike}
                 />
               ))}
             </div>
           </div>
-        </div>
-      </>
-    );
-  }
+        ))}
+      </div>
+      <Footer />
+    </>
+  );
 }

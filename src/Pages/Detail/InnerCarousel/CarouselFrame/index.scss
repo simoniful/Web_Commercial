@@ -1,4 +1,4 @@
-.frameWrap {
+.FrameWrap {
   position: relative;
   max-width: 640px;
   width: 100%;
@@ -40,7 +40,7 @@
       }
     }
   }
-  .btnPrev {
+  .semi_btnPrev {
     display: none;
     background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/arrow-left.png')
       center center / 16px no-repeat;
@@ -51,7 +51,7 @@
     width: 25px;
     height: 35px;
   }
-  .btnNext {
+  .semi_btnNext {
     display: none;
     background: url('https://jotasic.github.io/21-kaka0-pet-shop-images/images/arrow-right.png')
       center center / 16px no-repeat;

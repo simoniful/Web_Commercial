@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import './index.scss';
 
 export default class ResultView extends Component {
   render() {
@@ -11,12 +10,10 @@ export default class ResultView extends Component {
           <div className="noResult">검색결과가 없습니다.</div>
         )}
 
-        <ul className="searchOutWrap">
+        <ul>
           {searchResult.map((data) => (
             <li key={data.id} onClick={searchbarOff} className="searchOut">
-              <Link to={`/products/${data.id}`} className="searchOutLink">
-                {data.name}
-              </Link>
+              <Link to={`/products/${data.id}`}>{data.name}</Link>
             </li>
           ))}
         </ul>

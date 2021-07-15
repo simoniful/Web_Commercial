@@ -12,7 +12,7 @@ export default class CategoryView extends Component {
               return (
                 <li className="charactersUIList" key={character.name}>
                   <Link
-                    to={`/character/${character.name}`}
+                    to={`/products/character/${character.name}`}
                     className="charactersUILink"
                   ></Link>
                   <p className="charactersName">{character.name}</p>
